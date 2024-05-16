@@ -1,0 +1,4 @@
+baseURL = 'https://clews.id.au/'
+languageCode = 'en-GB'
+title = 'My Minimalist Blog'
+theme = 'minimalist'
