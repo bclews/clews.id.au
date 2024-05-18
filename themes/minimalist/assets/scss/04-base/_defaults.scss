@@ -1,0 +1,62 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  padding: 0;
+}
+
+::selection,
+::-moz-selection {
+  background: var(--color-selection-background);
+  color: var(--color-selection-text);
+  text-shadow: none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+dl {
+  margin: 0;
+}
+
+hr {
+  background-color: var(--color-border);
+  border: 0;
+  height: 1px;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: var(--line-height-small);
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+}

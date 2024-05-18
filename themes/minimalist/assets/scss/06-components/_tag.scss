@@ -1,0 +1,24 @@
+.tag-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--spacing-small);
+}
+
+.tag {
+	--tag-color: var(--color-text-secondary);
+
+	border: 1px solid var(--tag-color);
+	border-radius: var(--border-radius-circle);
+	color: var(--tag-color);
+	cursor: default;
+	display: inline-flex;
+	font-size: var(--font-size-x-small);
+	line-height: var(--line-height-small);
+	padding: var(--spacing-x-small) var(--spacing-small);
+	user-select: all;
+}
+
+.tag--highlight {
+	background-color: var(--tag-color);
+	color: var(--color-text-inverse);
+}

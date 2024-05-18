@@ -1,0 +1,10 @@
+// Takes a value with `px` units
+
+@function remify($size) {
+	@if unit($size) == "px" {
+		$remSize: $size / 16px;
+		@return #{$remSize}rem;
+	} @else {
+		@error 'You must use the `px` unit with this helper. Ex: #{$size}px';
+	}
+}

@@ -1,0 +1,82 @@
+$colorMap: (
+  grey: (
+    97: hsl(225, 0%, 97%),
+    87: hsl(225, 1%, 87%),
+    80: hsl(225, 1%, 80%), // `kbd` shadow
+    55: hsl(225, 3%, 55%),
+    45: hsl(225, 3%, 45%),
+    25: hsl(225, 4%, 25%),
+    14: hsl(225, 5%, 14%),
+    11: hsl(225, 5%, 11%)
+  )
+);
+
+@function color($color, $shade) {
+  @if map-has-key($colorMap, $color) {
+    @return map-get(map-get($colorMap, $color), $shade);
+  } @else {
+    @error "`#{$color}` is not a valid key in `$colorMap`.";
+  }
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+:root,
+.theme-light {
+  --color-background-primary:    #{color(grey, 97)};
+  --color-background-secondary:  #{color(grey, 87)};
+  --color-background-code-block: #{color(grey, 14)};
+
+  --color-border:            #{color(grey, 87)};
+
+  --color-selection-background: #{color(grey, 14)};
+  --color-selection-text: #{color(grey, 97)};
+
+  --color-text-primary:   #{color(grey, 14)};
+  --color-text-secondary: #{color(grey, 45)};
+  --color-text-inverse:   #{color(grey, 97)};
+
+  --color-link-default:       var(--color-text-primary);
+  --color-link-default-hover: var(--color-text-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background-primary:    #{color(grey, 14)};
+    --color-background-secondary:  #{color(grey, 25)};
+    --color-background-code-block: #{color(grey, 11)};
+
+    --color-border:            #{color(grey, 25)};
+
+    --color-selection-background: #{color(grey, 97)};
+    --color-selection-text: #{color(grey, 14)};
+
+    --color-text-primary:   #{color(grey, 97)};
+    --color-text-secondary: #{color(grey, 55)};
+    --color-text-inverse:   #{color(grey, 14)};
+
+    --color-link-default:       var(--color-text-primary);
+    --color-link-default-hover: var(--color-text-secondary);
+  }
+}
+
+// Should be same as `@media (prefers-color-scheme: dark)` above
+.theme-dark {
+  --color-background-primary:    #{color(grey, 14)};
+  --color-background-secondary:  #{color(grey, 25)};
+  --color-background-code-block: #{color(grey, 11)};
+
+  --color-border:            #{color(grey, 25)};
+
+  --color-selection-background: #{color(grey, 97)};
+  --color-selection-text: #{color(grey, 14)};
+
+  --color-text-primary:   #{color(grey, 97)};
+  --color-text-secondary: #{color(grey, 55)};
+  --color-text-inverse:   #{color(grey, 14)};
+
+  --color-link-default:       var(--color-text-primary);
+  --color-link-default-hover: var(--color-text-secondary);
+}

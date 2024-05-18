@@ -1,0 +1,153 @@
+.feed-list {
+  border-inline-start: 1px solid var(--color-border);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-x-large);
+	list-style-type: none;
+	margin: 0;
+  margin-inline-start: var(--spacing-small);
+	margin-block-end: var(--spacing-section);
+}
+
+.feed-list__item {
+  display: flex;
+  gap: var(--spacing-medium);
+  max-width: 75ch;
+  padding-inline-start: var(--spacing-large);
+  position: relative;
+}
+
+.feed-list__item--articles {
+  align-items: flex-start;
+	flex-direction: column;
+  max-width: 85ch;
+}
+
+
+// It thinks the image’s baseline is vertically centred
+.feed-list__item--photos {
+  align-items: flex-start;
+}
+
+
+.feed-list__icon {
+  align-items: center;
+  background-color: var(--color-background-primary);
+  color: var(--color-text-secondary);
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-small);
+  position: absolute;
+  left: -1rem;
+
+  // Gotta fine-tune the vertical alignment depending on
+  // font-sizes and line-heights
+  .feed-list__item--articles & { top: -0.25rem; }
+  .feed-list__item--links    & { top: -0.375rem; }
+  .feed-list__item--notes    & { top: -0.25rem; }
+  .feed-list__item--photos   & { top: -0.625rem; }
+
+  @media screen and (min-width: 769px) {
+    .feed-list__item--articles & { top: -0.125rem; }
+    .feed-list__item--links    & { top: -0.3125rem; }
+    .feed-list__item--notes    & { top: -0.125rem; }
+    .feed-list__item--photos   & { top: -0.5rem; }
+  }
+}
+
+// Wraps the notes and links to add border between icon and text
+.feed-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+}
+
+.feed-list__title {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-medium);
+  text-decoration: none;
+
+  .feed-list__item--articles & {
+    font-size: var(--font-size-large);
+  }
+}
+
+// Wraps the content grabbed from the post; could be multiple paragraphs, quotes, lists, etc.
+.feed-list__content,
+.feed-list__excerpt {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-medium);
+  gap: var(--spacing-medium);
+  line-height: var(--line-height-large);
+  word-break: break-word;
+
+  blockquote {
+    border-inline-start: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    font-style: italic;
+    margin: 0;
+    padding-block: var(--spacing-small);
+    padding-inline-start: var(--spacing-medium);
+
+    * + * {
+      margin-top: var(--spacing-medium);
+    }
+
+    ol,
+    ul {
+      margin-block-start: var(--spacing-medium);
+      padding-inline-start: var(--spacing-large);
+    }
+  }
+}
+
+// Tighter paragraph spacing in notes
+.feed-list__item--notes {
+  .feed-list__content {
+    gap: var(--spacing-small);
+  }
+}
+
+
+.feed-list__article {
+	@media screen and (min-width: 769px) {
+		align-items: baseline;
+		flex-direction: row-reverse;
+		gap: var(--spacing-large);
+
+		.feed-list__metadata {
+			align-items: initial;
+			color: var(--color-text-primary);
+			flex-direction: column;
+			width: 10rem;
+		}
+	}
+}
+
+.feed-list__image {
+  max-width: 25rem;
+
+  img {
+    border-radius: var(--border-radius-medium);
+    object-fit: contain;
+  }
+}
+
+
+.feed__button {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+  box-shadow: 0 0.125rem 0 var(--color-background-secondary);
+  color: var(--color-text-primary);
+  padding: var(--spacing-small) var(--spacing-medium);
+  text-decoration: none;
+  transition: var(--transition-short);
+
+  &:hover {
+    background-color: var(--color-background-secondary);
+    box-shadow: none;
+  }
+}
