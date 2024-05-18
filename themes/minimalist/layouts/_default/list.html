@@ -1,8 +1,21 @@
 {{ define "main" }}
-<ul>
-    {{ range .Pages }}
-    <li>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
+<ul class="article-list">
+    {{ range .Site.RegularPages }}
+    <li class="article-list__article" data-year-month="{{ dateFormat "2006-01" .Date }}">
+        <a href="{{ .RelPermalink }}" class="article-list__text">
+            <span class="article-list__title">{{ .Title }}</span>
+            <p class="article-list__excerpt">{{ .Summary }}</p>
+        </a>
+        <div class="article-list__metadata">
+            <time class="article-list__date" datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "02 Jan 2006" }}
+            </time>
+            <ul class="tag-list">
+                {{ range .Params.tags }}
+                <li class="tag">{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
     </li>
     {{ end }}
 </ul>

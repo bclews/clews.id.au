@@ -1,12 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ .Title }}</title>
-</head>
-<body>
-    {{ block "main" . }}{{ end }}
-</body>
-</html>
+<html lang="en-GB">
 
+<head>
+    <title>{{ .Title }}</title>
+    <meta name="description" content="{{ .Site.Params.Description }}" />
+    <meta name="author" content="{{ .Site.Params.author }}" />
+    <meta name="keywords" content="{{ .Site.Params.keywords }}" />
+    <meta name="robots" content="index, follow" />
+    <meta name="apple-mobile-web-app-title" content="{{ .Site.Params.author }}" />
+    <meta name="application-name" content="{{ .Site.Params.author }}" />
+    <meta name="theme-color" content="#262D33" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta http-equiv="cleartype" content="on" />
+    <meta http-equiv="content-language" content="en-GB" />
+
+    <!-- Open Graph -->
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="{{ .Site.Params.Description }}" />
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <meta property="og:locale" content="en_GB" />
+    <!-- <meta property="og:image" content="{{ .Site.BaseURL }}img/meta.png"> -->
+
+    <!-- Favicon -->
+    <!--
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    -->
+
+    <!-- Styles -->
+    {{ $styles := resources.Get "scss/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.Permalink }}">
+
+    <!-- RSS -->
+    {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `
+    <link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{ end }}
+
+</head>
+
+<body class="body{{ if .IsHome }} home{{ end }}{{ if .IsPage }} body--article{{ end }}">
+    <!--
+    <header class="header">
+        <a href="/" class="header__brand" aria-label="Home">
+            <span class="header__title"> {{ .Site.Title }} </span>
+        </a>
+    </header>
+    -->
+
+    <main class="main">
+        {{ block "main" . }}{{ end }}
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a class="footer__link" href="/about">About</a>
+            <a class="footer__link" href="mailto:{{ .Site.Params.email }}">Email</a>
+            <a class="footer__link" href="https://github.com/{{ .Site.Author.github }}" target="_blank"
+                rel="noopener">GitHub</a>
+            <a class="footer__link" href="https://www.linkedin.com/in/{{ .Site.Author.linkedin }}/" target="_blank"
+                rel="noopener">LinkedIn</a>
+            <a class="footer__link" href="{{ .Site.BaseURL }}index.xml">RSS</a>
+        </div>
+        <p class="footer__message">
+            {{ .Site.Params.footer }}
+        </p>
+    </footer>
+</body>
+
+</html>

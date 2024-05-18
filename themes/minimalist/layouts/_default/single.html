@@ -1,7 +1,21 @@
 {{ define "main" }}
-<article>
-    <h1>{{ .Title }}</h1>
-    <div>{{ .Content }}</div>
-</article>
-{{ end }}
+<section class="intro">
+    <h1 class="intro__heading">{{ .Title }}</h1>
 
+    <div class="intro__metadata">
+        <time datetime="{{ .Date }}" class="intro__date">
+            {{ .Date.Day }} {{ .Date.Month.String }} {{ .Date.Year }}
+        </time>
+        <ul class="tag-list">
+            {{ range .Params.tags }}
+            <li class="tag">{{ . }}</li>
+            {{ end }}
+        </ul>
+    </div>
+</section>
+
+<article class="article">
+    {{ .Content }}
+</article>
+
+{{ end }}
