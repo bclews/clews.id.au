@@ -1,5 +1,6 @@
 +++
 title = 'Managing Dot Files With Git'
+subtitle = 'Streamline Your Configuration with Version Control'
 date = 2024-05-18T16:32:18+10:00
 draft = false
 +++

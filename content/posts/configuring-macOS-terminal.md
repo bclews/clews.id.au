@@ -1,5 +1,6 @@
 +++
 title = 'Configuring MacOS Terminal'
+subtitle = 'Enhance Your Terminal Experience with Customizations and Tweaks'
 date = 2024-05-18T16:31:31+10:00
 tags = ['terminal']
 draft = false
