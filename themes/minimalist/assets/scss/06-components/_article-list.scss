@@ -4,6 +4,7 @@
 	gap: var(--spacing-x-large);
 	list-style-type: none;
 	margin: 0;
+	padding-top: var(--spacing-section);
 	padding-bottom: var(--spacing-section);
 }
 
@@ -55,6 +56,7 @@
 
 // Notes also use this class and aren't links
 a.article-list__text {
+
 	&:hover,
 	&:focus {
 		color: var(--color-link-hover-default);
@@ -85,7 +87,7 @@ a.article-list__text {
 		padding-block-end: 0;
 	}
 
-	p + p {
+	p+p {
 		margin-block-start: var(--spacing-small);
 	}
 }
