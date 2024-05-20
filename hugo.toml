@@ -4,17 +4,16 @@ languageCode = 'en-gb'
 theme = 'minimalist'
 copyright = "2024 Ben Clews All rights reserved"
 
-[author]
-  name = "Ben Clews"
-  email = "tics.slivers0h@icloud.com"
-  github = "bclews"
-  linkedin = "clews"
-
 [params]
   description = "I am a cloud systems engineer working for CSIRO remotely from Hobart."
   footer = "No cookies. No tracking."
   keywords = "Cloud Systems Engineer, Go, Golang, Docker, Kubernetes, DevOps, Cloud Computing, CSIRO, Remote Work, Hobart"
   copyright = 'Blah'
+
+  author.name = "Ben Clews"
+  author.email = "tics.slivers0h@icloud.com"
+  author.github = "bclews"
+  author.linkedin = "clews"
 
 [outputs]
   home = ['html', 'rss']
