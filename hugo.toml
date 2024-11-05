@@ -5,18 +5,20 @@ theme = 'minimalist'
 copyright = "2024 Ben Clews All rights reserved"
 
 [params]
-  description = "I am a cloud systems engineer working for CSIRO remotely from Hobart."
-  footer = "No cookies. No tracking."
-  keywords = "Cloud Systems Engineer, Go, Golang, Docker, Kubernetes, DevOps, Cloud Computing, CSIRO, Remote Work, Hobart"
-  copyright = 'Blah'
+description = "I am a cloud systems engineer working for CSIRO remotely from Hobart."
+footer = "No cookies. No tracking."
+keywords = "Cloud Systems Engineer, Go, Golang, Docker, Kubernetes, DevOps, Cloud Computing, CSIRO, Remote Work, Hobart"
+copyright = 'Blah'
+email = "tics.slivers0h@icloud.com"                                                                                      # Move email to params
 
-  author.name = "Ben Clews"
-  author.email = "tics.slivers0h@icloud.com"
-  author.github = "bclews"
-  author.linkedin = "clews"
+[params.author] # Define author as a proper table under params
+name = "Ben Clews"
+github = "bclews"
+bluesky = "clews.id.au"
+linkedin = "clews"
 
 [outputs]
-  home = ['html', 'rss']
-  section = ['html', 'rss']
-  taxonomy = ['html']
-  term = ['html']
+home = ['html', 'rss']
+section = ['html', 'rss']
+taxonomy = ['html']
+term = ['html']

@@ -53,9 +53,11 @@
         <div class="footer__links">
             <a class="footer__link" href="/">Home</a>
             <a class="footer__link" href="/about">About</a>
-            <a class="footer__link" href="https://github.com/{{ .Site.Author.github }}" target="_blank"
+            <a class="footer__link" href="https://github.com/{{ .Site.Params.author.github }}" target="_blank"
                 rel="noopener">GitHub</a>
-            <a class="footer__link" href="https://www.linkedin.com/in/{{ .Site.Author.linkedin }}/" target="_blank"
+            <a class="footer__link" href="https://bsky.app/profile/{{ .Site.Params.author.bluesky }}" target="_blank"
+                rel="noopener">Bluesky</a>
+            <a class="footer__link" href="https://www.linkedin.com/in/{{ .Site.Params.author.linkedin }}/" target="_blank"
                 rel="noopener">LinkedIn</a>
             <a class="footer__link" href="mailto:{{ .Site.Params.email }}">Email</a>
             <a class="footer__link" href="{{ .Site.BaseURL }}index.xml">RSS</a>
