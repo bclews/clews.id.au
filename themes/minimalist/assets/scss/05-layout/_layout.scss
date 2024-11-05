@@ -1,31 +1,17 @@
 body {
   display: flex;
   flex-direction: column;
-  padding-inline: var(--spacing-large);
+  padding-inline-start: var(--spacing-large);
+  padding-inline-end: var(--spacing-large);
 
-  @media screen and (min-width: 480px) {
-    padding-inline: var(--spacing-medium);
-  }
-
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 769px) {
     margin-inline: auto;
-    max-width: 60rem;
-    padding-inline: var(--spacing-large);
-  }
-
-  @media screen and (min-width: 1024px) {
-    padding-inline: var(--spacing-x-large);
-  }
-
-  @media screen and (min-width: 1200px) {
-    padding-inline: var(--spacing-xx-large);
+    max-width: 80rem;
+    padding-inline-start: var(--spacing-xx-large);
+    padding-inline-end: var(--spacing-xx-large);
   }
 }
 
 main {
   flex: 1;
-  margin-inline: auto; /* Center the main content */
-  max-width: 60rem; /* Ensure the main content does not exceed this width */
 }
-
-
