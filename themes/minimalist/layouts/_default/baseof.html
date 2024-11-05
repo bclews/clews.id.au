@@ -46,14 +46,6 @@
 </head>
 
 <body class="body{{ if .IsHome }} home{{ end }}{{ if .IsPage }} body--article{{ end }}">
-    <!--
-    <header class="header">
-        <a href="/" class="header__brand" aria-label="Home">
-            <span class="header__title"> {{ .Site.Title }} </span>
-        </a>
-    </header>
-    -->
-
     <main class="main">
         {{ block "main" . }}{{ end }}
     </main>
