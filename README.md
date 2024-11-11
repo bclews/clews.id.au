@@ -1,114 +1,74 @@
-This repository contains the source needed to build my personal website hosted on [clews.id.au](https://clews.id.au). The site is built with the [Hugo](https://gohugo.io/) static site generator and styled with [SASS](https://sass-lang.com) for a clean and maintainable design.
+This is the source code for my blog, located at [clews.id.au](https://clews.id.au), built using [Hugo](https://gohugo.io/) and the [Hugo Blog Awesome theme](https://github.com/hugo-sid/hugo-blog-awesome). The blog is configured with a Makefile to streamline tasks such as building, serving locally, and creating new posts. Deployment is handled by a GitHub Actions Workflow that builds and publishes the site on each new commit.
 
-# Getting Started
+## Requirements
 
-We will start by installing the following dependencies onto MacOS:
+- [Hugo](https://gohugo.io/getting-started/installing/) (extended version recommended)
+- Git for managing posts and pushing updates to the repository
 
-- [Hugo](https://gohugo.io/getting-started/installing/)
-- [Node.js](https://nodejs.org/) (for SASS processing, if needed)
-- [SASS](https://sass-lang.com)
+## Makefile Commands
 
-## Install Hugo
+The Makefile provides commands for building, serving, cleaning, and creating new posts. Here’s a quick overview of the available commands:
 
-1. **Install Homebrew** (if not already installed):
+| Command         | Description                                                                                     |
+|-----------------|-------------------------------------------------------------------------------------------------|
+| `make build`    | Builds the static site into the `public` directory with minification.                           |
+| `make serve`    | Serves the site locally at `http://localhost:1313` (auto-reloads with changes).                 |
+| `make drafts`   | Serves the site locally with draft posts included.                                              |
+| `make clean`    | Cleans the `public` directory, removing previously generated files.                             |
+| `make new`      | Creates a new post. Usage: `make new title="Post Title"`.                                       |
+| `make help`     | Displays a list of available Makefile commands.                                                 |
 
-   Homebrew is a package manager for macOS that simplifies the installation of software. Open Terminal and run:
+## Getting Started
 
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-
-2. **Install Hugo** using Homebrew:
-
-   Once Homebrew is installed, you can install Hugo by running:
-
-   ```bash
-   brew install hugo
-   ```
-
-3. **Verify the Installation**:
-
-   Check that Hugo is installed correctly by running:
+1. **Clone the repository** and navigate to the project directory:
 
    ```bash
-   hugo version
+   git clone https://github.com/bclews/clews.id.au.git
+   cd clews.id.au
    ```
 
-   This should display the version of Hugo installed.
-
-## Install Node.js
-
-1. **Install Homebrew** (if not already installed):
-
-   If you already installed Homebrew in the steps above, you can skip this step. Otherwise, open Terminal and run:
+2. **Install the theme**:
+   Make sure to add the theme as a submodule (if not already included) by running:
 
    ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   git submodule add https://github.com/hugo-sid/hugo-blog-awesome themes/hugo-blog-awesome
    ```
 
-2. **Install Node.js** using Homebrew:
-
-   Once Homebrew is installed, you can install Node.js by running:
+3. **Build the Site**:
+   To build the site, run:
 
    ```bash
-   brew install node
+   make build
    ```
 
-3. **Verify the Installation**:
+   The static files will be generated in the `public` directory.
 
-   Check that Node.js and npm (Node Package Manager) are installed correctly by running:
+4. **Serve the Site Locally**:
+   For development, you can serve the site locally with:
 
    ```bash
-   node -v
-   npm -v
+   make serve
    ```
 
-   This should display the versions of Node.js and npm installed.
-
-## Install Dart Sass
-
-1. **Install Dart Sass** using Homebrew:
-
-   Open Terminal and run:
+   Access the site at `http://localhost:1313`. If you want to view draft posts, use:
 
    ```bash
-   brew install sass/sass/sass
+   make drafts
    ```
 
-2. **Verify the Installation**:
-
-   Check that Dart Sass is installed correctly by running:
+5. **Create a New Post**:
+   You can create a new post with the `make new` command:
 
    ```bash
-   sass --version
+   make new title="My New Blog Post"
    ```
 
-   This should display the version of Dart Sass installed.
+   This will generate a new markdown file in the `content/posts` directory.
 
-## Finally, clone the blog!
+## Deployment
 
-Clone the repository:
+Deployment is handled by a GitHub Actions Workflow that builds and publishes the blog automatically for each new commit to the repository. Make sure to commit and push your changes to trigger the GitHub Actions Workflow.
 
-```bash
-git clone https://github.com/bclews/clews.id.au.git
-cd clews.id.au
-```
+## License
 
-# Usage
-
-This project includes a `Makefile` to simplify common tasks:
-
-- `make build`: Build the Hugo site with garbage collection and minification.
-- `make serve`: Serve the site locally with live reload.
-- `make css`: Process SCSS to CSS.
-- `make clean`: Clean the `public` and `resources/_gen` directories.
-- `make watch-scss`: Watch SCSS files for changes and rebuild CSS.
-- `make start`: Alias for `make serve`.
-
-# License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-# Contact
-
-For any inquiries, please reach out via [email](mailto:tics.slivers0h@icloud.com).
+This project is licensed under [MIT License](LICENSE). The theme, [Hugo Blog Awesome](https://github.com/hugo-sid/hugo-blog-awesome), may have its own license.
