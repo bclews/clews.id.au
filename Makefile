@@ -1,39 +1,55 @@
-# Define variables
+# Variables
 HUGO_CMD = hugo
-THEME_DIR = themes/minimalist
-ASSETS_DIR = $(THEME_DIR)/assets
-SCSS_DIR = $(ASSETS_DIR)/scss
-CSS_OUTPUT_DIR = static/css
-CSS_FILE = main.css
+HUGO_PORT = 1313
+PUBLIC_DIR = public
+BASE_URL = "https://clews.id.au"
+DRAFTS_FLAG =
 
-# Commands
-all: build
+# Default target
+.DEFAULT_GOAL := help
 
-build:
-	@echo "Building Hugo site..."
-	$(HUGO_CMD) --gc --minify
+# Help target - lists all available commands
+.PHONY: help
+help:
+	@echo "Available commands:"
+	@echo "  make build      - Build the static site"
+	@echo "  make serve      - Serve the site locally"
+	@echo "  make drafts     - Serve the site including draft posts"
+	@echo "  make clean      - Remove generated files"
+	@echo "  make new        - Create a new post (usage: make new title='Post Title')"
+	@echo "  make deploy     - Deploy to production (requires proper Hugo configuration)"
 
-serve:
-	@echo "Serving Hugo site..."
-	$(HUGO_CMD) serve
-
-css:
-	@echo "Processing SCSS to CSS..."
-	hugo server -D &  # Start Hugo server in the background
-	@echo "Compiling SCSS..."
-	hugo --gc --minify
-
+# Clean public directory
+.PHONY: clean
 clean:
-	@echo "Cleaning up..."
-	rm -rf public
-	rm -rf resources/_gen
+	@echo "Cleaning the public directory..."
+	rm -rf $(PUBLIC_DIR)
 
-# Watch for changes in SCSS files and rebuild CSS
-watch-scss:
-	@echo "Watching SCSS files for changes..."
-	hugo server --disableFastRender --watch
+# Build the static site
+.PHONY: build
+build: clean
+	@echo "Building the site..."
+	$(HUGO_CMD) --baseURL=$(BASE_URL) --minify
 
-# Alias for convenience
-start: serve
+# Serve the site locally
+.PHONY: serve
+serve:
+	@echo "Serving the site locally on http://localhost:$(HUGO_PORT)"
+	$(HUGO_CMD) serve --watch --bind 0.0.0.0 --port $(HUGO_PORT) $(DRAFTS_FLAG)
 
-.PHONY: all build serve css clean watch-scss start
+# Serve site with drafts enabled
+.PHONY: drafts
+drafts:
+	@echo "Serving site with drafts enabled on http://localhost:$(HUGO_PORT)"
+	$(MAKE) serve DRAFTS_FLAG="--buildDrafts"
+
+# Create a new post
+.PHONY: new
+new:
+	@if [ -z "$(title)" ]; then \
+		echo "Please provide a title: make new title='My New Post'"; \
+		exit 1; \
+	fi
+	@echo "Creating a new post titled: $(title)"
+	$(HUGO_CMD) new posts/$(shell echo "$(title)" | tr '[:upper:] ' '[:lower:]-').md
+
