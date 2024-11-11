@@ -1,9 +1,0 @@
-:root {
-	--transition-length-short:  0.1s;
-	--transition-length-medium: 0.25s;
-	--transition-length-long:   0.5s;
-
-	--transition-short:  all var(--transition-length-short) ease-in-out;
-	--transition-medium: all var(--transition-length-medium) ease-in-out;
-	--transition-long:   all var(--transition-length-long) ease-in-out;
-}
