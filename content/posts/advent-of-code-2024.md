@@ -60,7 +60,7 @@ By mid-month, I hit a wall. Many puzzles relied on pathfinding in grids—proble
 
 Against all odds, I finished all 25 challenges:
 
-![yay](/images/advent_of_code_2024.gif)
+![The Advent of Code 2024 completion screen, featuring a festive, pixel-art Christmas scene unlocked after solving all 25 puzzles.](/images/advent_of_code_2024.gif)
 
 What started as a *fuck it, let’s go!* experiment turned into a month-long journey of frustration, discovery, and triumph. Sure, I leaned on LLMs more than some purists would approve of, and some of my solutions were more “creative” than “elegant”. But that’s what made it valuable.  
 
