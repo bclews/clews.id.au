@@ -45,7 +45,7 @@ rm postgis-3.5.2.tar.gz
 cd postgis-3.5.2
 
 # Use the correct gettext version
-GETTEXT_VERSION=$(brew info gettext | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+GETTEXT_VERSION=$(brew info gettext | grep -Eo 'stable [0-9]+\.[0-9]+' | awk '{print $2}')
 
 ./configure \
   --with-projdir=/opt/homebrew/opt/proj \
