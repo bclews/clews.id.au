@@ -4,7 +4,7 @@ date = 2024-12-03T10:03:12+11:00
 draft = false
 +++
 
-Recently, I’ve been making a conscious effort to eliminate lazy practices from my workflow—the kind of 'temporary' workarounds that sneak in during crunch time and somehow become permanent habits. My latest offender? A convoluted method for building containers on remote machines. Instead of using a branch like any reasonable person (for reasons I can’t even justify), I’d generate a git patch locally, SCP it to the remote machine, apply it there, and then build. It’s the software equivalent of taking the scenic route while ignoring the perfectly good highway right in front of me.
+Recently, I’ve been making a conscious effort to eliminate lazy practices from my workflow - the kind of 'temporary' workarounds that sneak in during crunch time and somehow become permanent habits. My latest offender? A convoluted method for building containers on remote machines. Instead of using a branch like any reasonable person (for reasons I can’t even justify), I’d generate a git patch locally, SCP it to the remote machine, apply it there, and then build. It’s the software equivalent of taking the scenic route while ignoring the perfectly good highway right in front of me.
 
 Eventually, it dawned on me: the [Kubernetes command line tool](https://kubernetes.io/docs/reference/kubectl/) (`kubectl`) has contexts that enable you to easily switch between clusters and namespaces, so Docker probably does too. Sure enough, it does. Below are notes on how Docker’s SSH integration and context management has simplified my remote build process.
 
