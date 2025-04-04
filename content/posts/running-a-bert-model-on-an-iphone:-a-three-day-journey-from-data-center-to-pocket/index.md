@@ -175,9 +175,142 @@ import torch.nn.functional as F
 
 This data preparation script forms the foundation for the subsequent knowledge distillation training process, ensuring that the student model has access to both the correct labels and the richer probabilistic information provided by the larger, more capable teacher model.
 
+
+### From Model to Mobile: Implementing BERT on iOS
+
+With the distilled BERT model converted to Core ML, the next step was to build an iPhone application to run it. This section highlights some key aspects of the iOS app development using Swift and the Core ML framework.
+
+#### SwiftUI for the User Interface
+
+The application's user interface was built using SwiftUI, Apple's modern declarative UI framework. This allowed for a relatively quick and efficient way to create the basic elements needed for text input and displaying the classification results.
+
+```swift
+import SwiftUI
+
+@main
+struct auto_taggerApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+```
+
+The `ContentView` struct houses the main UI elements, including a `TextEditor` for the user to input text and a button to trigger the analysis. The results are then displayed below.
+
+The screenshot below gives an example of the app's interface with a classified text result:
+![The same "Text Classification" app interface, but now showing a classified text result. The user has inputted: "If the paint has dried, then it’s safe to apply the second coat." The app classifies it under "condition" with a confidence of 42.72%. Additional raw data breakdown shows classification probabilities for "condition" (42.72%), "constraint" (19.50%), "process" (18.96%), and "notice" (18.81%). The time on the device is now 09:16, and the battery is at 53%.](screenshot.PNG)
+
+#### Crafting a Custom BERT Tokenizer in Swift
+
+An necessary component of the app was the `BERTTokenizer`. Since standard iOS tokenizers wouldn't handle the specific vocabulary and tokenisation rules of the BERT model, a custom implementation was necessary.
+
+```swift
+class BERTTokenizer {
+    private let vocabulary: [String: Int]
+    private let unkToken = "[UNK]"
+    private let clsToken = "[CLS]"
+    private let sepToken = "[SEP]"
+    private let padToken = "[PAD]"
+
+    init() throws {
+        guard let vocabURL = Bundle.main.url(forResource: "vocab", withExtension: "txt") else {
+            throw TokenizerError.vocabNotFound
+        }
+        let vocabString = try String(contentsOf: vocabURL, encoding: .utf8)
+        let tokens = vocabString.components(separatedBy: .newlines)
+        // ... loading vocabulary into dictionary ...
+    }
+
+    func tokenize(text: String, maxLength: Int) throws -> TokenizedInput {
+        var tokens = [clsToken]
+        let words = text.components(separatedBy: .whitespacesAndNewlines)
+        // ... basic whitespace tokenization ...
+        tokens.append(sepToken)
+        // ... converting tokens to IDs, padding, creating attention mask ...
+    }
+    // ... other methods and structs ...
+}
+```
+
+This `BERTTokenizer` class is responsible for:
+
+* **Loading the Vocabulary:** Reading the `vocab.txt` file (which was packaged with the app) into a dictionary.
+* **Basic Tokenization:** For this initial version, a basic whitespace tokenizer was implemented. **It's important to note that for a production-ready application, a more sophisticated WordPiece tokenizer would be required to handle subwords correctly and match the original BERT training process more accurately.**
+* **Handling Special Tokens:** Adding `[CLS]` at the beginning and `[SEP]` at the end of the sequence, as well as handling `[UNK]` for unknown words and `[PAD]` for padding.
+* **Padding and Truncation:** Ensuring all input sequences have a consistent length (in this case, 128 tokens) by padding shorter sequences and truncating longer ones.
+* **Generating the Attention Mask:** Creating a mask to indicate which tokens are actual words and which are padding.
+* **Formatting as `MLMultiArray`:** Converting the token IDs and attention mask into `MLMultiArray` objects, the required input format for Core ML.
+
+#### Loading and Running the Core ML Model
+
+The `TextClassifier` class handles the loading of the converted Core ML model and the execution of the classification.
+
+```swift
+class TextClassifier {
+    private let model: MLModel
+    private let tokenizer: BERTTokenizer
+    // ...
+
+    init() throws {
+        let mlModel = try distilled_model() // Loading the Core ML model
+        model = mlModel.model
+        tokenizer = try BERTTokenizer()
+        // ... loading labels ...
+    }
+
+    func classify(text: String) throws -> ClassificationResult {
+        let tokens = try tokenizer.tokenize(text: text, maxLength: 128)
+        let inputFeatures = try MLDictionaryFeatureProvider(dictionary: [
+            "input_ids": tokens.ids,
+            "attention_mask": tokens.mask
+        ])
+        let prediction = try model.prediction(from: inputFeatures)
+        // ... processing the prediction output (logits, softmax) ...
+    }
+    // ...
+}
+```
+
+The `classify` function takes the input text, uses the `BERTTokenizer` to prepare it, creates the necessary input features (`input_ids` and `attention_mask`) for the Core ML model, and then runs the prediction. The output logits from the model are then processed using a softmax function to obtain probabilities for each class.
+
+### Displaying Results and Debug Information
+
+The `ContentView` also handles displaying the classification results to the user, including the predicted label and its confidence. Additionally, a debug mode was included to show the raw output probabilities from the model, which was invaluable for understanding and verifying the model's behavior on device.
+
+```swift
+struct ContentView: View {
+    @State private var inputText: String = ""
+    @State private var resultText: String = "Classification result will appear here"
+    @State private var classificationResults: [(label: String, value: Double)] = []
+    @State private var showRawData: Bool = false
+    // ...
+
+    private func analyzeText() {
+        // ... background task to prevent UI freezing ...
+        do {
+            let result = try classifier?.classify(text: inputText)
+            DispatchQueue.main.async {
+                resultText = "Classification: \(result.label) (Confidence: \(String(format: "%.2f", result.confidence * 100))%)"
+                classificationResults = result?.allProbabilities ?? []
+            }
+        } catch {
+            // ... handle error ...
+        }
+    }
+
+    // ... UI elements for text input, button, and result display ...
+}
+```
+
+The app performs the analysis on a background thread to prevent the UI from freezing during the potentially computationally intensive task.
+
 ## The Mobile Deployment Experience
 
-Deploying the converted model on an iPhone Pro Max was the highlight of the event. With the Core ML model in hand, I built a simple yet effective interface where sample sentences could be entered, and the model would classify them in real time. Here are some key observations from the deployment:
+Deploying the converted model on an iPhone Pro Max was the highlight of the event. I was amazed by how seamlessly the model integrated with the device's hardware. The model's real-time inference capabilities were particularly impressive, demonstrating the power of machine learning on mobile devices.
+
+Here are some key observations from the deployment:
 
 - **Real-Time Inference:**
   The model was capable of processing text inputs on the fly, which is impressive given the hardware limitations of mobile devices. This real-time performance is critical for applications where immediate feedback is necessary.
