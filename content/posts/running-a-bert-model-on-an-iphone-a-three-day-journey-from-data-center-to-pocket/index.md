@@ -340,8 +340,4 @@ I also plan to revisit the quantisation process, which I had to put on hold due 
 
 ## Conclusion
 
-Over the course of just three days, I experienced firsthand the challenges and rewards of pushing a high-powered BERT model into the realm of mobile deployment. This journey - from converting the model to ONNX and Core ML formats, through distillation, to finally running real-time inference on an iPhone Pro Max—has been a masterclass in balancing technical ambition with practical constraints.
-
-The project not only broadened my technical horizons but also reinforced a vital lesson: with focused effort, creative problem-solving, and a willingness to experiment, even the most formidable challenges can be overcome. Whether you're a seasoned machine learning engineer or someone eager to explore the possibilities of mobile AI, I hope this journey inspires you to push the boundaries of what’s possible.
-
-Here's to continued innovation, collaboration, and the exciting future of bringing advanced AI to the palm of our hands!
+Over the course of just three days, I experienced firsthand the challenges and rewards of pushing a high-powered BERT model into the realm of mobile deployment. This journey - from converting the model to ONNX and Core ML formats, through distillation, to finally running real-time inference on an iPhone Pro Max - has been a fun adventure that has deepened my understanding of mobile model optimisation and the potential of on-device machine learning.
