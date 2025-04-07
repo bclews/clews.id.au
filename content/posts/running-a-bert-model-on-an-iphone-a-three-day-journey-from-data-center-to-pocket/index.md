@@ -175,7 +175,6 @@ import torch.nn.functional as F
 
 This data preparation script forms the foundation for the subsequent knowledge distillation training process, ensuring that the student model has access to both the correct labels and the richer probabilistic information provided by the larger, more capable teacher model.
 
-
 ### From Model to Mobile: Implementing BERT on iOS
 
 With the distilled BERT model converted to Core ML, the next step was to build an iPhone application to run it. This section highlights some key aspects of the iOS app development using Swift and the Core ML framework.
@@ -236,12 +235,12 @@ class BERTTokenizer {
 
 This `BERTTokenizer` class is responsible for:
 
-* **Loading the Vocabulary:** Reading the `vocab.txt` file (which was packaged with the app) into a dictionary.
-* **Basic Tokenization:** For this initial version, a basic whitespace tokenizer was implemented. **It's important to note that for a production-ready application, a more sophisticated WordPiece tokenizer would be required to handle subwords correctly and match the original BERT training process more accurately.**
-* **Handling Special Tokens:** Adding `[CLS]` at the beginning and `[SEP]` at the end of the sequence, as well as handling `[UNK]` for unknown words and `[PAD]` for padding.
-* **Padding and Truncation:** Ensuring all input sequences have a consistent length (in this case, 128 tokens) by padding shorter sequences and truncating longer ones.
-* **Generating the Attention Mask:** Creating a mask to indicate which tokens are actual words and which are padding.
-* **Formatting as `MLMultiArray`:** Converting the token IDs and attention mask into `MLMultiArray` objects, the required input format for Core ML.
+- **Loading the Vocabulary:** Reading the `vocab.txt` file (which was packaged with the app) into a dictionary.
+- **Basic Tokenization:** For this initial version, a basic whitespace tokenizer was implemented. **It's important to note that for a production-ready application, a more sophisticated WordPiece tokenizer would be required to handle subwords correctly and match the original BERT training process more accurately.**
+- **Handling Special Tokens:** Adding `[CLS]` at the beginning and `[SEP]` at the end of the sequence, as well as handling `[UNK]` for unknown words and `[PAD]` for padding.
+- **Padding and Truncation:** Ensuring all input sequences have a consistent length (in this case, 128 tokens) by padding shorter sequences and truncating longer ones.
+- **Generating the Attention Mask:** Creating a mask to indicate which tokens are actual words and which are padding.
+- **Formatting as `MLMultiArray`:** Converting the token IDs and attention mask into `MLMultiArray` objects, the required input format for Core ML.
 
 #### Loading and Running the Core ML Model
 
@@ -341,3 +340,5 @@ I also plan to revisit the quantisation process, which I had to put on hold due 
 ## Conclusion
 
 Over the course of just three days, I experienced firsthand the challenges and rewards of pushing a high-powered BERT model into the realm of mobile deployment. This journey - from converting the model to ONNX and Core ML formats, through distillation, to finally running real-time inference on an iPhone Pro Max - has been a fun adventure that has deepened my understanding of mobile model optimisation and the potential of on-device machine learning.
+
+You can find the code for my repository at [distilled-bert-ios](https://github.com/bclews/distilled-bert-ios).
