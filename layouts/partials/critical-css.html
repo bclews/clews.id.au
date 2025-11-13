@@ -1,0 +1,83 @@
+{{/*
+  Critical CSS - Inlined in <head> for faster First Contentful Paint
+  Contains only essential above-the-fold styles (~2-3 KB)
+  Full stylesheet loads after with preload + onload pattern
+*/}}
+<style>
+/* CSS Variables for theme colors */
+:root {
+  --text-color: #434648;
+  --bg-color: #fff;
+  --link-color: #003fff;
+}
+
+html.dark {
+  --text-color: #babdc4;
+  --bg-color: #131418;
+  --link-color: #77a8fd;
+}
+
+/* Base styles - Critical for initial render */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  transition: none;
+}
+
+/* Prevent transition flash on page load */
+body.notransition * {
+  transition: none !important;
+}
+
+/* Container and layout - Critical for structure */
+.wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navigation bar - Above the fold */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.navbar a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+/* Typography - Essential for readability */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+/* Hide elements while full CSS loads */
+.hidden-until-loaded {
+  opacity: 0;
+}
+</style>
