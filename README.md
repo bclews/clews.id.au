@@ -2,7 +2,7 @@ This is the source code for my blog, located at [clews.id.au](https://clews.id.a
 
 ## Requirements
 
-- [Hugo](https://gohugo.io/getting-started/installing/) (extended version recommended)
+- [Hugo](https://gohugo.io/getting-started/installing/) v0.139.3 or compatible (extended version required)
 - Git for managing posts and pushing updates to the repository
 
 ## Makefile Commands
@@ -27,11 +27,11 @@ The Makefile provides commands for building, serving, cleaning, and creating new
    cd clews.id.au
    ```
 
-2. **Install the theme**:
-   Make sure to add the theme as a submodule (if not already included) by running:
+2. **Initialize the theme submodule**:
+   The theme is already included as a git submodule. Initialize it by running:
 
    ```bash
-   git submodule add https://github.com/hugo-sid/hugo-blog-awesome themes/hugo-blog-awesome
+   git submodule update --init --recursive
    ```
 
 3. **Build the Site**:
