@@ -20,10 +20,7 @@
     {{/* Preload critical font to speed up font display */}}
     <link rel="preload" href="/fonts/Roboto/roboto-v30-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
 
-    {{- /* Critical CSS - Inlined for faster First Contentful Paint */ -}}
-    {{- partial "critical-css.html" . -}}
-
-    {{- /* Full Styles */ -}}
+    {{- /* Styles */ -}}
 
     {{- $style := resources.Get "sass/main.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS (dict "targetPath" "style.css") | minify | fingerprint }}
     <link href="{{ $style.RelPermalink }}" rel="stylesheet">

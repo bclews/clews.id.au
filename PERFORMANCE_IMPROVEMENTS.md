@@ -75,7 +75,18 @@ November 13, 2025
 {{- end }}
 ```
 
-### 5. ✅ Favicon Optimization
+### 5. ❌ Critical CSS Extraction
+**Status:** Removed due to style conflicts
+
+**Reason:**
+- Manual critical CSS implementation caused layout conflicts with theme
+- The aggressive CSS reset broke the theme's carefully crafted styles
+- Theme's CSS is already small (23 KB) and well-optimized
+- Proper critical CSS extraction requires automated tooling
+
+**Decision:** Removed critical CSS to preserve theme integrity. Future implementation should use automated extraction tools like Critical or PurgeCSS.
+
+### 6. ✅ Favicon Optimization
 **File:** `layouts/partials/head.html`
 
 **Changes:**
@@ -105,7 +116,7 @@ November 13, 2025
 <link rel="mask-icon" href="...">
 ```
 
-### 6. ✅ Image Lazy Loading
+### 7. ✅ Image Lazy Loading
 **File:** `layouts/_default/_markup/render-image.html` (new)
 
 **Changes:**
@@ -122,7 +133,7 @@ November 13, 2025
 
 **Note:** Current impact is minimal (most pages have no or few images), but future-proofs the site for image-heavy posts.
 
-### 7. ✅ Compression Verification
+### 8. ✅ Compression Verification
 **Status:** Verified via curl test
 
 **Findings:**
@@ -150,21 +161,29 @@ GitHub Pages currently serves gzip but not Brotli. Brotli provides ~10-20% bette
 ## Deferred / Not Implemented
 
 ### Critical CSS Extraction
-**Status:** Not implemented
+**Status:** Attempted and removed due to conflicts
+
+**What Happened:**
+- Initial implementation created manual inline critical CSS
+- The aggressive CSS reset (`* { margin: 0; padding: 0; }`) broke theme layout
+- Caused visual regressions and style conflicts
+- Removed to preserve theme integrity
 
 **Reason:**
-- Requires build tooling (Critical npm package, PurgeCSS, or similar)
-- Manual extraction is error-prone and not maintainable
+- Requires automated build tooling (Critical npm package, PurgeCSS, or similar)
+- Manual extraction is error-prone and causes conflicts
 - Current CSS bundle is already small (23 KB main + 10 KB code-highlight)
 - Hugo doesn't have built-in critical CSS extraction
 
 **Recommendation:**
-Consider implementing if CSS bundle grows beyond 50 KB total. Potential approaches:
-1. Use Critical package in GitHub Actions workflow
+Only implement with proper tooling. Manual critical CSS is not maintainable. Potential approaches:
+1. Use Critical package in GitHub Actions workflow to auto-extract from compiled CSS
 2. Add PurgeCSS to build process
-3. Manually extract critical CSS for homepage only
+3. Use Hugo's built-in asset pipeline with PostCSS plugins
 
-**Expected Impact if implemented:** 400-800ms faster First Contentful Paint
+**Expected Impact if properly implemented:** 400-800ms faster First Contentful Paint
+
+**Lesson Learned:** Don't manually create critical CSS - it must be extracted from the actual compiled stylesheets to avoid conflicts.
 
 ### Cache Headers
 **Status:** Not implemented (infrastructure-level)
@@ -238,15 +257,19 @@ Before/after comparison metrics:
 ## Expected Overall Impact
 
 ### Quick Wins (Implemented)
-- 600ms-1s faster First Contentful Paint
-- Zero theme flash
-- 10 KB saved on non-code pages
-- 2 fewer HTTP requests
+- ✅ 300-500ms faster Time to Interactive (defer scripts)
+- ✅ 300-600ms faster font display (font preload)
+- ✅ Zero theme flash (inline theme detection)
+- ✅ 10 KB saved on non-code pages (conditional code-highlight CSS)
+- ✅ 2 fewer HTTP requests (favicon reduction)
+- ❌ Critical CSS removed due to style conflicts
 
 ### Total Expected Improvement
-- **Desktop:** 1-1.5s faster load time
-- **Mobile (3G):** 2-3s faster load time
+- **Desktop:** 600ms-1s faster load time
+- **Mobile (3G):** 1-1.5s faster load time
 - **Repeat Visits:** Minimal change (cache headers not implemented)
+
+**Note:** Initial estimates included critical CSS benefits (400-800ms FCP improvement). After removing critical CSS due to layout conflicts, overall improvement is more conservative but still significant.
 
 ---
 
