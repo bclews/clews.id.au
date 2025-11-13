@@ -44,11 +44,12 @@
     requestAnimationFrame(() => body.classList.remove("notransition"));
 })();
 </script>
-{{/* Load full theme.js with defer for interactive features (theme toggle, menu blur) */}}
+{{/* Load optimized theme-interactive.js with defer for interactive features (theme toggle, menu blur) */}}
+{{/* This version excludes the theme detection code that's already inlined above */}}
 {{ if hugo.IsProduction }}
-{{ $theme_script := resources.Get "js/theme.js" | minify | fingerprint }}
+{{ $theme_script := resources.Get "js/theme-interactive.js" | minify | fingerprint }}
 <script defer src="{{ $theme_script.RelPermalink }}" integrity="{{ $theme_script.Data.Integrity }}"></script>
 {{ else }}
-{{ $theme_script := resources.Get "js/theme.js" }}
+{{ $theme_script := resources.Get "js/theme-interactive.js" }}
 <script defer src="{{ $theme_script.RelPermalink }}"></script>
 {{ end}}
