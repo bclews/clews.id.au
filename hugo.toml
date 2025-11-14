@@ -18,6 +18,10 @@ theme = "hugo-blog-awesome"
 [markup.highlight]
 noClasses = false
 [markup.goldmark.renderer]
+# SECURITY NOTE: unsafe = true allows arbitrary HTML/JavaScript in markdown content.
+# Current risk: LOW (single author, trusted content)
+# WARNING: This becomes a HIGH RISK XSS vulnerability if accepting external contributions.
+# Consider disabling and using Hugo shortcodes for dynamic content instead.
 unsafe = true
 [markup.tableOfContents]
 startLevel = 2  # ToC starts from H2
