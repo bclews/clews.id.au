@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+    {{- partial "head.html" . -}}
+    <body data-theme = "{{ .Site.Params.defaultColor }}" class="notransition">
+        {{/* Skip navigation link for keyboard and screen reader users (WCAG 2.4.1 Level A) */}}
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        {{- partial "scriptsBodyStart.html" . -}}
+        {{- partial "header.html" . -}}
+        {{- block "main" . }}{{- end }}
+        {{- partial "footer.html" . -}}
+        {{- partial "scriptsBodyEnd.html" . -}}
+    </body>
+</html>

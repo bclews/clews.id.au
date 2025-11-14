@@ -92,6 +92,9 @@ rssFeedDescription = "summary" # available options: 1) summary 2) full
 # full - includes full blog post in the RSS feed. Generated using Hugo .Content .
 # By default (or if nothing is specified), summary is used.
 
+# Additional scripts for accessibility enhancements
+additionalScripts = ['js/accessibility.js']
+
 [Languages.en-gb.params.author]
 avatar = "avatar.jpg" # put the file in assets folder; also ensure that image has same height and width
 # Note: image is not rendered if the resource(avatar image) is not found. No error is displayed.
