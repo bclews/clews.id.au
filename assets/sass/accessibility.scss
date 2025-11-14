@@ -46,31 +46,39 @@ a#mode {
     cursor: pointer;
     opacity: 1;
   }
-}
 
-/* Control icon visibility based on theme */
-.dark button#mode,
-.dark a#mode {
-  .mode-sunny {
-    display: block;
+  &:active {
+    -webkit-transform: scale(0.9, 0.9);
+    transform: scale(0.9, 0.9);
   }
-  .mode-moon {
-    display: none;
-  }
-}
 
-/* Light mode - show moon, hide sun */
-button#mode,
-a#mode {
+  /* Light mode default - show moon icon (dark) */
   .mode-moon {
     display: block;
+    line {
+      stroke: #000;
+      fill: none;
+    }
+    circle {
+      fill: #000;
+      stroke: #000;
+    }
   }
+
   .mode-sunny {
     display: none;
+    line {
+      stroke: #fafafa;
+      fill: none;
+    }
+    circle {
+      fill: none;
+      stroke: #fafafa;
+    }
   }
 }
 
-/* Dark mode - show sun, hide moon */
+/* Dark mode - show sun icon (light) */
 .dark button#mode,
 .dark a#mode {
   .mode-sunny {
