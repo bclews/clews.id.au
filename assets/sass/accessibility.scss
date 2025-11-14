@@ -184,11 +184,12 @@ article a {
    4. Homepage Layout Fix
    ========================================================================== */
 
-/* Remove excessive top margin from author section on homepage
-   The theme's original layout had .author outside of main, but for
-   accessibility we moved it inside main. This creates double spacing. */
+/* Reduce top margin from author section on homepage
+   The original theme had .author as first child of .wrapper with 6.3rem top margin.
+   We've restructured for accessibility with .author inside main, and removed the
+   incorrect page-content class from homepage main. Reduce to minimal spacing. */
 main .author {
-  margin-top: 2rem;  /* Reduced from 6.3rem */
+  margin-top: 1rem;  /* Significantly reduced from 6.3rem for tighter spacing */
 }
 
 /* ==========================================================================
