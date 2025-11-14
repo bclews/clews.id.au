@@ -1,0 +1,11 @@
+{{/*
+  Image render hook for markdown images
+  Adds lazy loading for better performance
+  Maintains alt text for accessibility
+*/}}
+<img src="{{ .Destination | safeURL }}"
+     alt="{{ .Text }}"
+     {{ with .Title }}title="{{ . }}"{{ end }}
+     loading="lazy"
+     {{/* Add decoding="async" for better non-blocking image decode */}}
+     decoding="async" />
