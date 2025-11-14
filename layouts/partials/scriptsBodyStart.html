@@ -1,0 +1,55 @@
+{{/* Inline critical theme detection to prevent FOUC - runs immediately */}}
+<script>
+(function() {
+    "use strict";
+    const LS_THEME_KEY = "theme";
+    const THEMES = { LIGHT: "light", DARK: "dark", AUTO: "auto" };
+
+    const body = document.body;
+    const config = body.getAttribute("data-theme");
+
+    // Get theme state from localStorage or system preference
+    const lsState = localStorage.getItem(LS_THEME_KEY);
+    let state;
+
+    if (lsState) {
+        state = lsState;
+    } else {
+        switch (config) {
+            case THEMES.DARK:
+                state = THEMES.DARK;
+                break;
+            case THEMES.LIGHT:
+                state = THEMES.LIGHT;
+                break;
+            case THEMES.AUTO:
+            default:
+                state = window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? THEMES.DARK
+                    : THEMES.LIGHT;
+                break;
+        }
+    }
+
+    // Apply theme immediately
+    if (state === THEMES.DARK) {
+        document.documentElement.classList.add(THEMES.DARK);
+        document.documentElement.classList.remove(THEMES.LIGHT);
+    } else if (state === THEMES.LIGHT) {
+        document.documentElement.classList.remove(THEMES.DARK);
+        document.documentElement.classList.add(THEMES.LIGHT);
+    }
+
+    // Remove notransition class to enable theme transitions
+    requestAnimationFrame(() => body.classList.remove("notransition"));
+})();
+</script>
+{{/* Load optimized theme-interactive.js with defer for interactive features (theme toggle, menu blur) */}}
+{{/* This version excludes the theme detection code that's already inlined above */}}
+{{ if hugo.IsProduction }}
+{{ $theme_script := resources.Get "js/theme-interactive.js" | minify | fingerprint }}
+<script defer src="{{ $theme_script.RelPermalink }}" integrity="{{ $theme_script.Data.Integrity }}"></script>
+{{ else }}
+{{ $theme_script := resources.Get "js/theme-interactive.js" }}
+<script defer src="{{ $theme_script.RelPermalink }}"></script>
+{{ end}}

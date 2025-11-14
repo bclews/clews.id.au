@@ -16,7 +16,7 @@ help:
 	@echo "  make serve      - Serve the site locally"
 	@echo "  make drafts     - Serve the site including draft posts"
 	@echo "  make clean      - Remove generated files"
-	@echo "  make new        - Create a new post (usage: make new title='Post Title')"
+	@echo "  make new        - Create a new draft post (usage: make new title='Post Title')"
 	@echo "  make deploy     - Deploy to production (requires proper Hugo configuration)"
 
 # Clean public directory
@@ -51,5 +51,5 @@ new:
 		exit 1; \
 	fi
 	@echo "Creating a new post titled: $(title)"
-	$(HUGO_CMD) new posts/$(shell echo "$(title)" | tr '[:upper:] ' '[:lower:]-').md
+	$(HUGO_CMD) new posts/$(shell echo "$(title)" | tr '[:upper:] ' '[:lower:]-')/index.md
 
