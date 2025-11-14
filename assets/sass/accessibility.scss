@@ -181,7 +181,18 @@ article a {
 }
 
 /* ==========================================================================
-   4. Paragraph Spacing Enhancement
+   4. Homepage Layout Fix
+   ========================================================================== */
+
+/* Remove excessive top margin from author section on homepage
+   The theme's original layout had .author outside of main, but for
+   accessibility we moved it inside main. This creates double spacing. */
+main .author {
+  margin-top: 2rem;  /* Reduced from 6.3rem */
+}
+
+/* ==========================================================================
+   5. Paragraph Spacing Enhancement
    ========================================================================== */
 
 /* Increase from 30px (15+15) to 40px (20+20) for better readability */
@@ -191,7 +202,7 @@ article a {
 }
 
 /* ==========================================================================
-   5. Link Visibility in Content
+   6. Link Visibility in Content
    ========================================================================== */
 
 /* Add underlines to links in article content for better visibility */
