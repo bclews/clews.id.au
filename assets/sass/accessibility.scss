@@ -186,9 +186,9 @@ article a {
 
 /* Reduce top margin from author section on homepage
    The original theme had .author as first child of .wrapper with 6.3rem top margin.
-   We've restructured for accessibility with .author inside main. Use minimal spacing. */
+   We've restructured for accessibility with .author inside main. Balance spacing. */
 main .author {
-  margin-top: 1rem;  /* Significantly reduced from 6.3rem */
+  margin-top: 3.5rem;  /* Reduced from 6.3rem for better visual balance */
 }
 
 /* Reduce excessive top margin on article headers (post pages)
