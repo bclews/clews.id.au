@@ -11,7 +11,10 @@
 
     <div class="photo-gallery">
       <div class="photo-grid" id="photoGrid">
-        {{- $images := .Resources.Match "*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}" -}}
+        {{- $images := slice -}}
+        {{- range .Resources.ByType "image" -}}
+          {{- $images = $images | append . -}}
+        {{- end -}}
         {{- range $images -}}
         {{- $thumbnail := .Resize "400x400" -}}
         <div class="photo-item" data-src="{{ .RelPermalink }}">
