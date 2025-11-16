@@ -286,6 +286,12 @@ body.menu-open {
   pointer-events: none;
 }
 
+/* Make menu trigger semi-transparent in dark mode to show blurred background */
+html.dark .navbar input[type="checkbox"]:checked ~ .trigger,
+html:not(.light) .navbar input[type="checkbox"]:checked ~ .trigger {
+  background-color: rgba(26, 26, 30, 0.95) !important;
+}
+
 /* Ensure menu is above blurred content */
 .menu {
   z-index: 1000;
