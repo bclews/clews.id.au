@@ -8,19 +8,26 @@
    ========================================================================== */
 
 .skip-link {
-  position: absolute;
-  top: -40px;
+  position: fixed;
+  top: 0;
   left: 0;
   background: #000;
   color: #fff;
   padding: 8px 16px;
   text-decoration: none;
-  z-index: 100;
+  z-index: 10000;
   border-radius: 0 0 4px 0;
   font-weight: 600;
+  /* Hide by default using transform - more reliable than top positioning */
+  transform: translateY(-100%);
+  transition: transform 0.2s ease-in-out;
+  /* Override global touch target styles */
+  display: block !important;
+  min-height: auto !important;
+  min-width: auto !important;
 
   &:focus {
-    top: 0;
+    transform: translateY(0);
     outline: 3px solid #fff;
     outline-offset: 2px;
   }
@@ -279,10 +286,15 @@ body.menu-open {
   pointer-events: none;
 }
 
+/* Make menu trigger semi-transparent in dark mode to show blurred background */
+html.dark .navbar input[type="checkbox"]:checked ~ .trigger,
+html:not(.light) .navbar input[type="checkbox"]:checked ~ .trigger {
+  background-color: rgba(26, 26, 30, 0.95) !important;
+}
+
 /* Ensure menu is above blurred content */
 .menu {
   z-index: 1000;
-  position: relative;
 }
 
 /* ==========================================================================
@@ -329,5 +341,61 @@ body.menu-open {
   #totop {
     opacity: 1 !important;
     visibility: visible !important;
+  }
+
+  /* Reduce excessive top margins on mobile */
+  main .author {
+    margin-top: 1.5rem;  /* Reduced from 3.5rem for mobile */
+  }
+
+  article .header,
+  .list-page .header {
+    margin-top: 1rem;  /* Reduced from 2rem for mobile */
+  }
+
+  /* Fix navbar height on mobile - make it compact */
+  .navbar {
+    height: 50px !important;  /* Match the menu height */
+    padding: 0 !important;  /* Remove padding to save space */
+    display: flex;
+    align-items: center;
+  }
+
+  /* Reduce navbar element sizing to fit compact navbar */
+  .navbar .logo {
+    position: absolute !important;
+    left: 0.5rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+    padding: 4px !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
+  }
+
+  /* Position #mode button only when menu is closed */
+  .navbar input[type="checkbox"]:not(:checked) ~ .trigger #mode {
+    position: absolute !important;
+    left: auto !important;
+    right: 44px !important;  /* Position to the left of menu icon */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 4px !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
+  }
+
+  .navbar .menu-icon {
+    position: absolute !important;
+    right: 0.5rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+    padding: 4px !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
