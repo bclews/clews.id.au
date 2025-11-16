@@ -1,0 +1,50 @@
+{{ define "main" }}
+<main class="post">
+  <article>
+    <h1 class="post-title">
+      {{ .Title }}
+    </h1>
+
+    <div class="post-content">
+      {{ .Content }}
+    </div>
+
+    <div class="photo-gallery">
+      <!-- Photo grid will be populated here -->
+      <div class="photo-grid" id="photoGrid">
+        <!-- Example photos - replace with actual photo paths -->
+        <div class="photo-item" data-src="/images/photos/photo1.jpg">
+          <img src="/images/photos/photo1.jpg" alt="Photo 1" loading="lazy">
+        </div>
+        <div class="photo-item" data-src="/images/photos/photo2.jpg">
+          <img src="/images/photos/photo2.jpg" alt="Photo 2" loading="lazy">
+        </div>
+        <div class="photo-item" data-src="/images/photos/photo3.jpg">
+          <img src="/images/photos/photo3.jpg" alt="Photo 3" loading="lazy">
+        </div>
+        <div class="photo-item" data-src="/images/photos/photo4.jpg">
+          <img src="/images/photos/photo4.jpg" alt="Photo 4" loading="lazy">
+        </div>
+        <div class="photo-item" data-src="/images/photos/photo5.jpg">
+          <img src="/images/photos/photo5.jpg" alt="Photo 5" loading="lazy">
+        </div>
+        <div class="photo-item" data-src="/images/photos/photo6.jpg">
+          <img src="/images/photos/photo6.jpg" alt="Photo 6" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+      <div class="lightbox-content">
+        <img src="" alt="" id="lightboxImage">
+      </div>
+    </div>
+  </article>
+</main>
+
+<script src="/js/photos.js"></script>
+{{ end }}

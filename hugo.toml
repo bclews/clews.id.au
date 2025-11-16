@@ -73,6 +73,11 @@ pageRef = "about"
 name = 'About'
 url = '/about/'
 weight = 30
+[[Languages.en-gb.menu.main]]
+pageRef = "photos"
+name = 'Photos'
+url = '/photos/'
+weight = 40
 
 [Languages.en-gb.params]
 sitename = "Ben Clews"
