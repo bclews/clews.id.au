@@ -181,15 +181,26 @@ article a {
 }
 
 /* ==========================================================================
-   4. Homepage Layout Fix
+   4. Homepage and Post Page Layout Fixes
    ========================================================================== */
 
 /* Reduce top margin from author section on homepage
    The original theme had .author as first child of .wrapper with 6.3rem top margin.
-   We've restructured for accessibility with .author inside main, and removed the
-   incorrect page-content class from homepage main. Reduce to minimal spacing. */
+   We've restructured for accessibility with .author inside main. Use minimal spacing. */
 main .author {
-  margin-top: 1rem;  /* Significantly reduced from 6.3rem for tighter spacing */
+  margin-top: 1rem;  /* Significantly reduced from 6.3rem */
+}
+
+/* Reduce excessive top margin on article headers (post pages)
+   The theme has .header with margin-top: 7.8em which creates huge spacing.
+   This is excessive when inside our main element structure. */
+article .header {
+  margin-top: 2rem;  /* Significantly reduced from 7.8em for tighter spacing */
+}
+
+/* Also reduce on list pages */
+.list-page .header {
+  margin-top: 2rem;  /* Reduced from 7.8em */
 }
 
 /* ==========================================================================
