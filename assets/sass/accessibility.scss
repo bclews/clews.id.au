@@ -337,12 +337,6 @@ html:not(.light) .navbar input[type="checkbox"]:checked ~ .trigger {
 
 /* Mobile-specific improvements */
 @media (max-width: 768px) {
-  /* Ensure back-to-top is always visible on mobile for long articles */
-  #totop {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
   /* Reduce excessive top margins on mobile */
   main .author {
     margin-top: 1.5rem;  /* Reduced from 3.5rem for mobile */
