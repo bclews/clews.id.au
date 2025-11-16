@@ -1,40 +1,41 @@
 {{ define "main" }}
-<main class="post">
-  <article>
-    <h1 class="post-title">
-      {{ .Title }}
-    </h1>
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+    <article>
+      <header class="header">
+        <h1 class="header-title">{{ .Title }}</h1>
+      </header>
+      <div class="page-content">
+        {{ .Content }}
+      </div>
 
-    <div class="post-content">
-      {{ .Content }}
-    </div>
-
-    <div class="photo-gallery">
-      <div class="photo-grid" id="photoGrid">
-        {{- $images := slice -}}
-        {{- range .Resources.ByType "image" -}}
-          {{- $images = $images | append . -}}
-        {{- end -}}
-        {{- range $images -}}
-        {{- $thumbnail := .Resize "400x400" -}}
-        <div class="photo-item" data-src="{{ .RelPermalink }}">
-          <img src="{{ $thumbnail.RelPermalink }}" alt="" loading="lazy">
+      <div class="photo-gallery">
+        <div class="photo-grid" id="photoGrid">
+          {{- $images := slice -}}
+          {{- range .Resources.ByType "image" -}}
+            {{- $images = $images | append . -}}
+          {{- end -}}
+          {{- range $images -}}
+          {{- $thumbnail := .Resize "400x" -}}
+          <div class="photo-item" data-src="{{ .RelPermalink }}">
+            <img src="{{ $thumbnail.RelPermalink }}" alt="" loading="lazy">
+          </div>
+          {{- end -}}
         </div>
-        {{- end -}}
       </div>
-    </div>
 
-    <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
-      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
-      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-      <div class="lightbox-content">
-        <img src="" alt="" id="lightboxImage">
+      <!-- Lightbox Modal -->
+      <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+        <div class="lightbox-content">
+          <img src="" alt="" id="lightboxImage">
+        </div>
       </div>
-    </div>
-  </article>
-</main>
+    </article>
+  </main>
+</div>
 
 <script src="/js/photos.js"></script>
 {{ end }}
