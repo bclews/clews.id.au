@@ -289,7 +289,6 @@ body.menu-open {
 /* Ensure menu is above blurred content */
 .menu {
   z-index: 1000;
-  position: relative;
 }
 
 /* ==========================================================================
@@ -358,16 +357,14 @@ body.menu-open {
 
   /* Reduce navbar element sizing to fit compact navbar */
   .navbar .logo {
-    margin: 0 0 0 0.5rem !important;  /* Minimal margin */
+    position: absolute !important;
+    left: 0.5rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
     padding: 4px !important;
     min-height: 36px !important;
     min-width: 36px !important;
-  }
-
-  /* The menu is position:fixed on mobile, so we need to align its children */
-  .menu {
-    display: flex !important;
-    align-items: center !important;
   }
 
   .navbar #mode {
@@ -390,5 +387,8 @@ body.menu-open {
     padding: 4px !important;
     min-height: 36px !important;
     min-width: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
