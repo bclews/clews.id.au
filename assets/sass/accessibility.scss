@@ -367,7 +367,8 @@ body.menu-open {
     min-width: 36px !important;
   }
 
-  .navbar #mode {
+  /* Position #mode button only when menu is closed */
+  .navbar input[type="checkbox"]:not(:checked) ~ .trigger #mode {
     position: absolute !important;
     left: auto !important;
     right: 44px !important;  /* Position to the left of menu icon */
