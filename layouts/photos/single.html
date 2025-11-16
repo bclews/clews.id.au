@@ -10,27 +10,14 @@
     </div>
 
     <div class="photo-gallery">
-      <!-- Photo grid will be populated here -->
       <div class="photo-grid" id="photoGrid">
-        <!-- Example photos - replace with actual photo paths -->
-        <div class="photo-item" data-src="/images/photos/photo1.jpg">
-          <img src="/images/photos/photo1.jpg" alt="Photo 1" loading="lazy">
+        {{- $images := .Resources.Match "*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}" -}}
+        {{- range $images -}}
+        {{- $thumbnail := .Resize "400x400" -}}
+        <div class="photo-item" data-src="{{ .RelPermalink }}">
+          <img src="{{ $thumbnail.RelPermalink }}" alt="" loading="lazy">
         </div>
-        <div class="photo-item" data-src="/images/photos/photo2.jpg">
-          <img src="/images/photos/photo2.jpg" alt="Photo 2" loading="lazy">
-        </div>
-        <div class="photo-item" data-src="/images/photos/photo3.jpg">
-          <img src="/images/photos/photo3.jpg" alt="Photo 3" loading="lazy">
-        </div>
-        <div class="photo-item" data-src="/images/photos/photo4.jpg">
-          <img src="/images/photos/photo4.jpg" alt="Photo 4" loading="lazy">
-        </div>
-        <div class="photo-item" data-src="/images/photos/photo5.jpg">
-          <img src="/images/photos/photo5.jpg" alt="Photo 5" loading="lazy">
-        </div>
-        <div class="photo-item" data-src="/images/photos/photo6.jpg">
-          <img src="/images/photos/photo6.jpg" alt="Photo 6" loading="lazy">
-        </div>
+        {{- end -}}
       </div>
     </div>
 
