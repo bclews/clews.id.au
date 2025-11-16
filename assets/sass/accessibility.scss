@@ -8,19 +8,26 @@
    ========================================================================== */
 
 .skip-link {
-  position: absolute;
-  top: -40px;
+  position: fixed;
+  top: 0;
   left: 0;
   background: #000;
   color: #fff;
   padding: 8px 16px;
   text-decoration: none;
-  z-index: 100;
+  z-index: 10000;
   border-radius: 0 0 4px 0;
   font-weight: 600;
+  /* Hide by default using transform - more reliable than top positioning */
+  transform: translateY(-100%);
+  transition: transform 0.2s ease-in-out;
+  /* Override global touch target styles */
+  display: block !important;
+  min-height: auto !important;
+  min-width: auto !important;
 
   &:focus {
-    top: 0;
+    transform: translateY(0);
     outline: 3px solid #fff;
     outline-offset: 2px;
   }
@@ -329,5 +336,15 @@ body.menu-open {
   #totop {
     opacity: 1 !important;
     visibility: visible !important;
+  }
+
+  /* Reduce excessive top margins on mobile */
+  main .author {
+    margin-top: 1.5rem;  /* Reduced from 3.5rem for mobile */
+  }
+
+  article .header,
+  .list-page .header {
+    margin-top: 1rem;  /* Reduced from 2rem for mobile */
   }
 }
