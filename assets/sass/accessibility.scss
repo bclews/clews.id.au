@@ -348,12 +348,32 @@ body.menu-open {
     margin-top: 1rem;  /* Reduced from 2rem for mobile */
   }
 
-  /* Reduce navbar element padding on mobile to fit 50px navbar height */
-  .navbar .logo,
-  .navbar #mode,
+  /* Fix navbar height on mobile - make it compact */
+  .navbar {
+    height: 50px !important;  /* Match the menu height */
+    padding: 0 !important;  /* Remove padding to save space */
+    display: flex;
+    align-items: center;
+  }
+
+  /* Reduce navbar element sizing to fit compact navbar */
+  .navbar .logo {
+    margin: 0 0 0 0.5rem !important;  /* Minimal margin */
+    padding: 4px !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
+  }
+
+  .navbar #mode {
+    padding: 4px !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
+  }
+
   .navbar .menu-icon {
-    padding: 6px;  /* Reduced from 12px for tighter navbar */
-    min-height: 38px;  /* Reduced from 44px to fit navbar */
-    min-width: 38px;
+    padding: 4px !important;
+    margin: 0 0.5rem 0 0 !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
   }
 }
