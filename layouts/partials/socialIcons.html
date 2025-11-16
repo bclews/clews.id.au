@@ -1,0 +1,10 @@
+{{- range . }}
+<a href="{{ trim .url " " }}"
+   target="_blank"
+   rel="noopener noreferrer me"
+   aria-label="{{ (.title | default .name) | title }} profile"
+   title="{{ (.title | default .name) | title }}">
+    {{ partial "svgs/svgs.html" . }}
+    <span class="sr-only">{{ (.title | default .name) | title }} profile</span>
+</a>
+{{- end }}
