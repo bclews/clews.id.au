@@ -347,4 +347,13 @@ body.menu-open {
   .list-page .header {
     margin-top: 1rem;  /* Reduced from 2rem for mobile */
   }
+
+  /* Reduce navbar element padding on mobile to fit 50px navbar height */
+  .navbar .logo,
+  .navbar #mode,
+  .navbar .menu-icon {
+    padding: 6px;  /* Reduced from 12px for tighter navbar */
+    min-height: 38px;  /* Reduced from 44px to fit navbar */
+    min-width: 38px;
+  }
 }
