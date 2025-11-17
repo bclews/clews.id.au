@@ -15,27 +15,29 @@
           {{- range .Resources.ByType "image" -}}
             {{- $images = $images | append . -}}
           {{- end -}}
-          {{- range $images -}}
+          {{- range $index, $image := $images -}}
           {{- $thumbnail := .Resize "400x" -}}
-          <div class="photo-item" data-src="{{ .RelPermalink }}">
-            <img src="{{ $thumbnail.RelPermalink }}" alt="" loading="lazy">
+          {{- $altText := printf "Photo %d" (add $index 1) -}}
+          <div class="photo-item" data-src="{{ .RelPermalink }}" data-alt="{{ $altText }}">
+            <img src="{{ $thumbnail.RelPermalink }}" alt="{{ $altText }}" loading="lazy" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}">
           </div>
           {{- end -}}
         </div>
       </div>
 
       <!-- Lightbox Modal -->
-      <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-hidden="true">
+        <h2 id="lightboxTitle" class="visually-hidden">Photo viewer</h2>
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close photo viewer">&times;</button>
         <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
         <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
         <div class="lightbox-content">
-          <img src="" alt="" id="lightboxImage">
+          <img id="lightboxImage" alt="">
         </div>
       </div>
     </article>
   </main>
 </div>
 
-<script src="/js/photos.js"></script>
+<script src="/js/photos.js" defer></script>
 {{ end }}

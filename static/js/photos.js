@@ -13,9 +13,14 @@
   const lightboxNext = document.getElementById('lightboxNext');
   const photoItems = document.querySelectorAll('.photo-item');
 
+  // Focusable elements in lightbox for focus trap
+  const focusableElements = [lightboxClose, lightboxPrev, lightboxNext];
+
   let currentIndex = 0;
   let touchStartX = 0;
   let touchEndX = 0;
+  let originalBodyOverflow = '';
+  let isLightboxOpen = false;
 
   // Initialize photo gallery
   function init() {
@@ -48,18 +53,27 @@
       }
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', handleKeyboard);
-
     // Touch support for swipe
     lightbox.addEventListener('touchstart', handleTouchStart, { passive: true });
     lightbox.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    // Keyboard navigation - scoped to lightbox active state
+    document.addEventListener('keydown', handleKeyboard);
+
+    // Focus trap
+    document.addEventListener('keydown', handleFocusTrap);
   }
 
   function openLightbox(index) {
     currentIndex = index;
+    isLightboxOpen = true;
+
+    // Store original overflow
+    originalBodyOverflow = document.body.style.overflow;
+
     updateLightboxImage();
     lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
     // Focus on close button for accessibility
@@ -67,8 +81,12 @@
   }
 
   function closeLightbox() {
+    isLightboxOpen = false;
     lightbox.classList.remove('active');
-    document.body.style.overflow = '';
+    lightbox.setAttribute('aria-hidden', 'true');
+
+    // Restore original overflow
+    document.body.style.overflow = originalBodyOverflow;
 
     // Return focus to the clicked photo
     if (photoItems[currentIndex]) {
@@ -93,24 +111,29 @@
   function updateLightboxImage() {
     const currentPhoto = photoItems[currentIndex];
     const imgSrc = currentPhoto.getAttribute('data-src');
-    const imgAlt = currentPhoto.querySelector('img').getAttribute('alt');
+    const imgAlt = currentPhoto.getAttribute('data-alt') ||
+                   currentPhoto.querySelector('img').getAttribute('alt') ||
+                   'Photo';
 
     lightboxImage.src = imgSrc;
     lightboxImage.alt = imgAlt;
+
+    // Error handling for image load failures
+    lightboxImage.onerror = function() {
+      console.error('Failed to load image:', imgSrc);
+      this.alt = 'Failed to load image';
+    };
 
     // Update navigation buttons
     lightboxPrev.disabled = currentIndex === 0;
     lightboxNext.disabled = currentIndex === photoItems.length - 1;
 
-    // Add animation
-    lightboxImage.style.animation = 'none';
-    setTimeout(() => {
-      lightboxImage.style.animation = '';
-    }, 10);
+    // Update ARIA label with current position
+    lightbox.setAttribute('aria-label', `Photo ${currentIndex + 1} of ${photoItems.length}`);
   }
 
   function handleKeyboard(e) {
-    if (!lightbox.classList.contains('active')) return;
+    if (!isLightboxOpen) return;
 
     switch(e.key) {
       case 'Escape':
@@ -122,6 +145,29 @@
       case 'ArrowRight':
         showNext();
         break;
+    }
+  }
+
+  function handleFocusTrap(e) {
+    if (!isLightboxOpen || e.key !== 'Tab') return;
+
+    const firstFocusable = focusableElements.find(el => !el.disabled);
+    const lastFocusable = focusableElements.slice().reverse().find(el => !el.disabled);
+
+    if (!firstFocusable) return;
+
+    if (e.shiftKey) {
+      // Shift + Tab
+      if (document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+      }
+    } else {
+      // Tab
+      if (document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
     }
   }
 
