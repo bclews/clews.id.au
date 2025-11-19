@@ -2,6 +2,9 @@
 title = 'Advent of Code 2024'
 date = 2025-01-28T08:43:40+11:00
 draft = false
+description = "Complete all 25 Advent of Code 2024 challenges with insights on algorithms, LLM assistance, and creative problem-solving. From graph algorithms to PNG compression hacks, lessons learned the hard way."
+categories = ['Development', 'Career & Reflection']
+tags = ['advent-of-code', 'algorithms', 'problem-solving', 'llm', 'learning', 'python']
 +++
 
 Every December, an event pops up in the software development world that stirs excitement, dread, and inspiration in equal measure: [Advent of Code](https://adventofcode.com). It’s a yearly programming challenge that combines festive themes with algorithmic problem-solving, drawing in developers from all walks of life.
