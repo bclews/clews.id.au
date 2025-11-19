@@ -1,0 +1,43 @@
+{{ define "main" }}
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+    <article>
+      <header class="header">
+        <h1 class="header-title">{{ .Title }}</h1>
+      </header>
+      <div class="page-content">
+        {{ .Content }}
+      </div>
+
+      <div class="photo-gallery">
+        <div class="photo-grid" id="photoGrid">
+          {{- $images := slice -}}
+          {{- range .Resources.ByType "image" -}}
+            {{- $images = $images | append . -}}
+          {{- end -}}
+          {{- range $index, $image := $images -}}
+          {{- $thumbnail := .Resize "400x" -}}
+          {{- $altText := printf "Photo %d" (add $index 1) -}}
+          <div class="photo-item" data-src="{{ .RelPermalink }}" data-alt="{{ $altText }}">
+            <img src="{{ $thumbnail.RelPermalink }}" alt="{{ $altText }}" loading="lazy" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}">
+          </div>
+          {{- end -}}
+        </div>
+      </div>
+
+      <!-- Lightbox Modal -->
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-hidden="true">
+        <h2 id="lightboxTitle" class="visually-hidden">Photo viewer</h2>
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close photo viewer">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+        <div class="lightbox-content">
+          <img id="lightboxImage" alt="">
+        </div>
+      </div>
+    </article>
+  </main>
+</div>
+
+<script src="/js/photos.js" defer></script>
+{{ end }}
