@@ -430,7 +430,7 @@ subtitle = "Software Engineering Insights from Hobart, Tasmania"
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ben Clews",
-  "jobTitle": "Cloud System Engineer",
+  "jobTitle": "Software Engineer",
   "worksFor": {
     "@type": "Organization",
     "name": "CSIRO Data61"
@@ -958,7 +958,7 @@ I've learned that handling project failure requires..."
 ```html
 <div itemscope itemtype="https://schema.org/Person">
   <span itemprop="name">Ben Clews</span>
-  <span itemprop="jobTitle">Cloud System Engineer</span>
+  <span itemprop="jobTitle">Software Engineer</span>
   at <span itemprop="worksFor">CSIRO Data61</span>
   in <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
     <span itemprop="addressLocality">Hobart</span>,

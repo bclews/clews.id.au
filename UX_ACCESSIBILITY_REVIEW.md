@@ -740,7 +740,7 @@ a:active {
 
 [Main: Content]
   [Heading 2: Ben Clews]
-  [Text: Cloud Native...]
+  [Text: ...]
   [Heading 3: Recent Posts]
   [Article] x5
     [Heading 4: Post title]

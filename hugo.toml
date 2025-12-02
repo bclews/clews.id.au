@@ -116,7 +116,7 @@ avatar = "avatar.jpg" # put the file in assets folder; also ensure that image ha
 # Note: image is not rendered if the resource(avatar image) is not found. No error is displayed.
 intro = "Ben Clews"
 name = "Ben Clews"
-description = "Cloud Native Software Engineer in Hobart, Tasmania."
+description = " Software Engineer in Hobart, Tasmania."
 jobTitle = "Software Engineer"
 worksFor = "CSIRO Data61"
 location = "Hobart, Tasmania, Australia"
