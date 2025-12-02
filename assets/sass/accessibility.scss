@@ -214,10 +214,10 @@ article .header {
    5. Paragraph Spacing Enhancement
    ========================================================================== */
 
-/* Increase from 30px (15+15) to 40px (20+20) for better readability */
+/* Paragraph spacing: 30px (15+15) - matches 1x line height */
 .page-content > p {
-  padding-top: 20px !important;     /* Increase from 15px */
-  padding-bottom: 20px !important;  /* Increase from 15px */
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
 }
 
 /* ==========================================================================
