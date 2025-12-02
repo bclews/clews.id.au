@@ -7,8 +7,8 @@ categories = ['Tools']
 tags = ['python', 'cli', 'testing']
 +++
 
-Today I learned a super handy trick to check Python syntax without running your
-code. Perfect for catching errors early!
+Today I learned a handy trick to check Python syntax without running your code.
+Perfect for catching errors early.
 
 ## From the Command Line
 
