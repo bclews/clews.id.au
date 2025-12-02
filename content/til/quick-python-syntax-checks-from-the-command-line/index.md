@@ -15,13 +15,15 @@ Perfect for catching errors early.
 You can run:
 
 ```bash
-python3 -m py_compile src/app/analysis.py && echo "💡 Syntax is valid – no errors found"
+python3 -m py_compile src/app/analysis.py && \
+  echo "👍 Syntax is valid – no errors found"
 ```
 
 Or for another file:
 
 ```bash
-python3 -m py_compile src/app/server.wsgi && echo "💡 server.wsgi syntax is valid"
+python3 -m py_compile src/app/server.wsgi && \
+  echo "👍 server.wsgi syntax is valid"
 ```
 
 ## How it Works
