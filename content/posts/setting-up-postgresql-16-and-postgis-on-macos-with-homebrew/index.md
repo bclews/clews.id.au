@@ -6,9 +6,14 @@ description = "Complete guide to installing PostgreSQL 16 with PostGIS on macOS 
 categories = ['Tutorials']
 tags = ['databases', 'tutorial', 'tools']
 +++
-Recently, I needed to install PostgreSQL 16 with PostGIS on my MacBook M1 Pro (running macOS 15.2), and what I assumed would be a quick `brew install postgis` turned into a tedious debugging session.
 
-As of now, the Homebrew postgis formula is linked to PostgreSQL 14. To use PostGIS with PostgreSQL 16, you'll need to compile PostGIS manually. Here are the notes from my experience.
+Recently, I needed to install PostgreSQL 16 with PostGIS on my MacBook M1 Pro
+(running macOS 15.2), and what I assumed would be a quick `brew install postgis`
+turned into a tedious debugging session.
+
+As of now, the Homebrew postgis formula is linked to PostgreSQL 14. To use
+PostGIS with PostgreSQL 16, you'll need to compile PostGIS manually. Here are
+the notes from my experience.
 
 ## TL;DR: If You're in a Hurry, Here's the Script
 
@@ -69,7 +74,8 @@ make install
 
 ### 1. **Homebrew's PostgreSQL Versions Can Clash**
 
-If you have `postgresql@14` or an older version installed, you might run into conflicts. You might see errors like:
+If you have `postgresql@14` or an older version installed, you might run into
+conflicts. You might see errors like:
 
 ```bash
 Error: The `brew link` step did not complete successfully
@@ -82,13 +88,16 @@ Removing older versions before installing `postgresql@16` ensures a clean setup.
 
 ### 2. **PostGIS Dependencies Can Be Finicky**
 
-While `brew install postgis` should work in theory, the latest PostGIS versions sometimes require explicit handling of dependencies. You might encounter errors like:
+While `brew install postgis` should work in theory, the latest PostGIS versions
+sometimes require explicit handling of dependencies. You might encounter errors
+like:
 
 ```bash
 configure: error: Could not find JSON-C
 ```
 
-This is why we explicitly handle json-c, sfcgal, and protobuf-c installations in our script.
+This is why we explicitly handle json-c, sfcgal, and protobuf-c installations in
+our script.
 
 ### 3. **The Infamous `libintl.h` Not Found Error**
 
@@ -102,7 +111,8 @@ fatal error: 'libintl.h' file not found
 make: *** [lwgeom_functions_basic.o] Error 1
 ```
 
-It's because macOS and Homebrew don't always expose the right `gettext` headers. The fix? Reinstall `gettext` and explicitly link it:
+It's because macOS and Homebrew don't always expose the right `gettext` headers.
+The fix? Reinstall `gettext` and explicitly link it:
 
 ```bash
 brew reinstall gettext
@@ -111,7 +121,9 @@ brew unlink gettext && brew link gettext --force
 
 ### 4. **`/usr/local/bin/postgres` Not Found? Create a Symlink**
 
-By default, Homebrew installs PostgreSQL under `/opt/homebrew/`, but some build scripts still expect it in `/usr/local/bin/`. A simple fix is to create a symlink:
+By default, Homebrew installs PostgreSQL under `/opt/homebrew/`, but some build
+scripts still expect it in `/usr/local/bin/`. A simple fix is to create a
+symlink:
 
 ```bash
 sudo ln -sf /opt/homebrew/Cellar/postgresql@16/16.4/bin/postgres /usr/local/bin/postgres
@@ -154,7 +166,8 @@ Check if PostGIS is properly installed by running:
 SELECT PostGIS_Full_Version();
 ```
 
-If everything is working correctly, you should see a response that includes the PostGIS version, GEOS, Proj, and other details. For example:
+If everything is working correctly, you should see a response that includes the
+PostGIS version, GEOS, Proj, and other details. For example:
 
 ```shell
  POSTGIS="3.5.2 dea6d0a" [EXTENSION] PGSQL="160" GEOS="3.13.0-CAPI-1.19.0" PROJ="9.5.1 NETWORK_ENABLED=OFF URL_ENDPOINT=https://cdn.proj.org USER_WRITABLE_DIRECTORY=/Users/cle126/Library/Application Support/proj DATABASE_PATH=/opt/homebrew/Cellar/proj/9.5.1/share/proj/proj.db" (compiled against PROJ 9.5.1) LIBXML="2.9.13" LIBJSON="0.18"
@@ -172,15 +185,16 @@ If everything is working correctly, you should see a response that includes the 
    sudo chown -R $USER:admin /opt/homebrew/var/postgresql@16
    ```
 
-2. **PostGIS Extension Creation Fails**
-   If you see "could not open extension control file", ensure PostGIS was compiled against the correct PostgreSQL version:
+2. **PostGIS Extension Creation Fails** If you see "could not open extension
+   control file", ensure PostGIS was compiled against the correct PostgreSQL
+   version:
 
    ```bash
    ls -l /opt/homebrew/share/postgresql@16/extension/postgis*
    ```
 
-3. **Memory Issues During Compilation**
-   If make fails due to memory constraints, try:
+3. **Memory Issues During Compilation** If make fails due to memory constraints,
+   try:
 
    ```bash
    make -j2  # Reduces parallel jobs
