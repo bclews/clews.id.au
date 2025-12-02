@@ -4,7 +4,7 @@
 **Based on:** SEO_REVIEW.md recommendations
 **Status:** Complete
 
-This document describes all SEO improvements implemented for clews.id.au and provides guidance for maintaining and extending these optimizations.
+This document describes all SEO improvements implemented for clews.id.au and provides guidance for maintaining and extending these optimisations.
 
 ---
 
@@ -21,7 +21,7 @@ This document describes all SEO improvements implemented for clews.id.au and pro
 9. [Google Search Console Setup](#google-search-console-setup)
 10. [Best Practices for New Posts](#best-practices-for-new-posts)
 11. [Testing and Validation](#testing-and-validation)
-12. [Future Optimizations](#future-optimizations)
+12. [Future Optimizations](#future-optimisations)
 
 ---
 
@@ -46,7 +46,7 @@ This implementation addresses the critical and high-priority SEO issues identifi
 1. **Fixed Generic Meta Descriptions**
    - Updated site-wide description in `hugo.toml`
    - Added unique descriptions to all 7 blog posts
-   - Each description is 150-160 characters, keyword-optimized
+   - Each description is 150-160 characters, keyword-optimised
 
 2. **Created robots.txt**
    - Guides search engine crawlers
@@ -167,7 +167,7 @@ This implementation addresses the critical and high-priority SEO issues identifi
 **Topics:**
 - `devops`, `cloud`, `databases`, `mobile`
 - `ai`, `ml`, `nlp`
-- `configuration`, `optimization`, `deployment`
+- `configuration`, `optimisation`, `deployment`
 - `career`, `project-management`, `learning`
 - `algorithms`, `problem-solving`
 
@@ -545,12 +545,12 @@ These were excluded from the initial implementation as requested, but could be a
 
 ### What Changed
 
-- ✅ All 7 posts now have unique, optimized meta descriptions
+- ✅ All 7 posts now have unique, optimised meta descriptions
 - ✅ Tags and categories implemented across all content
 - ✅ Complete structured data (BlogPosting, WebSite, Person schemas)
 - ✅ Breadcrumb navigation with schema
 - ✅ Robots.txt guides crawlers properly
-- ✅ Sitemap configuration optimized
+- ✅ Sitemap configuration optimised
 - ✅ Site title fixed (no more duplication)
 
 ### Expected Results

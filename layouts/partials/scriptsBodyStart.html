@@ -44,7 +44,7 @@
     requestAnimationFrame(() => body.classList.remove("notransition"));
 })();
 </script>
-{{/* Load optimized theme-interactive.js with defer for interactive features (theme toggle, menu blur) */}}
+{{/* Load optimised theme-interactive.js with defer for interactive features (theme toggle, menu blur) */}}
 {{/* This version excludes the theme detection code that's already inlined above */}}
 {{ if hugo.IsProduction }}
 {{ $theme_script := resources.Get "js/theme-interactive.js" | minify | fingerprint }}

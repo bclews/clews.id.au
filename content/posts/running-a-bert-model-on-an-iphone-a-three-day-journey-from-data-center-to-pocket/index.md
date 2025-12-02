@@ -2,9 +2,9 @@
 title = 'Running a Bert Model on an iPhone'
 date = 2025-03-03T14:44:48+11:00
 draft = false
-description = "Deploy a BERT-large text classification model on iPhone using Core ML. Journey through ONNX conversion, model distillation, and mobile optimization to bring NLP from data center to pocket."
-categories = ['Machine Learning', 'Tutorials']
-tags = ['bert', 'core-ml', 'onnx', 'ios', 'mobile', 'ml', 'nlp', 'optimization']
+description = "Deploy a BERT-large text classification model on iPhone using Core ML. Journey through ONNX conversion, model distillation, and mobile optimisation to bring NLP from data center to pocket."
+categories = ['Tutorials']
+tags = ['machine-learning', 'tutorial', 'python']
 +++
 
 During our recent Engineering Development Days, a three-day event where we paused regular work to focus on personal growth, I tackled a challenge that was both technically demanding and rewarding. The goal was straightforward yet ambitious: adapt a large pre-trained BERT model, originally designed for GPU-heavy environments, to run efficiently on an iPhone. This was uncharted territory for me, as I had never previously worked with BERT models, Core ML or mobile deployment. The learning curve was steep, yet fun.

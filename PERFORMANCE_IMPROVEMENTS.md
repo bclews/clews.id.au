@@ -1,6 +1,6 @@
 # Performance Improvements Implementation
 
-This document details the frontend performance optimizations implemented based on the recommendations in `FRONTEND_PERFORMANCE_REVIEW.md`.
+This document details the frontend performance optimisations implemented based on the recommendations in `FRONTEND_PERFORMANCE_REVIEW.md`.
 
 ## Implementation Date
 November 13, 2025
@@ -81,7 +81,7 @@ November 13, 2025
 **Reason:**
 - Manual critical CSS implementation caused layout conflicts with theme
 - The aggressive CSS reset broke the theme's carefully crafted styles
-- Theme's CSS is already small (23 KB) and well-optimized
+- Theme's CSS is already small (23 KB) and well-optimised
 - Proper critical CSS extraction requires automated tooling
 
 **Decision:** Removed critical CSS to preserve theme integrity. Future implementation should use automated extraction tools like Critical or PurgeCSS.
@@ -160,7 +160,7 @@ GitHub Pages currently serves gzip but not Brotli. Brotli provides ~10-20% bette
 
 ## Round 2 Optimizations (November 13, 2025)
 
-After reviewing Lighthouse localhost results, additional optimizations were made to address unused JavaScript and configuration issues.
+After reviewing Lighthouse localhost results, additional optimisations were made to address unused JavaScript and configuration issues.
 
 ### 9. ✅ Remove Non-Existent Custom Scripts
 **File:** `hugo.toml`
@@ -189,11 +189,11 @@ After reviewing Lighthouse localhost results, additional optimizations were made
 - Lighthouse detected this as unused JavaScript
 
 **Solution:**
-- Created optimized `theme-interactive.js` with only interactive features:
+- Created optimised `theme-interactive.js` with only interactive features:
   - Theme toggle button event handler
   - Menu blur functionality
   - Removed redundant theme detection code (already inlined)
-- Updated scriptsBodyStart.html to load optimized version
+- Updated scriptsBodyStart.html to load optimised version
 - Added defensive null checks for better error handling
 
 **Impact:**
@@ -212,7 +212,7 @@ After reviewing Lighthouse localhost results, additional optimizations were made
 
 **Findings:**
 - Lighthouse reports 17 KiB unused CSS on localhost
-- Theme CSS bundle is ~23 KB (already small and well-optimized)
+- Theme CSS bundle is ~23 KB (already small and well-optimised)
 - Unused CSS comes from:
   - Dark mode styles when viewing in light mode (or vice versa)
   - Features not used on all pages (TOC, special post styles)
@@ -221,12 +221,12 @@ After reviewing Lighthouse localhost results, additional optimizations were made
 **Decision:**
 - No action taken - CSS size is acceptable
 - Already using conditional loading for code-highlight.css (10 KB savings)
-- Further optimization would require:
+- Further optimisation would require:
   - PurgeCSS integration (complex Hugo setup)
   - CSS splitting by page type (major theme refactoring)
   - Critical CSS (attempted, removed due to conflicts)
 
-**Tradeoff:** 17 KB of unused CSS is acceptable given the theme's simplicity and the complexity of further optimization.
+**Tradeoff:** 17 KB of unused CSS is acceptable given the theme's simplicity and the complexity of further optimisation.
 
 ---
 
@@ -338,10 +338,10 @@ Before/after comparison metrics:
 
 ### Round 2 Improvements
 - ✅ Eliminated non-existent custom script references
-- ✅ Reduced JavaScript duplication (optimized theme-interactive.js)
+- ✅ Reduced JavaScript duplication (optimised theme-interactive.js)
 - ✅ Better Lighthouse unused JavaScript score
 - ✅ Cleaner build process (no suppressed errors)
-- 📊 Documented CSS optimization tradeoffs (no changes needed)
+- 📊 Documented CSS optimisation tradeoffs (no changes needed)
 
 ### Total Expected Improvement
 - **Desktop:** 600ms-1s faster load time
@@ -349,7 +349,7 @@ Before/after comparison metrics:
 - **Repeat Visits:** Minimal change (cache headers not implemented)
 - **Lighthouse Scores:** Improved unused JavaScript metrics
 
-**Note:** Initial estimates included critical CSS benefits (400-800ms FCP improvement). After removing critical CSS due to layout conflicts, overall improvement is more conservative but still significant. Round 2 optimizations focus on reducing unused JavaScript and cleaning up configuration.
+**Note:** Initial estimates included critical CSS benefits (400-800ms FCP improvement). After removing critical CSS due to layout conflicts, overall improvement is more conservative but still significant. Round 2 optimisations focus on reducing unused JavaScript and cleaning up configuration.
 
 ---
 
@@ -369,9 +369,9 @@ All implemented changes are compatible with:
 ### Custom Template Overrides
 
 The following theme templates have been overridden in `layouts/partials/`:
-- `head.html` - Font preload, conditional code CSS, favicon optimization
+- `head.html` - Font preload, conditional code CSS, favicon optimisation
 - `scriptsBodyEnd.html` - JavaScript defer attributes
-- `scriptsBodyStart.html` - Inline theme detection, optimized theme-interactive.js loading
+- `scriptsBodyStart.html` - Inline theme detection, optimised theme-interactive.js loading
 
 The following custom assets have been created in `assets/`:
 - `js/theme-interactive.js` - Optimized theme JavaScript (interactive features only, no duplication)
@@ -427,7 +427,7 @@ git submodule update --remote themes/hugo-blog-awesome
 - [x] Image lazy loading enabled
 - [x] Compression verified (gzip active)
 - [ ] Critical CSS extraction (deferred)
-- [ ] Cache headers optimization (infrastructure)
+- [ ] Cache headers optimisation (infrastructure)
 - [ ] Performance testing with Lighthouse
 - [ ] Production deployment validation
 
