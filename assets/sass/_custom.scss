@@ -9,14 +9,6 @@
  * TIL-specific styling
  */
 
-/* TIL indicator icon */
-.til-indicator {
-  display: inline-block;
-  margin-right: 0.5rem;
-  font-size: 0.9em;
-  opacity: 0.8;
-}
-
 /* TIL card subtle distinction */
 .til-item {
   border-left: 3px solid #FFB86C;
@@ -36,6 +28,8 @@
   border-radius: 3px;
   font-size: 0.85rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Dark mode support */
@@ -47,10 +41,4 @@ html.dark .til-badge {
   html:not(.light) .til-badge {
     background: rgba(255, 184, 108, 0.2);
   }
-}
-
-/* TIL list page header */
-.til-list-page .header-title .til-icon {
-  font-size: 1.2em;
-  margin-right: 0.5rem;
 }

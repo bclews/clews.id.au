@@ -148,7 +148,6 @@ TILs use the same page bundle structure as posts and share the same taxonomies (
 ### Visual Distinctions
 
 TILs have subtle visual cues:
-- 💡 icon prefix on cards and listings
 - Small "TIL" badge on individual pages
 - Orange left border on TIL cards
 
