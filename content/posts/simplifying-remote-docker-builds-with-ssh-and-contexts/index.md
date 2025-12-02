@@ -2,6 +2,9 @@
 title = 'Simplifying Remote Docker Builds With SSH and Contexts'
 date = 2024-12-03T10:03:12+11:00
 draft = false
+description = "Master Docker's SSH integration and context management for seamless remote builds. Eliminate cumbersome workflows and build containers efficiently on remote hosts using your local code."
+categories = ['Tutorials', 'DevOps']
+tags = ['devops', 'tutorial', 'productivity']
 +++
 
 Recently, I’ve been making a conscious effort to eliminate lazy practices from my workflow - the kind of 'temporary' workarounds that sneak in during crunch time and somehow become permanent habits. My latest offender? A convoluted method for building containers on remote machines. Instead of using a branch like any reasonable person (for reasons I can’t even justify), I’d generate a git patch locally, SCP it to the remote machine, apply it there, and then build. It’s the software equivalent of taking the scenic route while ignoring the perfectly good highway right in front of me.

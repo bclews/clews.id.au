@@ -1,4 +1,4 @@
-title = "Ben Clews"
+title = "Ben Clews - Software Engineer"
 baseURL = 'https://clews.id.au/'
 
 # This is what goes in <html lang="">
@@ -10,8 +10,13 @@ defaultContentLanguage = "en-gb"
 # Enable emojis globally
 enableEmoji = true
 
-# traditional way: theme component resides in directory 'themes' 
+# traditional way: theme component resides in directory 'themes'
 theme = "hugo-blog-awesome"
+
+# Enable taxonomies for better content organization and SEO
+[taxonomies]
+tag = "tags"
+category = "categories"
 
 # set markup.highlight.noClasses=false to enable code highlight
 [markup]
@@ -27,6 +32,12 @@ unsafe = true
 startLevel = 2  # ToC starts from H2
 endLevel = 4    # ToC ends at H4
 ordered = false # generates <ul> instead of <ol>
+
+# Enhanced sitemap configuration for better SEO
+[sitemap]
+changefreq = "weekly"
+filename = "sitemap.xml"
+priority = 0.5
 
 # Allow to override `browserconfig.xml` params (configuration for windows embedded browsers)
 [params.browserconfig]
@@ -80,12 +91,12 @@ defaultColor = "light" # set color mode: dark, light, auto
 # Setting it to 'auto' applies the color scheme based on the visitor's device color preference.If you don't specify anything, ignore this parameter, or leave it blank,
 # the default value is set to 'auto'.
 # You can take a look at layouts/index.html for more information.
-description = "Blog"
+description = "Software engineering insights from a software engineer in Hobart. Practical guides on Kubernetes, Docker, Python, Rust, machine learning, and pragmatic development from the trenches."
 mainSections = ['posts']
-toc = false        # set to false to disable table of contents 'globally'
-tocOpen = false    # set to true to open table of contents by default
-goToTop = true     # set to false to disable 'go to top' button
-dateFormat = ""    # date format used to show dates on various pages. If nothing is specified, then "2 Jan 2006" format is used.
+toc = false                                                                                                                                                                                            # set to false to disable table of contents 'globally'
+tocOpen = false                                                                                                                                                                                        # set to true to open table of contents by default
+goToTop = true                                                                                                                                                                                         # set to false to disable 'go to top' button
+dateFormat = ""                                                                                                                                                                                        # date format used to show dates on various pages. If nothing is specified, then "2 Jan 2006" format is used.
 # See https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference for available date formats.
 rssFeedDescription = "summary" # available options: 1) summary 2) full
 # summary - includes a short summary of the blog post in the RSS feed. Generated using Hugo .Summary .
@@ -101,6 +112,12 @@ avatar = "avatar.jpg" # put the file in assets folder; also ensure that image ha
 intro = "Ben Clews"
 name = "Ben Clews"
 description = "Cloud Native Software Engineer in Hobart, Tasmania."
+jobTitle = "Software Engineer"
+worksFor = "CSIRO Data61"
+location = "Hobart, Tasmania, Australia"
+github = "https://github.com/bclews"
+linkedin = "https://www.linkedin.com/in/clews/"
+bluesky = "https://bsky.app/profile/clews.id.au"
 
 # Allow to override webmanifest options
 [Languages.en-gb.params.webmanifest]

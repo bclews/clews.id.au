@@ -1,0 +1,26 @@
+{{/* Website Schema for homepage */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ $.Site.Title }}",
+  "description": "{{ $.Site.Params.description }}",
+  "url": "{{ $.Site.BaseURL }}",
+  "inLanguage": "{{ $.Site.LanguageCode }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ $.Site.Params.author.name }}",
+    "url": "{{ $.Site.BaseURL }}about/",
+    "jobTitle": "{{ $.Site.Params.author.jobTitle }}",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "{{ $.Site.Params.author.worksFor }}"
+    },
+    "sameAs": [
+      "{{ $.Site.Params.author.github }}",
+      "{{ $.Site.Params.author.linkedin }}",
+      "{{ $.Site.Params.author.bluesky }}"
+    ]
+  }
+}
+</script>

@@ -2,6 +2,9 @@
 title = 'Taming the Noise: Decoding Kubernetes Logs for Humans'
 date = 2024-11-29T15:38:16+11:00
 draft = false
+description = "Build an intelligent Kubernetes log analyzer using Go's concurrency and LLMs. Learn how to process massive log volumes efficiently and extract actionable insights from noisy cluster data."
+categories = ['Software Engineering', 'DevOps']
+tags = ['go', 'devops', 'machine-learning']
 +++
 
 Some projects emerge from necessity, others from curiosity. [Hallucino](https://github.com/bclews/hallucino), my Kubernetes log analyser, came from a rare chance to set aside deadlines, deliverables, and sprint boards in favour of learning and exploration. During an *Engineering Development Day* event - a two-day pause to focus on personal growth - I dove into the challenge of crafting an *"intelligent"* tool that could make sense of the noisy, chaotic world of Kubernetes logs.

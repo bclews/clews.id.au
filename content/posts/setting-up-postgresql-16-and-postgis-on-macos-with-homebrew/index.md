@@ -2,6 +2,9 @@
 title = 'Setting Up Postgresql 16 and Postgis on Macos With Homebrew'
 date = 2025-02-03T15:42:42+11:00
 draft = false
+description = "Complete guide to installing PostgreSQL 16 with PostGIS on macOS using Homebrew. Navigate dependency conflicts, compile from source, and get your spatial database running on M1/M2 Macs."
+categories = ['Tutorials']
+tags = ['databases', 'tutorial', 'tools']
 +++
 Recently, I needed to install PostgreSQL 16 with PostGIS on my MacBook M1 Pro (running macOS 15.2), and what I assumed would be a quick `brew install postgis` turned into a tedious debugging session.
 

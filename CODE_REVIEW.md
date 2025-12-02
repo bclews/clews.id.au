@@ -241,7 +241,7 @@ build: check-hugo clean
 **Observation:** 8 posts, only 1 image total across all posts
 
 **Consideration:** If you plan to use more images, consider:
-- Image optimization pipeline
+- Image optimisation pipeline
 - Responsive image generation
 - WebP conversion
 

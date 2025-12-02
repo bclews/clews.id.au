@@ -2,6 +2,9 @@
 title = 'Cancelled Projects and the Art of Strategic Indifference'
 date = 2025-09-24T15:57:32+11:00
 draft = false
+description = "Handle cancelled software projects without burning out. Learn emotional triage strategies, salvage lessons from failures, and build professional resilience as an experienced engineer."
+categories = ['Career and Reflection']
+tags = ['career', 'productivity']
 +++
 
 There's a moment every software engineer will eventually face: the project you've poured months into gets shanked. Quietly. In a backroom meeting. Dead. Done. Dusted. Over. Finito.
