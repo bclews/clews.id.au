@@ -1,3 +1,4 @@
+<div class="recent-tils-section">
 <h3 class="posts-item-note" aria-label="Recent TILs">Today I Learned</h3>
 {{/* Show last 5 TILs in reverse date order */}}
 {{ $tils := where .Site.RegularPages "Type" "til" }}
@@ -10,3 +11,4 @@
     <a href="/til/">See all TILs</a>
 </p>
 {{ end }}
+</div>
