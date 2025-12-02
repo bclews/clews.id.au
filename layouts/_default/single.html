@@ -54,14 +54,37 @@
                 display: inline-block;
                 margin: 0.25rem;
                 padding: 0.25rem 0.75rem;
-                background: var(--tag-bg-color, #f0f0f0);
+                background: rgba(0, 0, 0, 0.05);
                 border-radius: 3px;
                 text-decoration: none;
-                color: var(--link-color);
+                color: inherit;
                 transition: background 0.2s;
             }
             .post-categories a:hover, .post-tags a:hover {
-                background: var(--tag-hover-bg-color, #e0e0e0);
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            /* Dark mode support */
+            html.dark .post-categories a,
+            html.dark .post-tags a {
+                background: rgba(255, 255, 255, 0.1);
+                color: inherit;
+            }
+            html.dark .post-categories a:hover,
+            html.dark .post-tags a:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            @media (prefers-color-scheme: dark) {
+                html:not(.light) .post-categories a,
+                html:not(.light) .post-tags a {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: inherit;
+                }
+                html:not(.light) .post-categories a:hover,
+                html:not(.light) .post-tags a:hover {
+                    background: rgba(255, 255, 255, 0.15);
+                }
             }
             </style>
             {{ end }}
