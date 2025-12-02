@@ -1,0 +1,92 @@
+{{ define "main" }}
+<div class="wrapper post til-post">
+    <main id="main-content" class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">{{ .Title }}</h1>
+                {{ $configDateFormat := .Site.Params.dateFormat | default ":date_medium" }}
+                {{ with .Date }}
+                {{ $ISO_time := dateFormat "2006-01-02T15:04:05-07:00" . }}
+                <div class="post-meta">
+                    <time datetime="{{ $ISO_time }}" itemprop="datePublished"> {{ . | time.Format $configDateFormat }} </time>
+                    {{ with $.ReadingTime }}
+                    <span class="reading-time" aria-label="Estimated reading time">{{ . }} min read</span>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </header>
+            {{ partial "toc.html" .}}
+            <div class="page-content">
+                {{ .Content }}
+            </div>
+            {{ if or .Params.tags .Params.categories }}
+            <footer class="post-footer">
+                {{ with .Params.categories }}
+                <div class="post-categories">
+                    <strong>Categories:</strong>
+                    {{ range . }}
+                    <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}/" rel="category tag">{{ . }}</a>
+                    {{ end }}
+                </div>
+                {{ end }}
+                {{ with .Params.tags }}
+                <div class="post-tags">
+                    <strong>Tags:</strong>
+                    {{ range . }}
+                    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/" rel="tag">{{ . }}</a>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </footer>
+            <style>
+            .post-footer {
+                margin-top: 2rem;
+                padding-top: 1rem;
+                border-top: 1px solid var(--border-color);
+            }
+            .post-categories, .post-tags {
+                margin: 0.5rem 0;
+                font-size: 0.9rem;
+            }
+            .post-categories a, .post-tags a {
+                display: inline-block;
+                margin: 0.25rem;
+                padding: 0.25rem 0.75rem;
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 3px;
+                text-decoration: none;
+                color: inherit;
+                transition: background 0.2s;
+            }
+            .post-categories a:hover, .post-tags a:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            html.dark .post-categories a,
+            html.dark .post-tags a {
+                background: rgba(255, 255, 255, 0.1);
+                color: inherit;
+            }
+            html.dark .post-categories a:hover,
+            html.dark .post-tags a:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            @media (prefers-color-scheme: dark) {
+                html:not(.light) .post-categories a,
+                html:not(.light) .post-tags a {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: inherit;
+                }
+                html:not(.light) .post-categories a:hover,
+                html:not(.light) .post-tags a:hover {
+                    background: rgba(255, 255, 255, 0.15);
+                }
+            }
+            </style>
+            {{ end }}
+        </article>
+        {{- partial "comments.html" . -}}
+    </main>
+</div>
+{{ end }}

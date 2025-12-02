@@ -122,6 +122,30 @@ Custom layouts in the `layouts/` directory override theme defaults:
 5. Set `draft = false` when ready to publish
 6. Commit and push to main branch to deploy
 
+## TIL (Today I Learned) Section
+
+The site includes a TIL section for quick, informal learning notes following Simon Willison's TIL philosophy.
+
+### Creating TILs
+
+```bash
+make til title="My Learning"
+# Creates: content/til/my-learning/index.md
+```
+
+### TIL vs Posts
+
+- **Posts**: Long-form articles, tutorials, deep dives (typically 5+ min read)
+- **TILs**: Quick learnings, gotchas, small discoveries (typically < 5 min read)
+
+### Structure
+
+TILs use the same page bundle structure as posts and share the same taxonomies (tags/categories). They appear:
+- On homepage in separate "Today I Learned" section
+- At `/til/` for all TILs
+- On tag/category pages alongside posts
+- Styled identically to posts
+
 ## Notes
 
 - Hugo extended version is required (for SCSS processing)
