@@ -4,3 +4,53 @@
  */
 
 @import "accessibility";
+
+/**
+ * TIL-specific styling
+ */
+
+/* TIL indicator icon */
+.til-indicator {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+/* TIL card subtle distinction */
+.til-item {
+  border-left: 3px solid #FFB86C;
+  padding-left: 0.75rem;
+}
+
+/* TIL badge on single pages */
+.content-type-badge {
+  margin-bottom: 0.5rem;
+}
+
+.til-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 184, 108, 0.15);
+  color: var(--text-color);
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Dark mode support */
+html.dark .til-badge {
+  background: rgba(255, 184, 108, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .til-badge {
+    background: rgba(255, 184, 108, 0.2);
+  }
+}
+
+/* TIL list page header */
+.til-list-page .header-title .til-icon {
+  font-size: 1.2em;
+  margin-right: 0.5rem;
+}
