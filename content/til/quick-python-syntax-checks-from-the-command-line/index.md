@@ -7,7 +7,8 @@ categories = ['Tools']
 tags = ['python', 'cli', 'testing']
 +++
 
-Today I learned a super handy trick to check Python syntax without running your code. Perfect for catching errors early!
+Today I learned a super handy trick to check Python syntax without running your
+code. Perfect for catching errors early!
 
 ## From the Command Line
 
@@ -26,8 +27,10 @@ python3 -m py_compile src/app/server.wsgi && echo "💡 server.wsgi syntax is va
 ## How it Works
 
 - `python3 -m py_compile <file>` attempts to compile the file to bytecode (.pyc)
-- If compilation succeeds, the command after `&&` runs (our little "syntax is good" message)
-- If there's a syntax error, Python prints the error and the success message won't appear
+- If compilation succeeds, the command after `&&` runs (our little "syntax is
+  good" message)
+- If there's a syntax error, Python prints the error and the success message
+  won't appear
 
 ## Programmatic Usage
 
@@ -43,6 +46,8 @@ except py_compile.PyCompileError as e:
     print(f"❌ Syntax error: {e.msg}")
 ```
 
-This is a super lightweight way to sanity-check code, add to CI pipelines, or run in pre-commit hooks, without ever executing the script!
+This is a super lightweight way to sanity-check code, add to CI pipelines, or
+run in pre-commit hooks, without ever executing the script.
 
-More info: [py_compile documentation](https://docs.python.org/3/library/py_compile.html)
+More info:
+[py_compile documentation](https://docs.python.org/3/library/py_compile.html)
