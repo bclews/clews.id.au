@@ -162,7 +162,7 @@ Categories provide high-level organization for blog content. Unlike tags (which 
 
 **1. Software Engineering**
 - **Use for:** Technical deep-dives, systems programming, architecture discussions, engineering practices
-- **Examples:** CHIP-8 emulator series, Kubernetes log analyzer, technical implementation posts
+- **Examples:** CHIP-8 emulator series, Kubernetes log analyser, technical implementation posts
 - **Replaces:** "Development" (merged into this category)
 
 **2. Tutorials**

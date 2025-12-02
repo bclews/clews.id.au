@@ -2,7 +2,7 @@
 title = 'Taming the Noise: Decoding Kubernetes Logs for Humans'
 date = 2024-11-29T15:38:16+11:00
 draft = false
-description = "Build an intelligent Kubernetes log analyzer using Go's concurrency and LLMs. Learn how to process massive log volumes efficiently and extract actionable insights from noisy cluster data."
+description = "Build an intelligent Kubernetes log analyser using Go's concurrency and LLMs. Learn how to process massive log volumes efficiently and extract actionable insights from noisy cluster data."
 categories = ['Software Engineering', 'DevOps']
 tags = ['go', 'devops', 'machine-learning']
 +++

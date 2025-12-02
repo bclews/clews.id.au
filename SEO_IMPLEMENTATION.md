@@ -403,7 +403,7 @@ tags = ['tech1', 'tech2', 'topic1', 'topic2', 'topic3']
 
 **Good:**
 ```
-/posts/kubernetes-log-analyzer/
+/posts/kubernetes-log-analyser/
 /posts/docker-ssh-contexts/
 /posts/postgresql-macos-setup/
 ```

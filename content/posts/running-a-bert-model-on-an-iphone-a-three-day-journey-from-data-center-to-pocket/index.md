@@ -289,7 +289,7 @@ struct ContentView: View {
     @State private var showRawData: Bool = false
     // ...
 
-    private func analyzeText() {
+    private func analyseText() {
         // ... background task to prevent UI freezing ...
         do {
             let result = try classifier?.classify(text: inputText)
