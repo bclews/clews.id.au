@@ -14,7 +14,7 @@
   },
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "{{ (split $.Site.Params.author.location ",") | first | strings.TrimSpace }}",
+    "addressLocality": "{{ index (split $.Site.Params.author.location ",") 0 | strings.TrimSpace }}",
     "addressRegion": "{{ index (split $.Site.Params.author.location ",") 1 | strings.TrimSpace }}",
     "addressCountry": "{{ index (split $.Site.Params.author.location ",") 2 | strings.TrimSpace }}"
   },
