@@ -144,12 +144,7 @@ TILs use the same page bundle structure as posts and share the same taxonomies (
 - On homepage in separate "Today I Learned" section
 - At `/til/` for all TILs
 - On tag/category pages alongside posts
-
-### Visual Distinctions
-
-TILs have subtle visual cues:
-- Small "TIL" badge on individual pages
-- Orange left border on TIL cards
+- Styled identically to posts
 
 ## Notes
 
