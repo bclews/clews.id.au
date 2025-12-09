@@ -3,8 +3,8 @@ title = 'Monotonic Stacks'
 date = 2025-12-04T10:10:20+11:00
 draft = false
 description = ""
-categories = []
-tags = []
+categories = ['Software Engineering']
+tags = ['rust', 'algorithms', 'learning']
 +++
 
 This is more of a "Today I Remembered"...
