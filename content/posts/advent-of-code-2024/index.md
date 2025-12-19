@@ -122,7 +122,9 @@ real, but the payoff was worth it.
 
 Against all odds, I finished all 25 challenges:
 
-![The Advent of Code 2024 completion screen, featuring a festive, pixel-art Christmas scene unlocked after solving all 25 puzzles.](advent_of_code_2024.gif)
+<video autoplay loop muted playsinline style="width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto;">
+  <source src="advent_2024.mp4" type="video/mp4">
+</video>
 
 What started as a _fuck it, let’s go!_ experiment turned into a month-long
 journey of frustration, discovery, and triumph. Sure, I leaned on LLMs more than
