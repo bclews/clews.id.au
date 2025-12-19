@@ -1,7 +1,7 @@
 +++
 title = 'Advent of Code 2025: A Rust-Flavored Journey'
 date = 2025-12-19T09:28:22+11:00
-draft = true
+draft = false
 tags = ['rust', 'algorithms', 'learning']
 categories = ['Software Engineering', 'Career and Reflection']
 +++
