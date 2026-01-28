@@ -438,7 +438,7 @@ hundred tutorials. The struggle was the point.
 ---
 
 The code is on GitHub:
-[github.com/bclews/chip8](https://github.com/bclews/chip8)
+[github.com/bclews/CHIP-8](https://github.com/bclews/CHIP-8)
 
 ---
 
