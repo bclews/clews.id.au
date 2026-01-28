@@ -147,6 +147,14 @@ The result is a complete CHIP-8 emulator in Rust:
 
 Games run. Pong works. Space Invaders works. The buzzer buzzes.
 
+<video autoplay loop muted playsinline style="width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto;">
+  <source src="space-invaders.mp4" type="video/mp4">
+</video>
+
+<video autoplay loop muted playsinline style="width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto;">
+  <source src="breakout.mp4" type="video/mp4">
+</video>
+
 ---
 
 In [Part 2](/posts/chip-8-lessons-learned/), I'll dig into what Rust actually
