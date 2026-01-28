@@ -1,7 +1,7 @@
 +++
 title = "I Built a CHIP-8 Emulator to Learn Rust"
 date = 2025-11-20T10:00:00+11:00
-draft = true
+draft = false
 tags = ["rust", "systems-programming", "llm", "learning"]
 categories = ["Software Engineering"]
 series = ["CHIP-8 Emulator in Rust"]
@@ -35,10 +35,10 @@ fucking todo app.
 I used to geek-out over microprocessors, limited resources, how things actually
 worked at the hardware level. For fun! Then my career happened.
 
-Somewhere in there, middle management snuck in. Years of meetings and Jira tickets. 
-_Fucking_ Jira. My brain atrophied. The parts that
-used to think about memory layout and register operations got replaced with
-parts that think about sprint velocity and stakeholder alignment.
+Somewhere in there, middle management snuck in. Years of meetings and Jira
+tickets. _Fucking_ Jira. My brain atrophied. The parts that used to think about
+memory layout and register operations got replaced with parts that think about
+sprint velocity and stakeholder alignment.
 
 Revenge bedtime procrastination led me to
 [r/EmuDev](https://www.reddit.com/r/EmuDev/), and I fell down a rabbit hole.
@@ -94,8 +94,7 @@ Here's how I actually used it:
 I loaded CHIP-8 specification documents into Claude and used it to fill
 knowledge gaps. It had been a long time since I'd thought about low-level
 microprocessor details—opcodes, registers, memory layouts. The LLM helped me
-explore interesting tangents without having to context-switch to Stack
-Overflow.
+explore interesting tangents without having to context-switch to Stack Overflow.
 
 ### Planning and Architecture
 

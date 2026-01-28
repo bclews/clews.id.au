@@ -1,7 +1,7 @@
 +++
 title = "What Rust Actually Taught Me"
 date = 2025-11-27T10:00:00+11:00
-draft = true
+draft = false
 tags = ["rust", "systems-programming", "architecture", "learning"]
 categories = ["Software Engineering"]
 series = ["CHIP-8 Emulator in Rust"]
