@@ -58,6 +58,6 @@
   {{ with .Params.categories }}
   "articleSection": "{{ index . 0 }}",
   {{ end }}
-  "inLanguage": "{{ $.Site.LanguageCode }}"
+  "inLanguage": "{{ $.Site.Language.Locale }}"
 }
 </script>

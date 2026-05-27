@@ -2,7 +2,7 @@ title = "Ben Clews - Software Engineer"
 baseURL = 'https://clews.id.au/'
 
 # This is what goes in <html lang="">
-languageCode = 'en-gb'
+locale = 'en-gb'
 
 # This defines how dates are formatted
 defaultContentLanguage = "en-gb"
@@ -61,8 +61,8 @@ url = "/index.xml"
 
 ############################## English language ################################
 [Languages.en-gb]
-languageName = "English"
-languageCode = "en-gb"
+label = "English"
+locale = "en-gb"
 contentDir = "content"
 weight = 1
 
@@ -101,7 +101,8 @@ mainSections = ['posts', 'til']
 toc = false                                                                                                                                                                                            # set to false to disable table of contents 'globally'
 tocOpen = false                                                                                                                                                                                        # set to true to open table of contents by default
 goToTop = true                                                                                                                                                                                         # set to false to disable 'go to top' button
-dateFormat = ""                                                                                                                                                                                        # date format used to show dates on various pages. If nothing is specified, then "2 Jan 2006" format is used.
+dateFormat = "2 Jan 2006"                                                                                                                                                                              # rendered via Go-native .Date.Format in postCard/tilCard/single templates (en-gb time.Format drops abbreviated months).
+
 # See https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference for available date formats.
 rssFeedDescription = "summary" # available options: 1) summary 2) full
 # summary - includes a short summary of the blog post in the RSS feed. Generated using Hugo .Summary .
