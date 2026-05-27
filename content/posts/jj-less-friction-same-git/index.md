@@ -1,10 +1,10 @@
 +++
-title = 'jj: less friction, same Git'
+title = 'Jujutsu: less friction, same Git'
 date = 2026-04-24T12:51:27+10:00
 draft = false
 description = "A tour of Jujutsu (jj), a Git-compatible VCS that replaces the staging area with a commit-based working copy and stable change IDs."
 categories = ['Software Engineering']
-tags = ['tools', 'productivity', 'rust']
+tags = ['jujutsu', 'git', 'tools', 'productivity', 'rust']
 +++
 
 Jujutsu has been frequently turning up in my feeds over the past year. Always
