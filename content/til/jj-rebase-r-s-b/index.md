@@ -1,7 +1,7 @@
 +++
 title = "Jujutsu's rebase Has Three Different \"Move\" Verbs"
 date = 2026-05-11T11:00:00+10:00
-draft = true
+draft = false
 description = "jj rebase makes you say which chain to move: -r is a single commit, -s is the subtree, -b is the whole branch. The Git default maps to -s, not -r."
 categories = ['Software Engineering']
 tags = ['jujutsu', 'git', 'tools']

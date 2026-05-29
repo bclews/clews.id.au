@@ -1,7 +1,7 @@
 +++
 title = 'Jujutsu Has No git reset --hard: What to Use Instead'
 date = 2026-05-03T10:00:00+10:00
-draft = true
+draft = false
 description = "Git's reset --hard maps to several different jj verbs depending on whether you want to discard edits, drop a commit, or undo an operation."
 categories = ['Software Engineering']
 tags = ['jujutsu', 'git', 'tools']

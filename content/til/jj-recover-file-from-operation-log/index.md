@@ -1,7 +1,7 @@
 +++
 title = "Recovering a Single File from Jujutsu's Operation Log"
 date = 2026-05-19T11:15:00+10:00
-draft = true
+draft = false
 description = "jj --at-op file show reads a file as it existed at any past operation and prints it to stdout, without touching current state: surgical recovery that op restore can't do."
 categories = ['Software Engineering']
 tags = ['jujutsu', 'git', 'tools']

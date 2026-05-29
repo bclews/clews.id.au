@@ -1,7 +1,7 @@
 +++
 title = 'Creating Patches in a Colocated Jujutsu Repo'
 date = 2026-05-27T11:30:00+10:00
-draft = true
+draft = false
 description = "jj diff --git covers single combined patches; git format-patch covers mbox-per-commit. In colocated mode you reach for whichever fits, plus a sed pass to anonymise before sharing."
 categories = ['Software Engineering']
 tags = ['jujutsu', 'git', 'tools']
