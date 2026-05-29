@@ -1,7 +1,7 @@
 +++
 title = 'Jujutsu in colocated mode: where Git shows through'
 date = 2026-05-27T09:00:00+10:00
-draft = true
+draft = false
 description = "Living in jj's colocated mode for real work: the seams where Git and jj describe the same repository differently, why each looks alarming the first time, and why none of them is a problem."
 categories = ['Software Engineering']
 tags = ['jujutsu', 'git', 'tools']
