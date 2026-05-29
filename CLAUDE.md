@@ -36,8 +36,14 @@ hugo --baseURL="https://clews.id.au" --minify  # Build for production
 ├── themes/             # Hugo theme (git submodule)
 │   └── hugo-blog-awesome/
 ├── assets/             # Custom assets (avatar.jpg)
-├── layouts/            # Custom layout overrides (currently empty)
+├── layouts/            # Custom layout overrides
+│   ├── _default/       # Default page templates
+│   ├── about/          # About page customizations
+│   ├── partials/       # Reusable template components
+│   └── index.html      # Homepage template
 ├── static/             # Static files copied directly to public/
+│   ├── CNAME           # GitHub Pages custom domain configuration
+│   └── robots.txt      # Search engine crawler instructions
 ├── public/             # Generated site (ignored by git)
 ├── hugo.toml           # Hugo configuration
 └── Makefile            # Development commands
@@ -51,7 +57,11 @@ The site is configured in `hugo.toml`:
 - Main sections: posts
 - Navigation: Home, Posts, About
 - Social links: GitHub, BlueSky, LinkedIn, RSS
+- Taxonomies: Tags and categories enabled for content organization
+- SEO: Enhanced sitemap configuration, structured metadata, descriptive meta tags
+- Accessibility: Custom accessibility scripts included
 - Markdown features: Table of contents (H2-H4), syntax highlighting, unsafe HTML enabled
+- Author metadata: Job title, employer, location, social profiles
 
 ## Content Management
 
@@ -97,7 +107,11 @@ The site uses hugo-blog-awesome theme as a git submodule. To update the theme:
 git submodule update --remote themes/hugo-blog-awesome
 ```
 
-Custom layouts can be added to `layouts/` directory to override theme defaults. Currently no custom layouts are in use.
+Custom layouts in the `layouts/` directory override theme defaults:
+- `layouts/index.html` - Custom homepage template
+- `layouts/_default/` - Default page templates
+- `layouts/about/` - About page customizations
+- `layouts/partials/` - Reusable template components (head, footer, etc.)
 
 ## Local Development Workflow
 
@@ -108,6 +122,30 @@ Custom layouts can be added to `layouts/` directory to override theme defaults. 
 5. Set `draft = false` when ready to publish
 6. Commit and push to main branch to deploy
 
+## TIL (Today I Learned) Section
+
+The site includes a TIL section for quick, informal learning notes following Simon Willison's TIL philosophy.
+
+### Creating TILs
+
+```bash
+make til title="My Learning"
+# Creates: content/til/my-learning/index.md
+```
+
+### TIL vs Posts
+
+- **Posts**: Long-form articles, tutorials, deep dives (typically 5+ min read)
+- **TILs**: Quick learnings, gotchas, small discoveries (typically < 5 min read)
+
+### Structure
+
+TILs use the same page bundle structure as posts and share the same taxonomies (tags/categories). They appear:
+- On homepage in separate "Today I Learned" section
+- At `/til/` for all TILs
+- On tag/category pages alongside posts
+- Styled identically to posts
+
 ## Notes
 
 - Hugo extended version is required (for SCSS processing)
@@ -115,3 +153,7 @@ Custom layouts can be added to `layouts/` directory to override theme defaults. 
 - Table of contents can be enabled per-post or globally via hugo.toml
 - Syntax highlighting uses Chroma with custom CSS classes
 - The theme expects an avatar image at `assets/avatar.jpg`
+- Custom domain configured via `static/CNAME` file
+- SEO optimizations include sitemap, robots.txt, and structured metadata
+- Accessibility enhancements via custom JavaScript in static assets
+- **Security Note**: `unsafe = true` is enabled in markdown configuration to allow HTML. This is acceptable for single-author content but should be reviewed if accepting external contributions.

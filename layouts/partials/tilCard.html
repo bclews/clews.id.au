@@ -1,0 +1,11 @@
+<article class="post-item">
+    <h4 class="post-item-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h4>
+    {{ $ISO_date := "2006-01-02T15:04:05Z0700" }}
+    {{ $configDateFormat := .Site.Params.dateFormat | default "2 Jan 2006" }}
+    <time class="post-item-meta" datetime="{{ dateFormat $ISO_date .Date }}">
+        {{/* Go-native .Date.Format (see postCard.html): en-gb time.Format drops abbreviated months. */}}
+        {{ .Date.Format $configDateFormat }}
+    </time>
+</article>

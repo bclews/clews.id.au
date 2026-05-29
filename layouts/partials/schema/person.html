@@ -1,0 +1,38 @@
+{{/* Person Schema for About page */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ $.Site.Params.author.name }}",
+  "url": "{{ $.Site.BaseURL }}about/",
+  "image": "{{ (resources.Get (printf "/%s" $.Site.Params.author.avatar)).Permalink }}",
+  "jobTitle": "{{ $.Site.Params.author.jobTitle }}",
+  "description": "{{ $.Site.Params.author.description }}",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "{{ $.Site.Params.author.worksFor }}"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{ index (split $.Site.Params.author.location ",") 0 | strings.TrimSpace }}",
+    "addressRegion": "{{ index (split $.Site.Params.author.location ",") 1 | strings.TrimSpace }}",
+    "addressCountry": "{{ index (split $.Site.Params.author.location ",") 2 | strings.TrimSpace }}"
+  },
+  "sameAs": [
+    "{{ $.Site.Params.author.github }}",
+    "{{ $.Site.Params.author.linkedin }}",
+    "{{ $.Site.Params.author.bluesky }}"
+  ],
+  "knowsAbout": [
+    "Kubernetes",
+    "Docker",
+    "Python",
+    "Rust",
+    "Go",
+    "Cloud Computing",
+    "DevOps",
+    "Machine Learning",
+    "Software Engineering"
+  ]
+}
+</script>

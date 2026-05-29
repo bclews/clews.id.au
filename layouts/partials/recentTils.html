@@ -1,0 +1,14 @@
+<div class="recent-tils-section">
+<h3 class="posts-item-note" aria-label="Recent TILs">Today I Learned</h3>
+{{/* Show last 5 TILs in reverse date order */}}
+{{ $tils := where .Site.RegularPages "Type" "til" }}
+{{ $tils = $tils.ByDate.Reverse }}
+{{ range first 5 $tils }}
+{{ partial "tilCard" . }}
+{{ end }}
+{{ if gt (len $tils) 5 }}
+<p>
+    <a href="/til/">See all TILs</a>
+</p>
+{{ end }}
+</div>

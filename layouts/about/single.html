@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="wrapper post">
+    <main id="main-content" class="page-content" aria-label="Content">
+        {{/* Add Person schema for about page */}}
+        {{ partial "schema/person.html" . }}
+
+        <article>
+            <header class="header">
+                <h1 class="header-title">{{ .Title }}</h1>
+            </header>
+            <div class="page-content">
+                {{ .Content }}
+            </div>
+        </article>
+    </main>
+</div>
+{{ end }}

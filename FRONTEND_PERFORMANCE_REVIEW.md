@@ -6,9 +6,9 @@
 **Site:** https://clews.id.au
 **Overall Score: 7/10**
 
-This Hugo blog delivers excellent baseline performance with minimal JavaScript and small bundle sizes. However, there are several low-hanging optimizations that could significantly improve loading speed, particularly for mobile users and those on slower connections.
+This Hugo blog delivers excellent baseline performance with minimal JavaScript and small bundle sizes. However, there are several low-hanging optimisations that could significantly improve loading speed, particularly for mobile users and those on slower connections.
 
-**Note:** This review has been validated and corrected. One false positive has been identified and corrected (font-display already exists), severity ratings have been adjusted, and additional context about existing Hugo optimizations has been added.
+**Note:** This review has been validated and corrected. One false positive has been identified and corrected (font-display already exists), severity ratings have been adjusted, and additional context about existing Hugo optimisations has been added.
 
 ---
 
@@ -186,7 +186,7 @@ cache-control: max-age=600  (10 minutes)
 **Current Status:**
 - Font loaded via CSS `@font-face` ✅
 - **`font-display: swap` already implemented** ✅ (prevents FOIT)
-- No preload hint ❌ (only remaining optimization)
+- No preload hint ❌ (only remaining optimisation)
 
 **Actual CSS in theme:**
 ```css
@@ -393,7 +393,7 @@ Content-Security-Policy:
 ### 15. **JavaScript is Too Small to Matter**
 **Analysis:** 1.4 KB total JavaScript is negligible
 
-**Verdict:** Further JS optimization would be over-engineering
+**Verdict:** Further JS optimisation would be over-engineering
 
 **Keep as-is:** Current approach is excellent
 
@@ -446,7 +446,7 @@ These files don't exist, causing silent build errors (suppressed by `ignoreError
 
 **Note:** GitHub Pages supports HTTP/2, which means:
 - Multiple small files are less problematic than with HTTP/1.1
-- Request count optimization has diminishing returns
+- Request count optimisation has diminishing returns
 - Concatenation benefits may be overstated in the review
 
 **Context:** Some recommendations about reducing requests may have less impact than estimated due to HTTP/2 multiplexing. However, reducing total bytes transferred is still valuable.
@@ -470,7 +470,7 @@ These files don't exist, causing silent build errors (suppressed by `ignoreError
 
 **Additional Hugo Optimizations Already Implemented:**
 11. **SRI (Subresource Integrity) hashes** - Production builds include integrity hashes for security
-12. **Environment-aware builds** - Different optimizations for dev vs production
+12. **Environment-aware builds** - Different optimisations for dev vs production
 13. **Font-display: swap already implemented** - Prevents FOIT (Flash of Invisible Text)
 14. **Conditional resource loading** - goToTop.js only loads when enabled (example of feature-based loading)
 15. **Hugo asset pipeline** - SCSS compilation, minification, and fingerprinting automated
@@ -480,7 +480,7 @@ These files don't exist, causing silent build errors (suppressed by `ignoreError
 ### Areas for Improvement 🔧
 
 1. **Resource loading strategy** - Everything is eager-loaded
-2. **Critical rendering path** - No optimization for first paint
+2. **Critical rendering path** - No optimisation for first paint
 3. **Cache headers** - Underutilized for static assets
 4. **Resource hints** - Missing preload/preconnect
 5. **Font loading** - Causes FOIT without `font-display`
@@ -570,20 +570,20 @@ Compared to typical Hugo blogs:
 - **Requests:** ⭐⭐⭐⭐⭐ Top 5% (most make 20-40 requests)
 - **JavaScript:** ⭐⭐⭐⭐⭐ Top 1% (most use 50-100 KB)
 
-**Verdict:** Already significantly faster than average. The recommended optimizations would move it into the top 5% of all static sites.
+**Verdict:** Already significantly faster than average. The recommended optimisations would move it into the top 5% of all static sites.
 
 ---
 
 ## Conclusion
 
-**Current state:** Fast, lean, well-architected blog with excellent fundamentals and several optimizations already in place.
+**Current state:** Fast, lean, well-architected blog with excellent fundamentals and several optimisations already in place.
 
 **Primary limitation:** Render-blocking resources prevent optimal First Contentful Paint.
 
 **Biggest opportunity:** Cache strategy improvement would dramatically improve repeat visits.
 
-**Validation findings:** One false positive was identified (font-display already exists), and several Hugo-specific optimizations are already implemented (SRI hashes, fingerprinting, environment-aware builds). The site is actually better optimized than initially assessed.
+**Validation findings:** One false positive was identified (font-display already exists), and several Hugo-specific optimisations are already implemented (SRI hashes, fingerprinting, environment-aware builds). The site is actually better optimised than initially assessed.
 
-**Overall:** This is a high-quality frontend implementation. The issues identified are optimizations rather than problems. With 3-5 hours of work (reduced from original 4-6 hours due to existing optimizations), this site could achieve near-perfect performance scores while maintaining its simplicity and maintainability.
+**Overall:** This is a high-quality frontend implementation. The issues identified are optimisations rather than problems. With 3-5 hours of work (reduced from original 4-6 hours due to existing optimisations), this site could achieve near-perfect performance scores while maintaining its simplicity and maintainability.
 
 The codebase demonstrates excellent restraint - no unnecessary JavaScript frameworks, no analytics bloat, no third-party dependencies, and effective use of Hugo's asset pipeline. This is how modern static sites should be built.

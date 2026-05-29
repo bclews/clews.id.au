@@ -17,6 +17,7 @@ help:
 	@echo "  make drafts     - Serve the site including draft posts"
 	@echo "  make clean      - Remove generated files"
 	@echo "  make new        - Create a new draft post (usage: make new title='Post Title')"
+	@echo "  make til        - Create a new TIL (usage: make til title='TIL Title')"
 	@echo "  make deploy     - Deploy to production (requires proper Hugo configuration)"
 
 # Clean public directory
@@ -52,4 +53,14 @@ new:
 	fi
 	@echo "Creating a new post titled: $(title)"
 	$(HUGO_CMD) new posts/$(shell echo "$(title)" | tr '[:upper:] ' '[:lower:]-')/index.md
+
+# Create a new TIL
+.PHONY: til
+til:
+	@if [ -z "$(title)" ]; then \
+		echo "Please provide a title: make til title='My TIL'"; \
+		exit 1; \
+	fi
+	@echo "Creating a new TIL titled: $(title)"
+	$(HUGO_CMD) new til/$(shell echo "$(title)" | tr '[:upper:] ' '[:lower:]-')/index.md
 
