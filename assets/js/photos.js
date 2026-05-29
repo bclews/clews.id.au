@@ -6,11 +6,15 @@
 (function() {
   'use strict';
 
+  const grid = document.getElementById('photoGrid');
   const lightbox = document.getElementById('lightbox');
+  const lightboxContent = document.querySelector('.lightbox-content');
   const lightboxImage = document.getElementById('lightboxImage');
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxPrev = document.getElementById('lightboxPrev');
   const lightboxNext = document.getElementById('lightboxNext');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const liveRegion = document.getElementById('lightboxLive');
   const photoItems = document.querySelectorAll('.photo-item');
 
   // Focusable elements in lightbox for focus trap
@@ -62,31 +66,81 @@
 
     // Focus trap
     document.addEventListener('keydown', handleFocusTrap);
+
+    // Browser/Android back button closes the lightbox instead of leaving the page
+    window.addEventListener('popstate', () => {
+      if (isLightboxOpen) closeLightbox(true);
+    });
+
+    // Masonry layout (order-preserving). Run now, on load, and on resize.
+    layoutMasonry();
+    window.addEventListener('load', layoutMasonry);
+    window.addEventListener('resize', debounce(layoutMasonry, 150));
+  }
+
+  /*
+   * Set each grid item's row span from its rendered height so a CSS grid packs
+   * like masonry while preserving DOM (reading) order. The image keeps its
+   * aspect ratio via width/height attributes, so heights are known before the
+   * pixels finish downloading.
+   */
+  function layoutMasonry() {
+    if (!grid || !photoItems.length) return;
+
+    grid.classList.add('masonry-ready');
+    const styles = window.getComputedStyle(grid);
+    const rowHeight = parseFloat(styles.gridAutoRows) || 8;
+    const rowGap = parseFloat(styles.rowGap) || 0;
+
+    photoItems.forEach((item) => {
+      const img = item.querySelector('img');
+      const height = img ? img.getBoundingClientRect().height : item.getBoundingClientRect().height;
+      if (!height) return;
+      const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+      item.style.gridRowEnd = 'span ' + span;
+    });
+  }
+
+  function debounce(fn, wait) {
+    let timer;
+    return function() {
+      clearTimeout(timer);
+      timer = setTimeout(fn, wait);
+    };
   }
 
   function openLightbox(index) {
+    // Capture the page's overflow only on a genuine open, never when already
+    // open, or we'd memorise the locked value and fail to restore it on close.
+    if (!isLightboxOpen) {
+      originalBodyOverflow = document.body.style.overflow;
+    }
     currentIndex = index;
     isLightboxOpen = true;
 
-    // Store original overflow
-    originalBodyOverflow = document.body.style.overflow;
-
     updateLightboxImage();
-    lightbox.classList.add('active');
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    // Push a history entry so the back button closes the lightbox
+    history.pushState({ lightbox: true }, '');
 
     // Focus on close button for accessibility
     lightboxClose.focus();
   }
 
-  function closeLightbox() {
+  // fromPopState avoids pushing/popping history twice when triggered by back nav
+  function closeLightbox(fromPopState) {
     isLightboxOpen = false;
-    lightbox.classList.remove('active');
     lightbox.setAttribute('aria-hidden', 'true');
 
     // Restore original overflow
     document.body.style.overflow = originalBodyOverflow;
+
+    // Unwind the history entry added on open (unless the pop already did it)
+    if (!fromPopState && history.state && history.state.lightbox) {
+      history.back();
+    }
 
     // Return focus to the clicked photo
     if (photoItems[currentIndex]) {
@@ -108,28 +162,63 @@
     }
   }
 
+  function preload(index) {
+    const item = photoItems[index];
+    if (!item) return;
+    const src = item.getAttribute('data-src');
+    if (src) {
+      const img = new Image();
+      img.src = src;
+    }
+  }
+
   function updateLightboxImage() {
     const currentPhoto = photoItems[currentIndex];
     const imgSrc = currentPhoto.getAttribute('data-src');
     const imgAlt = currentPhoto.getAttribute('data-alt') ||
                    currentPhoto.querySelector('img').getAttribute('alt') ||
                    'Photo';
+    const caption = currentPhoto.getAttribute('data-caption') || '';
+
+    // Show loading state until the full-size image is ready
+    lightboxContent.classList.add('is-loading');
+    lightboxImage.onload = function() {
+      lightboxContent.classList.remove('is-loading');
+    };
+    lightboxImage.onerror = function() {
+      lightboxContent.classList.remove('is-loading');
+      console.error('Failed to load image:', imgSrc);
+      this.alt = 'Failed to load image';
+    };
 
     lightboxImage.src = imgSrc;
     lightboxImage.alt = imgAlt;
 
-    // Error handling for image load failures
-    lightboxImage.onerror = function() {
-      console.error('Failed to load image:', imgSrc);
-      this.alt = 'Failed to load image';
-    };
+    if (lightboxCaption) {
+      lightboxCaption.textContent = caption;
+    }
+
+    // Preload neighbours so paging feels instant
+    preload(currentIndex - 1);
+    preload(currentIndex + 1);
+
+    // Move focus off a button that is about to be disabled, or it lands on
+    // <body> and the focus trap can no longer keep Tab inside the modal.
+    const active = document.activeElement;
+    if ((active === lightboxPrev && currentIndex === 0) ||
+        (active === lightboxNext && currentIndex === photoItems.length - 1)) {
+      lightboxClose.focus();
+    }
 
     // Update navigation buttons
     lightboxPrev.disabled = currentIndex === 0;
     lightboxNext.disabled = currentIndex === photoItems.length - 1;
 
-    // Update ARIA label with current position
-    lightbox.setAttribute('aria-label', `Photo ${currentIndex + 1} of ${photoItems.length}`);
+    // Announce position to screen readers via a live region (changing an
+    // aria-label alone does not trigger an announcement).
+    if (liveRegion) {
+      liveRegion.textContent = `Photo ${currentIndex + 1} of ${photoItems.length}`;
+    }
   }
 
   function handleKeyboard(e) {

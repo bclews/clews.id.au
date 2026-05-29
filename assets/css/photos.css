@@ -18,26 +18,47 @@
   width: 100%;
 }
 
-/* iOS Photos-inspired Grid Layout */
+.photo-empty {
+  margin-top: 2rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/*
+ * Order-preserving masonry.
+ *
+ * Default (no JS / JS disabled): a plain responsive grid. Rows align to the
+ * tallest item, so layout is orderly and reading order is left-to-right.
+ *
+ * Enhanced (JS adds .masonry-ready): rows collapse to a small unit and JS sets
+ * each item's row span from its aspect ratio, giving a true masonry packing
+ * while keeping the same DOM/reading order the lightbox navigates in.
+ */
 .photo-grid {
-  column-count: 3;
-  column-gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
   width: 100%;
   padding: 0;
   margin: 0;
 }
 
+.photo-grid.masonry-ready {
+  grid-auto-rows: 8px;
+  align-items: start;
+}
+
 @media screen and (max-width: 768px) {
   .photo-grid {
-    column-count: 2;
-    column-gap: 3px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .photo-grid {
-    column-count: 1;
-    column-gap: 0;
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 }
 
@@ -48,16 +69,17 @@
   background-color: var(--photo-bg);
   border-radius: 4px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 4px;
-  break-inside: avoid;
-  display: inline-block;
-  width: 100%;
 }
 
 .photo-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1;
+}
+
+.photo-item:focus-visible {
+  outline: 2px solid var(--photo-focus, currentColor);
+  outline-offset: 2px;
 }
 
 .photo-item img {
@@ -82,19 +104,9 @@
   height: 100%;
   background-color: var(--lightbox-bg);
   z-index: 9999;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .lightbox[aria-hidden="false"] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.2s ease;
-}
-
-/* Legacy class support */
-.lightbox.active {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +124,7 @@
 
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  .lightbox.active {
+  .lightbox[aria-hidden="false"] {
     animation: none;
   }
 
@@ -144,6 +156,7 @@
 }
 
 .lightbox-content {
+  position: relative;
   max-width: 90%;
   max-height: 90vh;
   display: flex;
@@ -159,6 +172,53 @@
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   animation: zoomIn 0.3s ease;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* Hide the image and show a spinner while the full-size photo loads */
+.lightbox-content.is-loading img {
+  opacity: 0;
+}
+
+.lightbox-content.is-loading::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--lightbox-control-bg, rgba(128, 128, 128, 0.3));
+  border-top-color: var(--lightbox-control-color, #fff);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-content.is-loading::after {
+    animation: none;
+  }
+}
+
+.lightbox-caption {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom));
+  margin: 0;
+  text-align: center;
+  color: var(--lightbox-control-color);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  font-size: 0.95rem;
+}
+
+.lightbox-caption:empty {
+  display: none;
 }
 
 @keyframes zoomIn {
@@ -275,7 +335,8 @@
 /* Light mode colors */
 html.light {
   --photo-bg: #f5f5f5;
-  --lightbox-bg: rgba(255, 255, 255, 0.95);
+  --photo-focus: #333;
+  --lightbox-bg: rgba(255, 255, 255, 0.98);
   --lightbox-control-bg: rgba(0, 0, 0, 0.3);
   --lightbox-control-bg-hover: rgba(0, 0, 0, 0.5);
   --lightbox-control-color: #ffffff;
@@ -284,7 +345,8 @@ html.light {
 /* Dark mode colors */
 html.dark {
   --photo-bg: #2d2d2d;
-  --lightbox-bg: rgba(19, 20, 24, 0.95);
+  --photo-focus: #eee;
+  --lightbox-bg: rgba(19, 20, 24, 0.98);
   --lightbox-control-bg: rgba(255, 255, 255, 0.2);
   --lightbox-control-bg-hover: rgba(255, 255, 255, 0.3);
   --lightbox-control-color: #ffffff;
@@ -294,7 +356,8 @@ html.dark {
 @media (prefers-color-scheme: dark) {
   html:not(.light) {
     --photo-bg: #2d2d2d;
-    --lightbox-bg: rgba(19, 20, 24, 0.95);
+    --photo-focus: #eee;
+    --lightbox-bg: rgba(19, 20, 24, 0.98);
     --lightbox-control-bg: rgba(255, 255, 255, 0.2);
     --lightbox-control-bg-hover: rgba(255, 255, 255, 0.3);
     --lightbox-control-color: #ffffff;
@@ -304,7 +367,8 @@ html.dark {
 @media (prefers-color-scheme: light) {
   html:not(.dark) {
     --photo-bg: #f5f5f5;
-    --lightbox-bg: rgba(255, 255, 255, 0.95);
+    --photo-focus: #333;
+    --lightbox-bg: rgba(255, 255, 255, 0.98);
     --lightbox-control-bg: rgba(0, 0, 0, 0.3);
     --lightbox-control-bg-hover: rgba(0, 0, 0, 0.5);
     --lightbox-control-color: #ffffff;
