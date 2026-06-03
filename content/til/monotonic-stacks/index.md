@@ -2,7 +2,7 @@
 title = 'Monotonic Stacks'
 date = 2025-12-04T10:10:20+11:00
 draft = false
-description = ""
+description = "An O(N) monotonic stack pattern in Rust for selecting the largest k-digit subsequence, walked through with an Advent of Code 2025 example."
 categories = ['Software Engineering']
 tags = ['rust', 'algorithms', 'learning']
 +++

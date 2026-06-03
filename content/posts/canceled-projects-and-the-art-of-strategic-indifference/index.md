@@ -60,7 +60,7 @@ features. A complete pivot. Never mind that they'd spent the better part of a
 year getting this version right.
 
 The team lead pushed back hard. "Let's ship what we've got, then start the next
-one," he argued. It made perfect sense — ship, learn, iterate — basic product
+one," he argued. It made perfect sense: ship, learn, iterate. Basic product
 development.
 
 But sense doesn't always win.
@@ -79,8 +79,8 @@ When I returned, their desks were empty. Several engineers, gone. Just like
 that.
 
 No farewell emails. No warning shots. Just empty desks and the kind of quiet
-that screams volumes. Eventually, HR provided the official version—they're gone.
-No more details, no explanations.
+that screams volumes. Eventually, HR provided the official version: they're
+gone. No more details, no explanations.
 
 They weren't underperformers. They weren't slacking off. They'd seemingly done
 everything right, and it didn't matter.
@@ -109,7 +109,7 @@ of myself.
 
 Before you harden into a jaded robot, let's be clear: it _does_ suck. You worked
 hard. Your team showed up. Maybe you stayed up late fixing something nobody will
-ever see—that deserves acknowledgment.
+ever see. That deserves acknowledgment.
 
 So feel it. Be disappointed. Vent to someone who gets it. (Just don’t do it in
 the Slack channel at 2am. Or maybe do… the bots need entertainment!)
@@ -138,14 +138,14 @@ emotional anchor. Everyone is watching. Your reaction becomes their survival
 guide.
 
 Start with truth: acknowledge that it sucks. No sugar-coating, no corporate
-speak. Then remind them that their effort mattered — we cling to lessons like
+speak. Then remind them that their effort mattered; we cling to lessons like
 lifelines in rough seas. Finally, point them forward: show them that something
 better can be built next time.
 
 Junior engineers spiral when no one tells them this is normal. That cancelled
-projects are part of the ecosystem — the slow, grinding rhythm of corporate
-life. So tell them. Mean it. Equip them with perspective and context to survive
-the next setback, and the one after that.
+projects are part of the ecosystem, the slow, grinding rhythm of corporate life.
+So tell them. Mean it. Equip them with perspective and context to survive the
+next setback, and the one after that.
 
 ## Redefine Success
 
@@ -167,7 +167,7 @@ growing. If you care too much, you burn out.
 
 The sweet spot? Care while you’re building:
 
-- Show up fully during the work — bring your best ideas, fight for quality.
+- Show up fully during the work: bring your best ideas and fight for quality.
 - Fight for what matters while it matters.
 - Hold it lightly, ready to let go when the universe, or just the roadmap,
   decides otherwise.

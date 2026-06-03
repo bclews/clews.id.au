@@ -97,8 +97,8 @@ submodule operations, for instance), drop into `git` in the same folder and use
 it directly. The two tools coexist. There's no "jj-only" state you can get into
 and not get out of.
 
-There is no barrier to entry: no team migration, no infrastructure change, no
-irreversible commitment. If you don't like it after a week, `rm -rf .jj`.
+There is no barrier to entry: no team migration, no irreversible commitment. If
+you don't like it after a week, `rm -rf .jj`.
 
 ## The working copy is a commit
 
@@ -137,9 +137,9 @@ programmer has to internalise the model before they can use Git meaningfully.
 
 In `jj`, the working copy _is_ a commit. Specifically, it's the commit pointed
 to by `@`. Every command you run begins by snapshotting your filesystem changes
-into that commit. There is no staging area. There is no `git add`. There is no
-`git stash`. The mental model collapses from three states to one: a graph of
-commits, with `@` marking the one you're currently editing.
+into that commit. There's no staging area, no `git add`, no `git stash`. The
+mental model collapses from three states to one: a graph of commits, with `@`
+marking the one you're currently editing.
 
 This inverts the workflow. Instead of crafting a commit and then "saving" it,
 you create the commit first, empty, and let your edits flow into it as you work.
@@ -162,8 +162,8 @@ Working copy  (@) : yutvzxqz d4848436 add greet function
 Parent commit (@-): mzowzptp 51953536 (empty) (no description set)
 ```
 
-No `add`. No `commit`. The file is already in the commit, identified by the
-change ID `yutvzxqz`. The commit ID changed from `5befacd2` (empty) to
+There's no `add` or `commit` step; the file is already in the commit, identified
+by the change ID `yutvzxqz`. The commit ID changed from `5befacd2` (empty) to
 `d4848436` (with the file); a content hash naturally moves when content moves.
 The change ID didn't.
 
@@ -517,7 +517,7 @@ The `×` glyph is gone. The `(conflict)` label is gone. `feature` is now
 redundant. Nothing prompted you to resolve anything; you just edited the
 upstream commit and the conflict evaporated.
 
-The first time you watch this happen during a rebase, you'll think you broke
+The first few times you see this during a rebase, it'll look like you've broken
 something.
 
 ## Bookmarks aren't branches
@@ -805,8 +805,8 @@ you, the payoff curve looks good:
 
 ## Where I'd hold off
 
-I'd be doing you a disservice if I only listed wins. Same caveat — inferences,
-not verdicts:
+I'd be doing you a disservice if I only listed wins. As above, these are
+inferences rather than verdicts:
 
 - **If your daily workflow is `git pull`, `git commit`, `git push`**, and you
   don't care about clean history, `jj` won't change much for you. The benefits

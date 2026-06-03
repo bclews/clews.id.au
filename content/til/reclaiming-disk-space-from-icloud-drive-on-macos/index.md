@@ -2,7 +2,7 @@
 title = 'Reclaiming Disk Space from iCloud Drive on macOS'
 date = 2026-03-13T09:20:31+11:00
 draft = false
-description = ""
+description = "Using brctl evict to force macOS to drop local copies of iCloud Drive files and reclaim hundreds of gigabytes of disk space."
 categories = ["Tutorials"]
 tags = ["tools", "tutorial", "productivity"]
 +++

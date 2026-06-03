@@ -7,9 +7,9 @@ categories = ["Software Engineering", "Career and Reflection"]
 tags = ["rust", "algorithms", "learning"]
 +++
 
-Today's Advent of Code threw highlighted that **a small change in problem
-constraints can transform a straightforward solution into an freakin' hard
-optimisation problem.**
+Today's Advent of Code highlighted that **a small change in problem constraints
+can transform a straightforward solution into a freakin' hard optimisation
+problem.**
 
 ## The Problem: Factory Machine Configuration
 
@@ -278,10 +278,10 @@ comes down to choosing the right algorithmic framework.
   Comprehensive overview of ILP theory and applications
 - [Branch and Bound (Wikipedia)](https://en.wikipedia.org/wiki/Branch_and_bound) -
   Explanation of the branch and bound algorithm
-- [Hands-On Linear Programming with Pythn](https://realpython.com/linear-programming-python/) -
-  Practical tutorial using Sci dex
+- [Hands-On Linear Programming with Python](https://realpython.com/linear-programming-python/) -
+  Practical tutorial using SciPy
 
-- Lea\*[Introduction to Linear and Integer Programming](https://ampl.com/colab/notebooks/introduction-to-linear-and-integer-programming.html) -
+- [Introduction to Linear and Integer Programming](https://ampl.com/colab/notebooks/introduction-to-linear-and-integer-programming.html) -
   Interactive AMPL Colaboratory notebook
 
 **Academic Resources:**
