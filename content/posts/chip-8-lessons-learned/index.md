@@ -16,14 +16,14 @@ Rust and how I used AI as a mentor. Now: what actually stuck?
 
 ## The Compiler as Teacher
 
-### The Borrow Checker Is Teaching, Not Fighting
+### The Borrow Checker Is a Teacher
 
 I expected to wrestle with the borrow checker constantly. That happened early.
 Then I figured it out.
 
 When the compiler rejected my code, it was usually because I was doing something
-subtly wrong. Not syntactically, conceptually. Holding a reference to memory
-while modifying display state. Trying to share mutable data between threads
+subtly wrong, conceptually rather than syntactically. Holding a reference to
+memory while modifying display state. Trying to share mutable data between threads
 without synchronization.
 
 Here's an early mistake I made with the draw instruction:
@@ -51,7 +51,7 @@ The solutions the compiler pushed me toward were better designs:
 
 I stopped seeing error messages as obstacles and started seeing them as design
 feedback. The compiler was so helpful I didn't need Claude for most
-debugging—saving those tokens for the gnarly runtime bugs.
+debugging, saving those tokens for the gnarly runtime bugs.
 
 ### Unlearning Dynamic Language Habits
 
@@ -64,7 +64,7 @@ translate:
 else is mutating it?"
 
 These questions have always mattered for correctness. Rust just makes them
-explicit. Now I think about ownership even when writing Python—and I'm warier of
+explicit. Now I think about ownership even when writing Python, and I'm warier of
 hidden state.
 
 ### Error Handling Changes How You Think
@@ -77,7 +77,7 @@ with \_. In Rust, the return type forces the conversation:
 pub fn read_byte(&self, address: u16) -> Result<u8, EmulatorError>
 ```
 
-This function can fail. The caller must handle it. Not "might" handle it—_must_.
+This function can fail. The caller must handle it: not "might" handle it, _must_.
 
 At first this felt like bureaucracy. Eventually I was grateful. When something
 went wrong, I knew exactly where to look. The type system had documented every
@@ -101,7 +101,7 @@ src/
 ```
 
 The emulator core knows nothing about windowing, audio libraries, or keyboards.
-It operates on traits. This wasn't planned from day one—it emerged from trying
+It operates on traits. This wasn't planned from day one; it emerged from trying
 to write tests.
 
 ### The Hardware Abstraction Layer
@@ -110,8 +110,7 @@ I initially had the CPU directly calling graphics library functions. Then I
 tried to write a test and realised I'd need to initialise a window just to check
 if `ADD V0, V1` worked correctly. That's when the abstraction clicked.
 
-A CHIP-8 CPU doesn't need to know how pixels are drawn—only that they can be
-drawn. Traits define the contract; implementations fulfill it.
+A CHIP-8 CPU doesn't need to know how pixels are drawn, only that they can be. Traits define the contract; implementations fulfill it.
 
 Three traits define the hardware interface:
 
@@ -144,7 +143,7 @@ pub trait Input {
 }
 ```
 
-If you've used interfaces in Go or Java, this is familiar territory—behavior
+If you've used interfaces in Go or Java, this is familiar territory: behavior
 contracts without implementation details.
 
 The `Hardware` supertrait combines them using associated types:
@@ -166,7 +165,7 @@ Why associated types instead of generic parameters like
 `Hardware<D: Display, A: Audio, I: Input>`? Each hardware implementation has
 exactly one display type, one audio type, one input type. Associated types
 express this "one-to-one" relationship. Generics would make sense if the same
-hardware could work with different display implementations—but that's not how
+hardware could work with different display implementations, but that's not how
 hardware works.
 
 ### Null Implementations for Testing
@@ -210,7 +209,7 @@ if you're missing a method. Rust tells you at compile time.
 
 Audio runs on a separate thread. The main game loop might run at 60Hz, but the
 audio system needs samples at 44,100Hz. You can't just call `play()` when you
-want—you need to continuously feed samples to a buffer.
+want; you need to continuously feed samples to a buffer.
 
 This means sharing state between threads. The buzzer needs to know whether it
 should be making sound, and the main thread controls that.
@@ -366,7 +365,7 @@ impl EmulatorConfig {
 
 The `Default` trait provides sensible defaults, and the builder methods
 (`.with_*()`) make configuration readable. Most users don't need to understand
-compatibility quirks—they pick "classic" or "modern" and it works.
+compatibility quirks; they pick "classic" or "modern" and it works.
 
 ## Patterns That Finally Clicked
 
@@ -402,8 +401,8 @@ It works, but `RefCell` panics at runtime if you violate borrowing rules. In a
 larger codebase, I'd prefer compile-time guarantees.
 
 **More granular traits.** The `Display` trait has methods for both pixel
-manipulation and rendering. These could be separate traits—`PixelBuffer` and
-`Renderer`—to better separate concerns.
+manipulation and rendering. These could be separate traits, `PixelBuffer` and
+`Renderer`, to better separate concerns.
 
 **Test coverage on the event loop.** I have unit tests for individual
 components, but the main loop that ties everything together is harder to test.
@@ -421,7 +420,7 @@ For reference, the crates I ended up using:
 - **Random numbers:** `rand` (for the RND instruction)
 
 The Rust ecosystem has good coverage for these fundamentals. I didn't have to
-reinvent windowing or audio—I could focus on the emulator logic.
+reinvent windowing or audio; I could focus on the emulator logic.
 
 ## What's Next
 

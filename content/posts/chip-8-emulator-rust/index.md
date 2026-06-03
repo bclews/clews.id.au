@@ -42,7 +42,7 @@ sprint velocity and stakeholder alignment.
 
 Revenge bedtime procrastination led me to
 [r/EmuDev](https://www.reddit.com/r/EmuDev/), and I fell down a rabbit hole.
-People writing emulators for fun. Old consoles, weird hardware, real
+People writing emulators for fun, on old consoles and weird hardware with real
 constraints. Something clicked.
 
 ## Why CHIP-8
@@ -58,7 +58,7 @@ microcomputers with limited resources:
 
 It's the _"hello world"_ of emulator projects. Complex enough to be interesting,
 simple enough to finish. When you get something wrong, games break in obvious
-ways—the ball in Pong flies through the paddle, sprites flicker, the buzzer
+ways: the ball in Pong flies through the paddle, sprites flicker, the buzzer
 plays forever.
 
 More importantly: CHIP-8 has a well-defined, complete specification. Hundreds of
@@ -73,8 +73,8 @@ idiomatic" or "you're fighting the borrow checker because you're doing X wrong."
 
 I could pay someone for code review, but it is _really_ expensive. I could ask
 the internet (Reddit, Discord, whatever), but I've seen how wrong the internet
-is about things I do know. The confident wrongness. The outdated advice stated
-as fact. The tribal fights over irrelevant details.
+is about things I do know: the confident wrongness, the outdated advice stated
+as fact, the tribal fights over irrelevant details.
 
 So I turned to Claude.
 
@@ -83,7 +83,7 @@ So I turned to Claude.
 I trust LLM advice about as much as I trust internet stranger advice. Which is
 to say: I fact-check everything. The difference is that LLMs aren't trying to
 fuck with me. They're not scoring points, not showing off, not grinding an axe
-about some library drama from 2019. They're also not trying to be right—they're
+about some library drama from 2019. They're also not trying to be right; they're
 trying to be helpful, which is a different failure mode but a more predictable
 one.
 
@@ -93,14 +93,14 @@ Here's how I actually used it:
 
 I loaded CHIP-8 specification documents into Claude and used it to fill
 knowledge gaps. It had been a long time since I'd thought about low-level
-microprocessor details—opcodes, registers, memory layouts. The LLM helped me
+microprocessor details: opcodes, registers, memory layouts. The LLM helped me
 explore interesting tangents without having to context-switch to Stack Overflow.
 
 ### Planning and Architecture
 
 Before writing code, I'd describe what I wanted to build and get feedback on the
 approach. "I'm thinking about structuring the hardware abstraction like
-this—does that make sense for Rust?"
+this. Does that make sense for Rust?"
 
 This isn't that different from rubber-duck debugging, except the duck talks
 back. Sometimes usefully, sometimes not.
@@ -133,7 +133,7 @@ Rust Book and official docs when something seemed off.
 Is my code idiomatic Rust? Probably not entirely. Is there stuff I'd do
 differently with more experience? Definitely.
 
-But it works. It compiles. The games run.
+But it works: it compiles, and the games run.
 
 ## What I Built
 
@@ -145,7 +145,7 @@ The result is a complete CHIP-8 emulator in Rust:
 - Input (hex keypad mapped to QWERTY)
 - CLI and GUI frontends
 
-Games run. Pong works. Space Invaders works. The buzzer buzzes.
+Games run: Pong and Space Invaders both work, and the buzzer buzzes.
 
 <video autoplay loop muted playsinline style="width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto;">
   <source src="space-invaders.mp4" type="video/mp4">

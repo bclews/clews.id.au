@@ -12,7 +12,7 @@ rewarding, and left me wanting more. So when December rolled around again, there
 was no question: I was coming back for round two. This time, though, I wanted to
 push myself in a different direction: Rust.
 
-This year's event was shorter—12 days instead of the traditional 25, but the
+This year's event was shorter, 12 days instead of the traditional 25, but the
 puzzles were just as brain-bending as ever.
 
 ## Why Rust?
@@ -28,7 +28,7 @@ external dependencies, just `std` and whatever I could build myself. That
 constraint always helps me learn the true capabilities of a language and its
 ecosystem.
 
-## Favorite Puzzle: Day 10 — The One Word That Changed Everything
+## Favorite Puzzle: Day 10: The One Word That Changed Everything
 
 If I had to pick one puzzle that perfectly captures what I love about Advent of
 Code, it's Day 10. On the surface, it seemed straightforward: configure factory
@@ -44,7 +44,7 @@ Then came **Part 2**, and everything changed with a single word: buttons now
 _increment_ counters instead of _toggling_ lights.
 
 That tiny semantic shift transforms the entire problem. Suddenly you're no
-longer in the world of binary states and modular arithmetic—you're dealing with
+longer in the world of binary states and modular arithmetic. You're dealing with
 continuous integers and optimisation. The same button-pressing puzzle becomes an
 Integer Linear Programming problem.
 
@@ -54,7 +54,7 @@ constraints. It was challenging, it was satisfying, and it taught me something
 I'll actually use again. I wrote up the full journey in my
 [Integer Linear Programming TIL](https://clews.id.au/til/integer-linear-programming/).
 
-## Runner-Up: Day 8 — Minimum Spanning Trees in 3D
+## Runner-Up: Day 8: Minimum Spanning Trees in 3D
 
 Day 8 asked me to connect junction boxes in 3D space using the minimum total
 wire length. Classic minimum spanning tree territory, but I'd never actually
@@ -66,7 +66,7 @@ a cycle. Pair it with Union-Find for efficient cycle detection, and you've got
 an O(E log E) algorithm that provably produces optimal results.
 
 There's something deeply satisfying about greedy algorithms that actually
-work—where you can prove that making locally optimal choices leads to globally
+work, where you can prove that making locally optimal choices leads to globally
 optimal solutions. More details in my
 [Kruskal TIL](https://clews.id.au/til/kruskal/).
 
@@ -76,8 +76,8 @@ Beyond the headline puzzles, a few smaller lessons stuck with me:
 
 - **[Monotonic Stacks](https://clews.id.au/til/monotonic-stacks/):** An elegant
   O(N) pattern for problems requiring ordered element selection. The stack
-  maintains sorted order by popping elements that violate the invariant—simple
-  idea, powerful applications.
+  maintains sorted order by popping elements that violate the invariant; a
+  simple idea with powerful applications.
 
 - **[Rust's rem_euclid()](https://clews.id.au/til/rusts-rem-euclid-the-modulo-you-actually-want/):**
   If you're doing modular arithmetic with potentially negative numbers, Rust's
@@ -101,7 +101,7 @@ compounds across a codebase.
 
 **Inline test modules are surprisingly nice.** The `#[cfg(test)] mod tests`
 pattern keeps tests right next to the code they're testing. For small,
-self-contained puzzles it's perfect—everything in one file, easy to reason
+self-contained puzzles it's perfect: everything in one file, easy to reason
 about. I'm still figuring out how this scales; I can see it getting unwieldy
 with hundreds of tests. But for AoC? It just works.
 
@@ -117,7 +117,7 @@ I completed all challenges 🎊
 
 If you've been on the fence about trying Advent of Code, just do it. Pick a
 language you want to learn, accept that some days will humble you, and enjoy the
-ride. The real reward isn't the stars — it's the "aha" (or in my case, the "oh,
+ride. The real reward isn't the stars; it's the "aha" (or in my case, the "oh,
 ffs") moments at 11pm (or you know, 1am), and the satisfaction of seeing your
 solution finally produce the right answer.
 

@@ -23,7 +23,7 @@ engine behind this API was a BERT-large model, known for its robust capabilities
 in understanding natural language. However, BERT-large comes with its own set of
 challenges: it features 24 transformer layers, a hidden size of 1024, 16
 attention heads, and an intermediate layer size of 4096. These specifications
-make it a powerhouse for NLP tasks—but they also mean it’s inherently
+make it a powerhouse for NLP tasks, but they also mean it’s inherently
 resource-intensive.
 
 To provide more context on these specifications: the **24 transformer layers**
@@ -329,10 +329,9 @@ This `BERTTokenizer` class is responsible for:
 - **Loading the Vocabulary:** Reading the `vocab.txt` file (which was packaged
   with the app) into a dictionary.
 - **Basic Tokenization:** For this initial version, a basic whitespace tokenizer
-  was implemented. **It's important to note that for a production-ready
-  application, a more sophisticated WordPiece tokenizer would be required to
-  handle subwords correctly and match the original BERT training process more
-  accurately.**
+  was implemented. For a production-ready application, a more sophisticated
+  WordPiece tokenizer would be required to handle subwords correctly and match
+  the original BERT training process more accurately.
 - **Handling Special Tokens:** Adding `[CLS]` at the beginning and `[SEP]` at
   the end of the sequence, as well as handling `[UNK]` for unknown words and
   `[PAD]` for padding.
