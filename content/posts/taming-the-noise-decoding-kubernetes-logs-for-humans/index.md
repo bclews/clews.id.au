@@ -11,7 +11,7 @@ Some projects emerge from necessity, others from curiosity.
 [Hallucino](https://github.com/bclews/hallucino), my Kubernetes log analyser,
 came from a rare chance to set aside deadlines, deliverables, and sprint boards
 in favour of learning and exploration. During an _Engineering Development Day_
-event - a two-day pause to focus on personal growth - I dove into the challenge
+event, a two-day pause to focus on personal growth, I dove into the challenge
 of crafting an _"intelligent"_ tool that could make sense of the noisy, chaotic
 world of Kubernetes logs.
 
@@ -19,7 +19,7 @@ world of Kubernetes logs.
 
 Kubernetes logs are a goldmine of information, but also a labyrinth. In large,
 distributed systems, logs pour in from countless containers, pods, and nodes.
-Amid this flood are hidden gems - critical insights that can resolve outages,
+Amid this flood are hidden gems: critical insights that can resolve outages,
 optimise performance, or detect brewing problems. But the sheer volume often
 buries their value. I wanted to explore the possibilities of combining modern
 Large Language Models (LLMs) with Go’s concurrency capabilities to transform
@@ -56,7 +56,7 @@ Building Hallucino involved designing three key components:
 
 1. **Kubernetes Integration**: Using the Kubernetes `client-go` library, the
    tool connects to a cluster, retrieves logs, and lets users specify the scope
-   of their analysis - whether it’s a particular pod, container, or namespace.
+   of their analysis, whether it’s a particular pod, container, or namespace.
 2. **Concurrent Log Processing**: With Goroutines and channels, logs are parsed
    concurrently, maximizing efficiency and minimizing memory usage. The tool
    handles even high log volumes gracefully, maintaining performance under
@@ -80,7 +80,7 @@ Goroutines and understanding synchronization with `sync.WaitGroup` tested my
 patience but ultimately left me more confident in handling real-world
 performance challenges. Similarly, designing the LLM integration forced me to
 think critically about unstructured data and the nuances of summarisation. Logs
-aren’t neatly written essays - they’re messy, context-dependent snippets.
+aren’t neatly written essays; they’re messy, context-dependent snippets.
 Encouraging the LLM to make sense of that complexity was an art as much as a
 science.
 
@@ -91,7 +91,7 @@ science.
 Every project teaches something, but Hallucino was particularly instructive.
 
 - **Concurrency Is Powerful (and Hard)**: Breaking logs into chunks and
-  processing them in parallel felt like a cheat code for speed - until things
+  processing them in parallel felt like a cheat code for speed, until things
   broke. Balancing speed and safety in concurrent programming is a skill I’ll
   keep refining.
 - **Kubernetes is Deep**: Even with prior experience, I found new challenges in
@@ -102,13 +102,13 @@ Every project teaches something, but Hallucino was particularly instructive.
   on how well the data is pre-processed and how clear the prompts are.
 
 But perhaps the most valuable takeaway wasn’t technical. It was the joy of
-uninterrupted learning - of picking a problem, diving into it headfirst, and
+uninterrupted learning: picking a problem, diving into it headfirst, and
 building something from scratch without worrying about perfection. This event
 reminded me why I started building things in the first place. In a work place,
 where deadlines and bureaucracy often stifle creativity, building Hallucino
 provided a much-needed break. By taking a step back to experiment, learn, and
 create without immediate pressure, I gained invaluable insight into what truly
-drives me - the joy of bringing ideas to life.
+drives me: the joy of bringing ideas to life.
 
 ---
 
@@ -116,7 +116,7 @@ drives me - the joy of bringing ideas to life.
 
 Hallucino is still a work in progress. There’s plenty of room for improvement,
 from fine-tuning its AI capabilities to expanding its customization options. But
-for now, it’s a solid foundation - and a personal milestone in both learning and
+for now, it’s a solid foundation, and a personal milestone in both learning and
 building.
 
 If you’re curious about the details, including the codebase and installation

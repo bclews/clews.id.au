@@ -10,7 +10,7 @@ tags = ['tools', 'tutorial', 'productivity']
 Dotfiles can be a pain to manage when they’re scattered across your home
 directory. In the past, I used a bare Git repo approach based on
 [StreakyCobra’s setup on Hacker News](https://news.ycombinator.com/item?id=11070797).
-It worked well but had its limitations - like needing a custom alias for Git
+It worked well but had its limitations, like needing a custom alias for Git
 commands (which I’d often forget) and some tricky troubleshooting when configs
 broke.
 

@@ -8,7 +8,7 @@ tags = ['devops', 'tutorial', 'productivity']
 +++
 
 Recently, I’ve been making a conscious effort to eliminate lazy practices from
-my workflow - the kind of 'temporary' workarounds that sneak in during crunch
+my workflow: the kind of 'temporary' workarounds that sneak in during crunch
 time and somehow become permanent habits. My latest offender? A convoluted
 method for building containers on remote machines. Instead of using a branch
 like any reasonable person (for reasons I can’t even justify), I’d generate a

@@ -35,7 +35,7 @@ narrative, starting relatively simple but quickly escalating into complex
 algorithmic and logical brain-benders.
 
 The puzzles are delivered in two parts. Solve part one, and you unlock part
-two - which often flips the original problem on its head. It’s a mix of logic,
+two, which often flips the original problem on its head. It’s a mix of logic,
 efficiency, and, occasionally, good ol’ brute force.
 
 For leaderboard chasers, speed and algorithmic skill are key. But for the rest
@@ -49,7 +49,7 @@ something new.
 I went in fully aware that December is probably the worst time to take on a
 daily challenge. Between wrapping up work projects, wrangling school holidays,
 and prepping for Christmas, my time was limited. I knew I’d start strong and
-probably taper off - and that’s exactly what happened.
+probably taper off, and that’s exactly what happened.
 
 Still, I set a few goals:
 
@@ -81,7 +81,7 @@ competing with anyone. My primary goal was to learn how to effectively make use
 of AI tools.
 
 I leaned heavily on LLMs, primarily the free tiers of ChatGPT and Claude, with
-Copilot in the mix. Early on, they were great for simpler problems - especially
+Copilot in the mix. Early on, they were great for simpler problems, especially
 part one of puzzles. But as the challenges grew more complex, their limitations
 became glaringly obvious. Nuanced logic, multi-step reasoning, and edge cases?
 Nope. They weren’t cutting it. Still, they were invaluable for boilerplate code,
@@ -90,7 +90,7 @@ algorithm.
 
 ---
 
-### Favourite Puzzle: Day 14 – Restroom Redoubt
+### Favourite Puzzle: Day 14: Restroom Redoubt
 
 Day 14 stood out as my favorite, not because it was easy (it wasn’t) but because
 it forced me to get creative. The challenge involved identifying patterns in a
@@ -101,7 +101,7 @@ it forced me to get creative. The challenge involved identifying patterns in a
 This was, predictably, slow as hell. So, I took my dog for a walk. And mid-walk,
 it hit me: PNGs use lossless compression. The Christmas tree pattern, being the
 most ordered, would compress the most. Back home, I sorted the files by size,
-and boom - the smallest PNG revealed the tree! Later, I redeemed my brute-force
+and boom: the smallest PNG revealed the tree! Later, I redeemed my brute-force
 hack by calculating the time frame with the most consecutive robots. Was it
 efficient? Absolutely not. But it was fun, creative, and a great story.
 
@@ -136,5 +136,5 @@ out my
 [Advent of Code solutions on GitHub](https://github.com/bclews/advent-of-code).
 
 Would I do it again? Ask me next December. But for now, I’m proud of what I
-accomplished, grateful for what I learned, and maybe - just maybe - a little
+accomplished, grateful for what I learned, and maybe, just maybe, a little
 better prepared for whatever coding challenges come next.

@@ -13,14 +13,13 @@ your existing Git repo in _colocated mode:_ `.git` and `.jj` side by side, push
 and fetch still going through Git. Turns out, colocated mode has _seams_.
 
 A seam is a moment where Git and `jj` look at the same repository and describe
-it differently. Git says the working tree is dirty; `jj` says everything's
-committed. A routine fetch reports that it "abandoned" a commit. `git am`
-refuses to run. Each looks alarming the first time, and each turns out to be
+it differently: Git says the working tree is dirty while `jj` says everything's
+committed, a routine fetch reports that it "abandoned" a commit, or `git am`
+refuses to run. Each one looks alarming the first time, but turns out to be
 harmless once you understand what Git and `jj` are each describing.
 
 After a few weeks of working with `jj`, I've stopped being startled by them.
-This post documents the seams I hit, why they appear, and the one move that
-resolves each. 
+This post documents the seams I hit and how to resolve each. 
 
 **tl;dr;** in colocated mode, trust `jj`'s view of the repo.
 When Git looks panicked, it's almost always describing a state `jj` considers
@@ -137,7 +136,7 @@ Parent commit (@-): kptprsrn b9d9232e docs: Enable ...
 First reaction: "did the push leave the repo half-broken?" No. This is just how
 colocated mode works.
 
-**Git's HEAD is intentionally kept one commit behind `jj`'s `@`.** In colocated
+Git's HEAD is intentionally kept one commit behind `jj`'s `@`. In colocated
 mode, `jj` parks Git's HEAD at `@-` (the parent of the working-copy commit) and
 exposes `@`'s changes as Git's _working tree_ state. From Git's vantage point,
 those changes are uncommitted, which is exactly what `git status` is
@@ -148,8 +147,8 @@ something you're still authoring, even after you've described it. If Git's HEAD
 pointed _at_ `@`, ordinary Git commands like `git commit --amend` and
 `git reset` would collide with `jj`'s snapshot-on-next-command behaviour. By
 keeping HEAD at `@-` and surfacing `@`'s contents as the working tree, the two
-tools stay coherent: `jj` says "this is a commit," Git says "this is uncommitted
-work on top of HEAD." Both are describing the same state.
+tools stay coherent. `jj` treats `@` as a commit; Git treats the same content as
+uncommitted work sitting on top of HEAD, which is the same underlying state.
 
 The prompt's `[!]` is Starship (or similar) reading Git's view and flagging a
 dirty tree, accurate from Git's side but harmless in practice. It clears the
@@ -228,9 +227,9 @@ before sharing it, as a [separate
 note]({{< ref "til/creating-patches-in-colocated-jj" >}}).)
 
 That's the mental model that makes colocated mode comfortable. The two tools
-share one object store and split the labour: `jj` owns the working copy, the
-operation log, and history editing; Git owns the wire protocol and the corners
-`jj` hasn't covered yet. Using a colocated repo is the intended way to run `jj`
+share one object store and split the labour between them: `jj` handles the
+working copy, operation log, and history editing, while Git handles the wire
+protocol and the corners `jj` hasn't covered yet. Using a colocated repo is the intended way to run `jj`
 on an existing Git project. When Git's view and `jj`'s view diverge, you've hit
 one of these boundaries, and the fix is nearly always to trust `jj` and run a
 `jj` command.
