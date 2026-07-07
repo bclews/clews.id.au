@@ -1,3 +1,15 @@
+{{/* Custom styles for photos page */}}
+{{ if eq .Type "photos" }}
+{{ $css := resources.Get "css/photos.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{/* Open Graph image so gallery shares get a preview (first photo) */}}
+{{ with .Resources.ByType "image" }}
+{{ $og := (index . 0).Resize "1200x webp q80" }}
+<meta property="og:image" content="{{ $og.Permalink }}">
+<meta name="twitter:image" content="{{ $og.Permalink }}">
+{{ end }}
+{{ end }}
+
 {{/* Custom head additions for SEO */}}
 
 {{/* Google Search Console Verification */}}

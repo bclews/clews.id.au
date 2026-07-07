@@ -1,0 +1,59 @@
+{{ define "main" }}
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+    <article>
+      <header class="header">
+        <h1 class="header-title">{{ .Title }}</h1>
+      </header>
+      <div class="page-content">
+        {{ .Content }}
+      </div>
+
+      {{- $images := .Resources.ByType "image" -}}
+      {{- if $images -}}
+      <div class="photo-gallery">
+        <div class="photo-grid" id="photoGrid">
+          {{- range $index, $image := $images -}}
+            {{- /* Re-encoded, EXIF-stripped variants. Never link the original. */ -}}
+            {{- $thumb := $image.Resize "400x webp q80" -}}
+            {{- $thumb2x := $image.Resize "800x webp q70" -}}
+            {{- $full := $image.Resize "1600x webp q82" -}}
+            {{- $alt := $image.Params.alt | default "" -}}
+            {{- $caption := $image.Params.caption | default "" -}}
+          <div class="photo-item" data-src="{{ $full.RelPermalink }}" data-alt="{{ $alt }}" data-caption="{{ $caption }}">
+            <img
+              src="{{ $thumb.RelPermalink }}"
+              srcset="{{ $thumb.RelPermalink }} 400w, {{ $thumb2x.RelPermalink }} 800w"
+              sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 400px"
+              alt="{{ $alt }}"
+              loading="lazy"
+              decoding="async"
+              width="{{ $thumb.Width }}"
+              height="{{ $thumb.Height }}">
+          </div>
+          {{- end -}}
+        </div>
+      </div>
+
+      <!-- Lightbox Modal -->
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-hidden="true">
+        <h2 id="lightboxTitle" class="visually-hidden">Photo viewer</h2>
+        <div id="lightboxLive" class="visually-hidden" aria-live="polite"></div>
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close photo viewer">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+        <div class="lightbox-content">
+          <img id="lightboxImage" alt="">
+        </div>
+        <p class="lightbox-caption" id="lightboxCaption"></p>
+      </div>
+
+      {{- $js := resources.Get "js/photos.js" | minify | fingerprint -}}
+      <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+      {{- else -}}
+      <p class="photo-empty">No photos yet — check back soon.</p>
+      {{- end -}}
+    </article>
+  </main>
+</div>
+{{ end }}
