@@ -1,6 +1,6 @@
 +++
 title = "What I Learned Building an App by Directing AI Agents"
-date = 2026-06-01T10:00:00+10:00
+date = 2026-07-07T10:00:00+10:00
 draft = false
 description = "I built an AI patient simulator for pharmacy students almost entirely through Claude Code agents, with one pull request per planned step. This is the workflow that made it work, along with an honest account of where the agents stopped being useful."
 categories = ['Software Engineering']
