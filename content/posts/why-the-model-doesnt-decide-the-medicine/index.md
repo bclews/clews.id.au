@@ -4,7 +4,7 @@ date = 2026-07-14T10:00:00+10:00
 draft = false
 description = "The clinical facts in my AI pharmacy simulator don't come from the language model. They come from a YAML file a pharmacist can read and review. Here's why I took the medicine away from the model, and what I left it to do instead."
 categories = ['Software Engineering']
-tags = ['ai', 'llm', 'claude', 'prompt-engineering', 'architecture']
+tags = ['ai', 'llm', 'claude', 'prompt-engineering', 'architecture', 'pharmacy-tutor']
 +++
 
 Earlier I wrote about
@@ -161,16 +161,17 @@ clear of the bits where being wrong costs something.
 The catch is that this doesn't get rid of the need to trust something. It just
 changes what. The tool can never be more correct than the templates behind it,
 so the templates have to be right, which on a real product means a pharmacist
-signing off on every one of them. That loops straight back to the validation
-problem I wrote about last time. What you get out of it is that the thing you
+signing off on every one of them. That loops straight back to the
+[validation problem](/posts/building-a-healthcare-app-with-ai-agents/#where-i-had-to-take-over)
+I wrote about last time. What you get out of it is that the thing you
 have to trust is now sitting in a file, where someone can read it, argue with
 it, and fix it. That's a lot better than having it buried in a set of weights.
 
 ## The other half of the design
 
-Next time I'll get to the other half of the design, which is splitting the
-patient and the examiner into two separate prompts so the patient can't
-accidentally hand the student the answer.
+The other half is
+[splitting the patient and the examiner into two separate prompts](/posts/why-the-patient-doesnt-know-the-answer/),
+so the patient can't accidentally hand the student the answer.
 
 ---
 

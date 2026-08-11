@@ -4,7 +4,7 @@ date = 2026-07-07T10:00:00+10:00
 draft = false
 description = "I built an AI patient simulator for pharmacy students almost entirely through Claude Code agents, with one pull request per planned step. This is the workflow that made it work, along with an honest account of where the agents stopped being useful."
 categories = ['Software Engineering']
-tags = ['ai', 'agentic-engineering', 'llm', 'claude', 'workflow']
+tags = ['ai', 'agentic-engineering', 'llm', 'claude', 'workflow', 'pharmacy-tutor']
 +++
 
 My wife is a pharmacist who teaches pharmacy practice at our local university,
@@ -237,10 +237,11 @@ help with turned out to be the part that mattered most.
 ## Two decisions still to come
 
 All of that leads to two design decisions that make the simulator work, and both
-deserve a post of their own. The first is keeping the model from being the
-source of clinical truth. The second is splitting the patient and the examiner
-into two separate prompts, so the patient can't accidentally leak the answer.
-I'll get to both of them.
+deserve a post of their own. The first is
+[keeping the model from being the source of clinical truth](/posts/why-the-model-doesnt-decide-the-medicine/).
+The second is
+[splitting the patient and the examiner into two separate prompts](/posts/why-the-patient-doesnt-know-the-answer/),
+so the patient can't accidentally leak the answer.
 
 ---
 

@@ -4,7 +4,7 @@ date = 2026-07-21T10:00:00+10:00
 draft = false
 description = "The AI patient in my pharmacy simulator can't help the student pass, because it has never been shown the marking scheme. Splitting the patient and the examiner into two separate prompts is what keeps the tool honest."
 categories = ['Software Engineering']
-tags = ['ai', 'llm', 'claude', 'prompt-engineering', 'architecture']
+tags = ['ai', 'llm', 'claude', 'prompt-engineering', 'architecture', 'pharmacy-tutor']
 +++
 
 This is the third and last post in a short series about
@@ -92,8 +92,9 @@ it returns the result as structured JSON rather than conversation:
 
 The obvious one first: a patient that doesn't hold the answer can't leak it.
 
-The second connects to a problem I raised in the first post. Students poke at
-these things, and not always gently. When I tested the patient prompt against
+The second connects to
+[a problem I raised in the first post](/posts/building-a-healthcare-app-with-ai-agents/#i-tested-the-riskiest-part-first).
+Students poke at these things, and not always gently. When I tested the patient prompt against
 deliberate attempts to break it, the attacker went straight for the marking
 scheme. The persona that session was Patricia, a retired accountant:
 
@@ -143,8 +144,8 @@ through this whole project. Keeping the answer out of the patient's reach does
 nothing to make the marking correct. The examiner is still a language model
 reading a transcript and forming a judgement.
 
-I called it consistent and structured rather than objective in the first post,
-and the research on using a model as a judge suggests even that needs care. The
+It's consistent and structured, which isn't the same as objective, and the
+research on using a model as a judge suggests even that needs care. The
 paper that popularised the approach,
 [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685), found that strong
 models agree with human raters about as often as humans agree with each other,
