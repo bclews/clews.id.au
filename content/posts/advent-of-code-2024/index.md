@@ -2,16 +2,14 @@
 title = 'Advent of Code 2024'
 date = 2025-01-28T08:43:40+11:00
 draft = false
-description = "Complete all 25 Advent of Code 2024 challenges with insights on algorithms, LLM assistance, and creative problem-solving. From graph algorithms to PNG compression hacks, lessons learned the hard way."
+description = "I finished all 25 Advent of Code 2024 puzzles, leaned on LLMs the whole way, and solved Day 14 by sorting PNGs by file size. Notes on how that went."
 categories = ['Software Engineering', 'Career and Reflection']
 tags = ['python', 'algorithms', 'learning', 'machine-learning']
 +++
 
-Every December, an event pops up in the software development world that stirs
-excitement, dread, and inspiration in equal measure:
-[Advent of Code](https://adventofcode.com). It’s a yearly programming challenge
-that combines festive themes with algorithmic problem-solving, drawing in
-developers from all walks of life.
+Every December, [Advent of Code](https://adventofcode.com) turns up in my feeds
+and I feel roughly equal parts keen and dread. It’s a yearly programming
+challenge that wraps algorithmic problems in a festive narrative.
 
 For years, I flirted with the idea of participating. And for years, I always
 found a way to dodge it. Sometimes, I’d forget about it until a stray tweet
@@ -38,9 +36,8 @@ The puzzles are delivered in two parts. Solve part one, and you unlock part
 two, which often flips the original problem on its head. It’s a mix of logic,
 efficiency, and, occasionally, good ol’ brute force.
 
-For leaderboard chasers, speed and algorithmic skill are key. But for the rest
-of us, it’s a chance to sharpen skills, explore new techniques, and learn
-something new.
+For leaderboard chasers, speed and algorithmic skill are key. For the rest of
+us, it’s a chance to learn some techniques we don’t reach for at work.
 
 ---
 
@@ -58,43 +55,40 @@ Still, I set a few goals:
    actually completed all 25 challenges! There were definitely days when I
    wanted to quit, especially during the grid algorithm grind, but pushing
    through paid off.
-2. **Experiment with LLMs**: I wanted to see how tools like ChatGPT, Claude, and
-   Copilot could augment my workflow. _How it went:_ As expected, LLMs were
-   great for boilerplate code and algorithm suggestions, but they continue to
-   struggle with the more complex puzzles. I ended up refining my approach in
-   this challenge rather than discovering anything new.
+2. **Experiment with LLMs**: I wanted to see how much tools like ChatGPT,
+   Claude, and Copilot could actually do for me. _How it went:_ As expected,
+   LLMs were great for boilerplate code and algorithm suggestions, but they
+   continue to struggle with the more complex puzzles. I ended up refining my
+   approach in this challenge rather than discovering anything new.
 3. **Learn something new**: Whether it was algorithms or smarter ways to work, I
-   wanted to walk away with fresh insights. _How it went:_ Mission accomplished!
-   I went from dreading graph algorithms to actually understanding them. The PNG
-   compression hack for Day 14 taught me that sometimes the best solutions come
-   from thinking outside the box. Plus, I picked up some clever debugging
-   techniques along the way, like visualizing grid states as images.
+   wanted to walk away having learned something. _How it went:_ I went from
+   dreading graph algorithms to actually understanding them, and the Day 14 PNG
+   compression hack is still my favourite thing I did all month. I also picked
+   up some debugging tricks, like visualising grid states as images.
 
 ---
 
 ### The LLM Dilemma: Cheating or Innovating?
 
-Let’s talk about the elephant in the room: using LLMs for Advent of Code. The
-event’s creator explicitly discourages AI use for climbing the global
-leaderboards ([see here](https://adventofcode.com/2024/about)). But I wasn’t
-competing with anyone. My primary goal was to learn how to effectively make use
-of AI tools.
+Now, the elephant in the room: using LLMs for Advent of Code. The event’s
+creator explicitly discourages AI use for climbing the global leaderboards
+([see here](https://adventofcode.com/2024/about)). But I wasn’t competing with
+anyone. I was there to find out what these tools are actually good for.
 
 I leaned heavily on LLMs, primarily the free tiers of ChatGPT and Claude, with
 Copilot in the mix. Early on, they were great for simpler problems, especially
 part one of puzzles. But as the challenges grew more complex, their limitations
-became glaringly obvious. Nuanced logic, multi-step reasoning, and edge cases?
-Nope. They weren’t cutting it. Still, they were invaluable for boilerplate code,
-algorithm suggestions, and quick refreshers on things like BFS and Dijkstra’s
-algorithm.
+became glaringly obvious. Multi-step reasoning and edge cases? Nope. They
+weren’t cutting it. They were still worth having around for boilerplate and for
+quick refreshers on things like BFS and Dijkstra’s algorithm.
 
 ---
 
 ### Favourite Puzzle: Day 14: Restroom Redoubt
 
-Day 14 stood out as my favorite, not because it was easy (it wasn’t) but because
-it forced me to get creative. The challenge involved identifying patterns in a
-2D grid, and I initially tackled it algorithmically. But after struggling with
+Day 14 was my favourite, and not because it was easy. The challenge involved
+identifying patterns in a 2D grid, and I initially tackled it algorithmically.
+But after struggling with
 2D pattern matching and anomaly detection, I resorted to brute force: printing
 10,000 frames as PNGs to scan manually.
 
@@ -103,7 +97,7 @@ it hit me: PNGs use lossless compression. The Christmas tree pattern, being the
 most ordered, would compress the most. Back home, I sorted the files by size,
 and boom: the smallest PNG revealed the tree! Later, I redeemed my brute-force
 hack by calculating the time frame with the most consecutive robots. Was it
-efficient? Absolutely not. But it was fun, creative, and a great story.
+efficient? Absolutely not. But I'm still pleased with it.
 
 ---
 
@@ -126,15 +120,14 @@ Against all odds, I finished all 25 challenges:
   <source src="advent_2024.mp4" type="video/mp4">
 </video>
 
-What started as a _fuck it, let’s go!_ experiment turned into a month-long
-journey of frustration, discovery, and triumph. Sure, I leaned on LLMs more than
-some purists would approve of, and some of my solutions were more “creative”
-than “elegant”. But that’s what made it valuable.
+What started as a _fuck it, let’s go!_ experiment turned into a month of being
+alternately stuck and delighted. Sure, I leaned on LLMs more than some purists
+would approve of, and some of my solutions were more “creative” than “elegant”.
+But that’s what made it valuable.
 
 If you’re curious about my solutions or want to dig into the code, you can check
 out my
 [Advent of Code solutions on GitHub](https://github.com/bclews/advent-of-code).
 
-Would I do it again? Ask me next December. But for now, I’m proud of what I
-accomplished, grateful for what I learned, and maybe, just maybe, a little
-better prepared for whatever coding challenges come next.
+Would I do it again? Ask me next December. But I finished the thing I’d spent
+years dodging, and I no longer dread opening a puzzle and finding a grid in it.

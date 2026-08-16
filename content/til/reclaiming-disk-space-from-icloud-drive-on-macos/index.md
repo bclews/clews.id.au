@@ -13,7 +13,7 @@ saved me ~400 GB.
 
 ## The Problem
 
-My MacBook was almost full, having used 934 GB of 995 GB used. I'd already told
+My MacBook was almost full: 934 GB of 995 GB used. I'd already told
 iCloud Drive to optimise storage, but it wasn't making a dent. The Storage panel
 in System Settings showed **695 GB** of "System Data", which seemed absurd.
 

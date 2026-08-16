@@ -2,7 +2,7 @@
 title = 'Simplifying Remote Docker Builds With SSH and Contexts'
 date = 2024-12-03T10:03:12+11:00
 draft = false
-description = "Master Docker's SSH integration and context management for seamless remote builds. Eliminate cumbersome workflows and build containers efficiently on remote hosts using your local code."
+description = "Docker's SSH integration and context management let you build containers on a remote host from your local code, without SCPing patches around."
 categories = ['Tutorials', 'DevOps']
 tags = ['devops', 'tutorial', 'productivity']
 +++
@@ -25,7 +25,7 @@ build process.
 
 ---
 
-### The Magic of Docker over SSH
+### Docker over SSH
 
 Using Docker over SSH allows you to manage remote Docker hosts securely without
 exposing their Docker API to the network. By setting the `DOCKER_HOST`
@@ -49,10 +49,10 @@ DOCKER_HOST=ssh://username@remote_host docker images
 
 ### Simplify Switching with Docker Contexts
 
-While `DOCKER_HOST` works well for ad-hoc commands, Docker contexts offer a more
-robust solution for managing multiple environments. A context defines a
-connection configuration (e.g., local or remote hosts) and lets you switch
-seamlessly between them.
+While `DOCKER_HOST` works well for ad-hoc commands, Docker contexts are a better
+fit when you're managing several environments. A context defines a connection
+configuration (e.g., local or remote hosts) and lets you switch between them
+with a single command.
 
 #### Creating a Remote Context
 
@@ -73,9 +73,9 @@ specified remote host.
 
 ### Building Images Remotely
 
-One of the most powerful use cases for Docker over SSH is building images
-remotely using your local source code. This is particularly useful for
-resource-intensive builds or when targeting specific architectures.
+The use case I actually cared about is building images remotely using your local
+source code. It helps most with resource-intensive builds, or when you're
+targeting a different architecture to the one on your desk.
 
 #### How It Works
 
@@ -111,7 +111,7 @@ occurs remotely, and the resulting image is stored on the remote host.
    builds on a powerful remote server. This is ideal for large datasets, complex
    Dockerfiles, or compute-heavy tasks like machine learning models.
 
-2. **Streamline CI/CD Pipelines** Centralise builds in a remote environment to
+2. **Simpler CI/CD Pipelines** Centralise builds in a remote environment to
    manage dependencies and cache image layers efficiently. With Docker contexts,
    CI/CD tools can easily target staging or production environments.
 
@@ -124,12 +124,12 @@ occurs remotely, and the resulting image is stored on the remote host.
 
 ---
 
-### Setting Up for Success
+### Before You Start
 
-Here are some best practices to make the most of Docker over SSH:
+A few things that made this smoother for me:
 
-- **Use SSH Keys for Authentication:** Set up passwordless access for secure and
-  seamless connections.
+- **Use SSH Keys for Authentication:** Set up passwordless access so Docker
+  isn't stopping to prompt you mid-build.
 - **Test Connectivity First:** Verify that your SSH connection works
   (`ssh username@remote_host`) before configuring Docker.
 - **Limit Permissions:** Configure restricted SSH and Docker permissions on
@@ -141,10 +141,10 @@ Here are some best practices to make the most of Docker over SSH:
 
 ### Wrapping Up
 
-Docker over SSH and context management can improve your workflow, replacing
-cumbersome, error-prone methods with secure, efficient, and scalable solutions.
-Whether you’re managing a single remote machine or orchestrating a multi-host
-setup, these tools enable smooth and reliable operations.
+Two environment variables and a `docker context create` replaced a patch-and-SCP
+dance I'd been doing for months. The remote host never has to expose its Docker
+API, and I never have to remember which machine has the current version of my
+code.
 
 So next time you’re tempted to take the scenic route with your Docker builds,
 remember: the highway’s right there.

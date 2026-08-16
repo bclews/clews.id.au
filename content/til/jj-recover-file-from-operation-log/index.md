@@ -48,5 +48,5 @@ primitive that doesn't move anything.
 
 - The operation log is a queryable archive of every snapshot, which is what
   makes targeted reads like this possible.
-- Worth knowing about _before_ you need it. It's far harder to think of when
-  you're already panicking about a lost file.
+- Learn this one _before_ you need it. It's far harder to think of when you're
+  already panicking about a lost file.

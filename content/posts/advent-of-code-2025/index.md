@@ -1,5 +1,5 @@
 +++
-title = 'Advent of Code 2025: A Rust-Flavored Journey'
+title = 'Advent of Code 2025, in Rust'
 date = 2025-12-19T09:28:22+11:00
 draft = false
 tags = ['rust', 'algorithms', 'learning']
@@ -7,10 +7,9 @@ categories = ['Software Engineering', 'Career and Reflection']
 +++
 
 Last year I finally took the plunge and completed
-[Advent of Code 2024](/posts/advent-of-code-2024/) in Go. It was challenging,
-rewarding, and left me wanting more. So when December rolled around again, there
-was no question: I was coming back for round two. This time, though, I wanted to
-push myself in a different direction: Rust.
+[Advent of Code 2024](/posts/advent-of-code-2024/) in Go. It was hard enough
+that finishing meant something, and I wanted another go. So when December rolled
+around again there was no question, except which language. This time: Rust.
 
 This year's event was shorter, 12 days instead of the traditional 25, but the
 puzzles were just as brain-bending as ever.
@@ -28,11 +27,11 @@ external dependencies, just `std` and whatever I could build myself. That
 constraint always helps me learn the true capabilities of a language and its
 ecosystem.
 
-## Favorite Puzzle: Day 10: The One Word That Changed Everything
+## Favourite Puzzle: Day 10: The One Word That Changed Everything
 
-If I had to pick one puzzle that perfectly captures what I love about Advent of
-Code, it's Day 10. On the surface, it seemed straightforward: configure factory
-machines by pressing buttons that affect indicator lights.
+If I had to pick one puzzle that captures what I like about Advent of Code, it's
+Day 10. On the surface it seemed straightforward: configure factory machines by
+pressing buttons that affect indicator lights.
 
 **Part 1** was a satisfying exercise in linear algebra. Each button toggles
 specific lights on or off, and you need to find the minimum button presses to
@@ -50,8 +49,8 @@ Integer Linear Programming problem.
 
 I ended up implementing the Simplex method for finding optimal solutions to the
 relaxed problem, then wrapping it in Branch and Bound to enforce integer
-constraints. It was challenging, it was satisfying, and it taught me something
-I'll actually use again. I wrote up the full journey in my
+constraints. It took me most of a day and I'll use it again. I wrote the whole
+thing up in my
 [Integer Linear Programming TIL](https://clews.id.au/til/integer-linear-programming/).
 
 ## Runner-Up: Day 8: Minimum Spanning Trees in 3D
@@ -60,14 +59,14 @@ Day 8 asked me to connect junction boxes in 3D space using the minimum total
 wire length. Classic minimum spanning tree territory, but I'd never actually
 implemented one from scratch.
 
-Enter Kruskal's Algorithm. The core idea is beautifully greedy: sort all
-possible edges by weight, then keep adding the shortest edge that doesn't create
-a cycle. Pair it with Union-Find for efficient cycle detection, and you've got
-an O(E log E) algorithm that provably produces optimal results.
+Enter Kruskal's Algorithm. The core idea is greedy: sort all possible edges by
+weight, then keep adding the shortest edge that doesn't create a cycle. Pair it
+with Union-Find for efficient cycle detection, and you've got an O(E log E)
+algorithm that provably produces optimal results.
 
-There's something deeply satisfying about greedy algorithms that actually
-work, where you can prove that making locally optimal choices leads to globally
-optimal solutions. More details in my
+I like greedy algorithms that actually work, where you can prove that making
+locally optimal choices leads to globally optimal solutions. It feels like
+getting away with something. More details in my
 [Kruskal TIL](https://clews.id.au/til/kruskal/).
 
 ## Things I Learned

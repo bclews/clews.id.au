@@ -7,9 +7,8 @@ categories = ["Software Engineering", "Career and Reflection"]
 tags = ["rust", "algorithms", "learning"]
 +++
 
-Today's Advent of Code highlighted that **a small change in problem constraints
-can transform a straightforward solution into a freakin' hard optimisation
-problem.**
+Today's Advent of Code highlighted that a small change in problem constraints
+can turn a straightforward solution into a freakin' hard optimisation problem.
 
 ## The Problem: Factory Machine Configuration
 
@@ -24,7 +23,7 @@ buttons.
 with buttons.
 
 Seems similar, right? They're both "press buttons to reach target values." But
-these two problems live in completely different algorithmic universes.
+the two parts need completely different machinery.
 
 ## Mathematical Notation Guide
 
@@ -54,7 +53,7 @@ reference (this is mostly for future me...):
 ## Part 1: Linear Algebra over GF(2)
 
 Part 1 is elegant because button presses _toggle_ lights. Press a button twice?
-You're back where you started. This is XOR arithmetic—addition modulo 2—which
+You're back where you started. This is XOR arithmetic (addition modulo 2), which
 means we're working in **GF(2)**, the finite field with two elements.
 
 The problem becomes: solve **Ax = b** over GF(2), where:
@@ -76,12 +75,10 @@ fn solve_machine(machine: &Machine) -> Option<usize> {
 }
 ```
 
-Gaussian elimination over GF(2) is efficient—**O(n³)** where n is the number of
+Gaussian elimination over GF(2) runs in O(n³), where n is the number of
 lights. When we get infinite solutions (free variables in the null space), we
 can enumerate all 2^k combinations to find the minimum. With a guard against too
-many free variables, this works beautifully.
-
-The problem structure (XOR operations) gives us efficient tools.
+many free variables, this holds up fine on the real input.
 
 ## Part 2: The Deceptive Similarity
 
@@ -97,7 +94,7 @@ lights. The equation looks similar:
 But now x must be a vector of **non-negative integers**, not just bits. And that
 changes everything.
 
-## My Journey: Four Failed Approaches
+## Three Approaches That Didn't Work
 
 ### Attempt 1: Backtracking Search
 
@@ -130,7 +127,7 @@ Represent the problem as a graph where:
 **Complexity**: O(∏ target_values)
 
 **Why it failed**: The state space has `103 × 34 × 138 × ...` nodes. For the
-real input, this is trillions of states—impossible to store or explore.
+real input, this is trillions of states. No way to store or explore that.
 
 ### Attempt 3: Hybrid Simplification
 
@@ -146,8 +143,8 @@ problem was still too large for backtracking or graph search.
 ### The Breakthrough: Recognising Integer Linear Programming
 
 After three failures, the dawning realisation that I might be the problem, and a
-bunch of Googling, I suspected (actually hoped) that **this looks like an
-optimisation problem with linear constraints and an integer requirement.** And
+bunch of Googling, I suspected (actually hoped) that this looks like an
+optimisation problem with linear constraints and an integer requirement. And
 that seemed to fit the definition of Integer Linear Programming (ILP).
 
 The problem is asking us to:
@@ -178,7 +175,7 @@ Subject to: Ax = t, x ≥ 0, x ∈ ℝⁿ
 ```
 
 The Simplex algorithm efficiently finds the optimal solution when fractional
-values are allowed. This gives us a _lower bound_—the true integer solution
+values are allowed. This gives us a _lower bound_: the true integer solution
 can't possibly be better than this.
 
 ```rust
@@ -247,10 +244,8 @@ structure, not target magnitude.**
 | **Branch & Bound** | **O(2^n) worst case** | **Number of variables** |
 
 For AoC inputs with ~10 buttons but targets in the hundreds, Branch and Bound
-explores far fewer nodes thanks to aggressive pruning.
-
-The difference between a 30-second solve and a program that runs forever often
-comes down to choosing the right algorithmic framework.
+explores far fewer nodes thanks to aggressive pruning. That's the gap between a
+30-second solve and a program that never finishes.
 
 ## When to Apply This
 
@@ -266,16 +261,14 @@ comes down to choosing the right algorithmic framework.
 - Resource allocation (distribute whole units)
 - Network flow (route integer packets)
 
-**Warning signs you need ILP:**
-
-- Greedy heuristics give terrible results
+The warning sign that you need ILP: greedy heuristics give terrible results.
 
 ## Further Reading
 
 **Introductory Tutorials:**
 
 - [Integer Programming (Wikipedia)](https://en.wikipedia.org/wiki/Integer_programming) -
-  Comprehensive overview of ILP theory and applications
+  Overview of ILP theory and applications
 - [Branch and Bound (Wikipedia)](https://en.wikipedia.org/wiki/Branch_and_bound) -
   Explanation of the branch and bound algorithm
 - [Hands-On Linear Programming with Python](https://realpython.com/linear-programming-python/) -
@@ -287,7 +280,7 @@ comes down to choosing the right algorithmic framework.
 **Academic Resources:**
 
 - [A Tutorial on Integer Programming](https://www.math.clemson.edu/~mjs/courses/mthsc.440/integer.pdf)
-  (PDF) - Cornuéjols & Trick's comprehensive tutorial
+  (PDF) - Cornuéjols & Trick's tutorial
 - [MIT Integer Programming Chapter](https://web.mit.edu/15.053/www/AMP-Chapter-09.pdf)
   (PDF) - Formulations and applications
 

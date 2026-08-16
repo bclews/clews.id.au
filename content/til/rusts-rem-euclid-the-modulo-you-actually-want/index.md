@@ -50,8 +50,8 @@ let mut position = 5;
 position = (position - 10).rem_euclid(100); // = 95 ✅
 ```
 
-`rem_euclid()` guarantees a result in [0, divisor), matching the behavior people
-typically expect when they think “modulo.”
+`rem_euclid()` guarantees a result in [0, divisor), matching the behaviour people
+typically expect when they think "modulo".
 
 ## When to Use It
 
@@ -88,7 +88,7 @@ index = (index + offset).rem_euclid(len); // Array wrapping
 
 ## Rule of Thumb
 
-If you’re thinking “modulo” for wrapping behavior, you want `rem_euclid()`, not
+If you're thinking "modulo" for wrapping behaviour, you want `rem_euclid()`, not
 `%`.
 
 ---

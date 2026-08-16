@@ -8,11 +8,10 @@ tags = ["rust", "algorithms"]
 +++
 
 Today I learned about Kruskal's algorithm while solving
-[Advent of Code 2025 Day 8](https://adventofcode.com/2025/day/8). What struck me
-most was how elegantly the greedy approach works. It seems almost too simple to
-be optimal, yet the proof is surprisingly straightforward. Pairing it with
-Union-Find for cycle detection makes the whole algorithm both intuitive and
-efficient.
+[Advent of Code 2025 Day 8](https://adventofcode.com/2025/day/8). Sort the edges,
+add the short ones, skip anything that closes a cycle. That's the whole thing,
+and it's optimal. Pairing it with Union-Find for the cycle check is what makes it
+fast enough to run.
 
 ## The Problem
 
@@ -29,17 +28,17 @@ minimises total wire used while keeping everything connected.
 
 ## What is Kruskal's Algorithm?
 
-**Kruskal's algorithm** is a greedy algorithm that builds a minimum spanning
-tree by:
+Kruskal's algorithm is a greedy algorithm that builds a minimum spanning tree
+by:
 
 1. Sorting all possible edges by weight (distance)
 2. Processing edges from shortest to longest
-3. Adding each edge to the tree **only if it connects two separate components**
+3. Adding each edge to the tree only if it connects two separate components
    (doesn't create a cycle)
 
-Key insight: **greedily choosing the shortest edge that doesn't create a cycle
-always leads to an optimal MST**. This works because adding a longer edge when a
-shorter one could do the job can never improve the solution.
+Greedily choosing the shortest edge that doesn't create a cycle always lands on
+an optimal MST, because adding a longer edge when a shorter one could do the job
+can never improve the solution.
 
 ## Implementation in Rust
 
@@ -106,10 +105,10 @@ Step 4: Process C-D (distance 1.4)
 The MST has edges A-B, B-C, A-D with total weight 3.0. The C-D edge was skipped
 because it would create a cycle.
 
-## The Union-Find Magic
+## The Union-Find Part
 
-The critical constraint that makes Kruskal's efficient is: **we must quickly
-check if two nodes are already connected**. This is where Union-Find shines.
+Everything hinges on answering "are these two nodes already connected?" quickly.
+Union-Find is what makes that cheap.
 
 ```rust
 fn find(&mut self, x: usize) -> usize {
@@ -134,20 +133,19 @@ fn union(&mut self, x: usize, y: usize) -> bool {
 }
 ```
 
-With **path compression**, each `union()` operation is effectively O(α(N)) ≈
+With path compression, each `union()` operation is effectively O(α(N)) ≈
 O(1) where α is the
 [inverse Ackermann function](https://en.wikipedia.org/wiki/Ackermann_function#Inverse)
 (grows incredibly slowly—practically constant for any real-world N).
 
 ## Why Greedy Works Here
 
-**If we've processed all edges shorter than e, and e connects two separate
-components, we must add it**. Any MST that doesn't include e would need a longer
+If we've processed all edges shorter than e, and e connects two separate
+components, we must add it. Any MST that doesn't include e would need a longer
 edge to connect those components later, making it suboptimal.
 
-This is different from many graph problems where greedy fails. For example, the
-shortest path problem requires Dijkstra's algorithm—greedily taking the shortest
-edge at each step doesn't guarantee the optimal path.
+Greedy fails on plenty of other graph problems. Shortest path needs Dijkstra's:
+grabbing the shortest edge at each step doesn't guarantee the optimal route.
 
 ## Complexity Analysis
 
@@ -163,8 +161,8 @@ For the Advent of Code problem with ~2500 junction boxes:
 - Sorting: ~49 million comparisons
 - Union operations: ~3.1 million (nearly constant time each)
 
-A naive approach checking all possible spanning trees would be exponential...
-completely impractical!
+Checking every possible spanning tree instead would be exponential, so that's
+out.
 
 ## When to Use Kruskal's
 
@@ -176,16 +174,9 @@ Kruskal's algorithm is ideal when:
 - You care about the order edges are added (like in Day 8 Part 1: "process the
   first 1000 edges")
 
-For dense graphs or when starting from an adjacency list, **Prim's algorithm**
-is an alternative that builds the tree incrementally from a starting vertex
-without needing to sort all edges upfront.
-
-## Key Takeaway
-
-The elegance of Kruskal's lies in its simplicity: **sort edges, add them
-greedily while avoiding cycles**. The Union-Find data structure transforms cycle
-detection from a potentially expensive graph traversal into a near-constant-time
-operation, making the entire algorithm practical and efficient.
+For dense graphs or when starting from an adjacency list, Prim's algorithm is
+the alternative: it builds the tree incrementally from a starting vertex and
+never sorts the full edge list.
 
 ## Resources
 

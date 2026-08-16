@@ -2,69 +2,60 @@
 title = 'Running a Bert Model on an iPhone'
 date = 2025-03-03T14:44:48+11:00
 draft = false
-description = "Deploy a BERT-large text classification model on iPhone using Core ML. Journey through ONNX conversion, model distillation, and mobile optimisation to bring NLP from data center to pocket."
+description = "Three days getting a BERT-large text classifier running on an iPhone: ONNX conversion, Core ML, and a distillation pass that took the model from 670 MB to 134 MB."
 categories = ['Tutorials']
 tags = ['machine-learning', 'tutorial', 'python']
 +++
 
 During our recent Engineering Development Days, a three-day event where we
-paused regular work to focus on personal growth, I tackled a challenge that was
-both technically demanding and rewarding. The goal was straightforward yet
-ambitious: adapt a large pre-trained BERT model, originally designed for
-GPU-heavy environments, to run efficiently on an iPhone. This was uncharted
-territory for me, as I had never previously worked with BERT models, Core ML or
-mobile deployment. The learning curve was steep, yet fun.
+paused regular work to focus on personal growth, I set myself one goal: take a
+large pre-trained BERT model built for GPU-heavy environments and get it running
+on an iPhone. I'd never worked with BERT models, Core ML or mobile deployment
+before, so most of the three days was spent finding out what I didn't know.
 
 ## The Challenge: Bringing a Data Center Model to Mobile
 
 Our team has recently built a text classification API that categorises inputs
 into labels such as `condition`, `constraint`, `notice`, and `process`. The
-engine behind this API was a BERT-large model, known for its robust capabilities
-in understanding natural language. However, BERT-large comes with its own set of
-challenges: it features 24 transformer layers, a hidden size of 1024, 16
-attention heads, and an intermediate layer size of 4096. These specifications
-make it a powerhouse for NLP tasks, but they also mean it’s inherently
-resource-intensive.
+engine behind this API was a BERT-large model. BERT-large has 24 transformer
+layers, a hidden size of 1024, 16 attention heads, and an intermediate layer
+size of 4096. Those numbers are why it's good at the task, and also why it's
+expensive to run.
 
-To provide more context on these specifications: the **24 transformer layers**
-represent the depth of the model, with each layer enabling it to learn
-increasingly complex linguistic patterns. The **hidden size of 1024** refers to
-the dimensionality of the vector representations within the model, allowing for
-a rich encoding of word meanings and context. The **16 attention heads** within
-each layer enable the model to simultaneously focus on different parts of the
-input text when processing each word, capturing a wider range of relationships.
-Finally, the **intermediate layer size of 4096** is the size of the internal
-feed-forward network within each transformer layer, providing ample capacity for
-processing and transforming the information learned through the attention
-mechanisms. These architectural choices contribute to BERT-large's powerful
-language understanding capabilities.
+What each of them means, briefly: the 24 transformer layers are the depth of the
+model, each one learning more complex linguistic patterns than the last. The
+hidden size of 1024 is the dimensionality of the vector representations inside
+the model, which is how much room there is to encode word meanings and context.
+The 16 attention heads in each layer let the model focus on different parts of
+the input text at once when processing a word, so it can pick up more
+relationships between them. The intermediate size of 4096 is the internal
+feed-forward network inside each transformer layer, which is where most of the
+transformation of what the attention mechanism learned happens.
 
 Initially, our focus was on GPU deployments. However, practical constraints
 meant that the API might sometimes have to run in CPU-only environments. I had
 profiled the API on my MacBook using only its CPU, and while the performance was
-acceptable, I wondered if I could take this even further. The real test was to
-see if I could run such a sophisticated model on an iPhone, a device with
-significantly constrained resources compared to a data center.
+acceptable, I wondered if I could take this even further. An iPhone has far less
+to work with than a data center, so it seemed like a good place to find the
+limit.
 
 ## Converting the Model: From BERT to Core ML
 
-The first step in this journey was converting the BERT model for mobile
-deployment. While modern mobile devices are equipped with powerful GPUs,
-optimising for these environments is still crucial. Every optimisation mattered
-to ensure efficient performance, manage battery consumption, and minimise the
-model's footprint on the device. I employed a two-pronged approach:
+The first step was converting the BERT model for mobile deployment. Modern
+phones have capable GPUs, but you're still working against a battery and a
+storage budget, so every megabyte and every millisecond counts. I tried two
+approaches:
 
 1. **Direct Conversion via ONNX:**
    - I started by converting the pre-trained BERT model into the ONNX (Open
-     Neural Network Exchange) format. ONNX is widely recognised for its
-     interoperability, serving as a bridge between different machine learning
-     frameworks.
+     Neural Network Exchange) format. ONNX is an interchange format that sits
+     between different machine learning frameworks.
    - Using Apple’s coremltools, I then converted the ONNX model into Core ML
      format. The conversion was successful, and the resulting model was around
      670.1 MB in size.
-   - This version of the model performed reasonably well on the iPhone,
-     demonstrating that even without heavy hardware, modern NLP models can
-     operate on mobile devices.
+   - This version performed reasonably well on the iPhone, which surprised me;
+     I'd assumed a straight conversion of a model this size wouldn't be usable
+     at all.
 
 2. **Model Distillation and Optimisation:**
    - Knowing that 670.1 MB was still relatively bulky for an ideal mobile
@@ -78,7 +69,7 @@ model's footprint on the device. I employed a two-pronged approach:
      accuracy was a bit less reliable compared to the full sized version, a
      reminder that reducing model size often comes with trade offs.
 
-## Technical Deep Dive: Behind the Scenes
+## The Details
 
 ### Model Architecture and Specifications
 
@@ -90,47 +81,42 @@ model's footprint on the device. I employed a two-pronged approach:
   - **Vocabulary:** 30,522 tokens.
   - **Sequence Length:** Supports sequences up to 512 tokens.
 
-These parameters underline the computational heft of the model, making the
-conversion and optimisation processes particularly challenging.
+That's a lot of model to move onto a phone, and it's what made the conversion
+and optimisation awkward.
 
 ### Conversion Process
 
-- **ONNX as a Bridge:** The decision to use ONNX was pivotal. It allowed the
-  seamless translation of a PyTorch model into a format that could be further
-  converted into Core ML, which is essential for deployment on iOS devices.
+- **ONNX as a Bridge:** Core ML tools won't read a PyTorch model directly, so
+  ONNX is the step in between. Export to ONNX, then convert ONNX to Core ML.
 
-- **Core ML Conversion:** Leveraging coremltools, I successfully converted the
-  ONNX model to Core ML. The process preserved the model’s structural integrity,
-  ensuring that its inference capabilities remained intact even after
-  conversion.
+- **Core ML Conversion:** coremltools handled the second half. The converted
+  model still gave the same predictions as the original, which was the main
+  thing I wanted to check.
 
 ### Optimisation Techniques
 
-- **Distillation:** By training a smaller model to mimic the outputs of the
-  full-scale BERT-large, I was able to achieve a significant reduction in model
-  size. This step was essential in making the model more feasible for mobile
-  deployment, even though it introduced some compromises in accuracy.
+- **Distillation:** Training a smaller model to mimic the outputs of the
+  full-scale BERT-large took the size from 670.1 MB down to 134 MB. That's what
+  made it a realistic thing to ship on a phone, at some cost to accuracy.
 
 - **Quantisation (On the Horizon):** While I didn’t finalise the quantisation
   process during the event due to technical hurdles, it remains a promising
   technique for further reducing the model’s footprint and potentially
   increasing its inference speed on mobile devices.
 
-### Diving Deeper: Key Aspects of the Knowledge Distillation Pipeline
+### The Knowledge Distillation Pipeline
 
-To prepare the data for distilling the knowledge from the larger BERT model into
-a smaller one, I wrote a Python script leveraging the power of `torch` and the
-`transformers` library. While a full walkthrough of the script is beyond the
-scope of this post, I wanted to highlight some key concepts and techniques I
-used in the data preparation pipeline.
+To prepare the data for distilling the larger BERT model into a smaller one, I
+wrote a Python script on top of `torch` and the `transformers` library. A full
+walkthrough would be its own post, but a few parts of the data preparation are
+worth showing.
 
 #### Data Loading and Preprocessing
 
-The script begins by loading the training data from a CSV file using `pandas`. A
-crucial step here is ensuring flexibility in handling potential variations in
-column names for labels (`'label_id'` or `'label id'`). I also filtered out rows
-with missing or invalid labels to ensure data quality for the distillation
-process.
+The script begins by loading the training data from a CSV file using `pandas`.
+The label column arrives named either `'label_id'` or `'label id'` depending on
+where the file came from, so it handles both. I also filtered out rows with
+missing or invalid labels.
 
 ```python
 import pandas as pd
@@ -158,13 +144,12 @@ class DistillationDatasetPreparator:
         return texts, labels
 ```
 
-#### Data Augmentation for Robustness
+#### Data Augmentation
 
-To enhance the robustness and generalisation capabilities of the distilled
-model, I implemented data augmentation techniques. The script includes two main
-methods: **synonym replacement** and **random deletion**. These techniques
-introduce slight variations in the training data, encouraging the student model
-to learn more invariant features.
+To help the distilled model generalise, I added two augmentation methods:
+synonym replacement and random deletion. Both introduce small variations in the
+training data, so the student model has to learn features that survive the
+wording changing.
 
 ```python
     def augment_data(self, texts, labels, augmentation_factor=2):
@@ -196,10 +181,10 @@ to learn more invariant features.
 
 ### Tokenization with `transformers`
 
-An important step in working with BERT models is tokenisation. The script
-utilises the `BertTokenizer` from the `transformers` library to convert the text
-data into numerical representations that the model can understand. We ensure
-consistent tokenisation between the teacher and student models.
+The script uses `BertTokenizer` from the `transformers` library to convert the
+text into the numerical representation the model reads. The teacher and student
+models have to tokenise identically, or the soft labels won't line up with what
+the student sees.
 
 ```python
 from transformers import BertTokenizer
@@ -251,10 +236,9 @@ import torch.nn.functional as F
         return torch.cat(soft_labels, dim=0)
 ```
 
-This data preparation script forms the foundation for the subsequent knowledge
-distillation training process, ensuring that the student model has access to
-both the correct labels and the richer probabilistic information provided by the
-larger, more capable teacher model.
+That gives the student model both the correct labels and the teacher's
+probability distribution over all of them, which is the extra signal
+distillation runs on.
 
 ### From Model to Mobile: Implementing BERT on iOS
 
@@ -290,11 +274,11 @@ The screenshot below gives an example of the app's interface with a classified
 text result:
 ![The same "Text Classification" app interface, but now showing a classified text result. The user has inputted: "If the paint has dried, then it’s safe to apply the second coat." The app classifies it under "condition" with a confidence of 42.72%. Additional raw data breakdown shows classification probabilities for "condition" (42.72%), "constraint" (19.50%), "process" (18.96%), and "notice" (18.81%). The time on the device is now 09:16, and the battery is at 53%.](screenshot.PNG)
 
-#### Crafting a Custom BERT Tokenizer in Swift
+#### A Custom BERT Tokenizer in Swift
 
-An necessary component of the app was the `BERTTokenizer`. Since standard iOS
-tokenizers wouldn't handle the specific vocabulary and tokenisation rules of the
-BERT model, a custom implementation was necessary.
+The app needed its own `BERTTokenizer`. The standard iOS tokenizers don't know
+about BERT's vocabulary or its tokenisation rules, so there was nothing to
+reuse.
 
 ```swift
 class BERTTokenizer {
@@ -383,9 +367,9 @@ obtain probabilities for each class.
 ### Displaying Results and Debug Information
 
 The `ContentView` also handles displaying the classification results to the
-user, including the predicted label and its confidence. Additionally, a debug
-mode was included to show the raw output probabilities from the model, which was
-invaluable for understanding and verifying the model's behavior on device.
+user, including the predicted label and its confidence. There's also a debug
+mode that shows the raw output probabilities, which is how I checked the model
+was behaving the same on device as it did on my laptop.
 
 ```swift
 struct ContentView: View {
@@ -417,23 +401,17 @@ freezing during the potentially computationally intensive task.
 
 ## The Mobile Deployment Experience
 
-Deploying the converted model on an iPhone Pro Max was the highlight of the
-event. I was amazed by how seamlessly the model integrated with the device's
-hardware. The model's real-time inference capabilities were particularly
-impressive, demonstrating the power of machine learning on mobile devices.
+Getting the converted model running on an iPhone Pro Max was the best part of
+the event. Two things stood out:
 
-Here are some key observations from the deployment:
+- **Real-Time Inference:** The model classified text as fast as I could type it
+  in, on a phone, with no network call involved. That's the whole point of doing
+  this on device.
 
-- **Real-Time Inference:** The model was capable of processing text inputs on
-  the fly, which is impressive given the hardware limitations of mobile devices.
-  This real-time performance is critical for applications where immediate
-  feedback is necessary.
-
-- **Comparing Model Versions:** The direct conversion model (670.1 MB) provided
-  solid performance, but the distilled version (134 MB) showed potential for
-  even faster inference. However, a trade-off in accuracy was noted with the
-  smaller model, highlighting the need for further fine-tuning in future
-  iterations.
+- **Comparing Model Versions:** The direct conversion model (670.1 MB) performed
+  fine, and the distilled version (134 MB) was faster still. The smaller model
+  was less accurate, though, and closing that gap would need more fine-tuning
+  than three days allowed.
 
 ## Lessons Learned and Challenges Overcome
 
@@ -447,41 +425,35 @@ mismatches, which required careful management of my Python environment.
 
 ### Balancing Accuracy and Efficiency
 
-The project vividly illustrated the trade-off between reducing model size and
-maintaining accuracy. While the distilled model was impressively compact, its
-accuracy did not fully match that of the original BERT-large model.
+The trade-off between size and accuracy was the whole project in miniature. The
+distilled model is a fifth the size, and it's not as accurate. I don't think
+that's fixable without more training time than I had.
 
 ### Cross-Platform Development
 
-Transitioning from a GPU-centric environment to a mobile deployment required a
-shift in mindset. The constraints of mobile hardware necessitated a different
-approach to model optimisation and performance tuning. This experience
-highlighted the importance of understanding the target platform's capabilities
-and limitations.
+Moving from a GPU-centric environment to a phone meant unlearning some habits.
+On a GPU you optimise for throughput; on a phone you're optimising against
+storage, battery, and thermal limits, and those push you in different
+directions.
 
-## Looking Ahead: Future Directions and Opportunities
+## What I'd Do Next
 
-Although I won't be extending this project immediately, the Engineering
-Development Days was a fun opportunity to explore running BERT on mobile. The
-surprisingly easy, direct conversion to Core ML, highlighted the growing
-accessibility of deploying complex models on limited hardware. My exploration of
-model distillation, while not currently needed, provided significant insights
-into mobile model optimisation, which will be useful for future on-device ML
-projects.
+I'm not extending this project for now, but the three days were worth it. The
+direct Core ML conversion was much easier than I expected, which says something
+about how far the tooling has come. The distillation work isn't needed for
+anything I'm doing today, and I'd still reach for it first on the next
+on-device ML project.
 
-I also plan to revisit the quantisation process, which I had to put on hold due
-to time constraints. This technique has the potential to further reduce the
-model size and improve inference speed, making it an exciting avenue for future
-exploration.
+The one thing I'd go back for is quantisation. I ran out of time before I
+finished it, and it should cut the model size and speed up inference again on
+top of what distillation already bought.
 
 ## Conclusion
 
-Over the course of just three days, I experienced firsthand the challenges and
-rewards of pushing a high-powered BERT model into the realm of mobile
-deployment. This journey - from converting the model to ONNX and Core ML
-formats, through distillation, to finally running real-time inference on an
-iPhone Pro Max - has been a fun adventure that has deepened my understanding of
-mobile model optimisation and the potential of on-device machine learning.
+Three days took a BERT-large model from a data center API to real-time inference
+on an iPhone Pro Max, via ONNX, Core ML, and a distillation pass. Most of what I
+learned was about the constraints rather than the models, and about what you
+have to give up to fit inside a phone.
 
 You can find the code for my repository at
 [distilled-bert-ios](https://github.com/bclews/distilled-bert-ios).

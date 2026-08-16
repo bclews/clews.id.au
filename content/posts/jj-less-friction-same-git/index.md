@@ -44,7 +44,7 @@ doesn't behave as described on a newer version.
 Start here, because this is the part that makes the whole conversation
 low-stakes.
 
-`jj` runs on top of an existing Git repo. In _collocated mode_, both `.jj` and
+`jj` runs on top of an existing Git repo. In _colocated mode_, both `.jj` and
 `.git` directories live side-by-side in the same workspace. Push, fetch, and
 pull still go through Git; `jj` literally subprocesses out to it. Your
 colleagues see ordinary Git commits land on `main`. They don't need to install

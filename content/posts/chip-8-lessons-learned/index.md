@@ -9,14 +9,14 @@ series_order = 2
 description = "How the compiler became my mentor, the architecture that emerged, and the patterns that finally clicked while building a CHIP-8 emulator."
 +++
 
-> **Part 2 of 2** | [Part 1: Why CHIP-8](/posts/chip-8-why-chip8/) | Part 2
+> **Part 2 of 2** | [Part 1: Why CHIP-8](/posts/chip-8-emulator-rust/) | Part 2
 
-In [Part 1](/posts/chip-8-why-chip8/), I explained why I picked CHIP-8 to learn
+In [Part 1](/posts/chip-8-emulator-rust/), I explained why I picked CHIP-8 to learn
 Rust and how I used AI as a mentor. Now: what actually stuck?
 
 ## The Compiler as Teacher
 
-### The Borrow Checker Is a Teacher
+### The Borrow Checker
 
 I expected to wrestle with the borrow checker constantly. That happened early.
 Then I figured it out.
@@ -441,4 +441,4 @@ The code is on GitHub:
 
 ---
 
-← **Back to [Part 1: Why CHIP-8?](/posts/chip-8-why-chip8/)**
+← **Back to [Part 1: Why CHIP-8?](/posts/chip-8-emulator-rust/)**

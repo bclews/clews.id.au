@@ -11,12 +11,12 @@ tags = ['python', 'type-checking', 'pyright', 'testing']
 
 When type-checking Python code, tools like Pyright need to import all
 dependencies to understand function signatures. But some packages have heavy
-dependencies (NetCDF libraries, scientific computing tools, databases, etc.)
-that you don't want to install just for type checking.
+dependencies (NetCDF libraries, scientific computing stacks, databases) that
+you don't want to install just for type checking.
 
 ## The Solution: Manual Type Stubs
 
-You can create a **fake package** in your virtual environment that provides type
+You can create a fake package in your virtual environment that provides type
 information without any implementation.
 
 ### How It Works
@@ -64,13 +64,11 @@ EOF
 
 ### Key Points
 
-1. **Function signatures with types** - Include all parameters with type
-   annotations and return types
-2. **Ellipsis (`...`) for implementation** - Standard Python way to indicate
-   stub/placeholder
-3. **Minimal imports** - Only import what's needed for type hints (e.g.,
-   `pandas` for `pd.DataFrame`)
-4. **No actual logic** - The code can't run, but Pyright can validate against it
+Include every parameter with its type annotation and the return type. That's
+the whole point of the file. Use `...` for the body, which is the standard
+Python way to mark a stub. Import only what the type hints need (`pandas` here,
+for `pd.DataFrame`). The code can't run, but Pyright can still validate against
+it.
 
 ### What Pyright Sees
 
@@ -88,15 +86,14 @@ Pyright:
 2. Reads the stub signature
 3. Validates that `netcdf_file="foo.nc"` matches `netcdf_file: str`
 4. Infers `tidal_df` has type `pd.DataFrame`
-5. **Never tries to execute the `...` implementation**
+5. Never tries to execute the `...` implementation
 
 ### Benefits
 
-- **Fast setup** - Create a text file instead of installing packages
-- **No bloat** - Avoid heavy dependencies (C libraries, databases, etc.)
-- **Type safety** - Pyright still catches type errors
-- **Clear intent** - The `...` makes it obvious this is type-checking only
-- **Version control friendly** - Can check in the stub creation script
+Writing a text file is faster than installing packages, and it skips the heavy
+dependencies (C libraries, databases) entirely. Pyright still catches type
+errors. The `...` makes it obvious to a reader that the module exists only for
+type checking, and the script that generates it can go into version control.
 
 ### Alternative: `.pyi` Files
 
@@ -133,7 +130,7 @@ For type checking `analysis.py`, we only need to know:
 - What they return
 
 Creating a stub lets us type-check without installing any of the heavy
-dependencies!
+dependencies.
 
 ## See Also
 
