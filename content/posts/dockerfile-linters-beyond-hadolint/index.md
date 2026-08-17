@@ -2,7 +2,7 @@
 title = 'Dockerfile Linters Beyond Hadolint'
 date = 2026-08-17T10:00:00+10:00
 draft = false
-description = "droast is a fast new Rust Dockerfile linter whose headline benchmark measures the right thing in the wrong units. I ran it against hadolint over 62 real Dockerfiles to see what actually separates them."
+description = "droast is a fast new Rust Dockerfile linter whose headline benchmark measures the right thing in the wrong units. I ran it against hadolint over 49 real Dockerfiles to see what actually separates them."
 categories = ['Software Engineering', 'DevOps']
 tags = ['docker', 'cli', 'security', 'linting']
 aliases = ['/til/dockerfile-linters-beyond-hadolint/']
@@ -18,9 +18,9 @@ Linting a Dockerfile doesn't take long enough to have a throughput problem. So
 either the number was measuring something that doesn't matter in practice, or I
 was missing something. I suspected the latter, so went digging.
 
-**tl;dr;** the speed claim is true and mostly beside the point, `droast` is a
-lot noisier than hadolint out of the box, and both do ShellCheck if you ask them
-to. Run `docker build --check` either way, because it's free.
+**tl;dr;** the speed claim flips depending on how you call the tool, `droast` is
+a lot noisier than hadolint out of the box, and both do ShellCheck if you ask
+them to. Run `docker build --check` either way, because it's free.
 
 ## Why does droast exist?
 
@@ -53,20 +53,19 @@ months.
 rewrite though. No shared code, no shared lineage, its own parser and its own
 `DF####` rule namespace.
 
-It has grown a deliberate drop-in replacement mode since. `droast
---hadolint-compatible` reads your existing `.hadolint.yaml`, accepts hadolint's
-environment variables and flags, honours its inline ignore pragmas, emits its
-output formats down to `checkstyle` and `sonarqube`, and reports equivalent
-checks under their original `DL####` IDs. There's a `droast init
---from-hadolint` to convert the config outright.
+It does have a drop-in replacement mode now. `droast --hadolint-compatible`
+reads your existing `.hadolint.yaml`, accepts hadolint's environment variables
+and flags, honours its inline ignore pragmas, emits its output formats down to
+`checkstyle` and `sonarqube`, and reports equivalent checks under their original
+`DL####` IDs. There's a `droast init --from-hadolint` to convert the config
+outright.
 
 You only build that if the thing you're replacing is already installed
-everywhere. The timing is the interesting part though. That mode landed on 15
-August 2026 in 1.6.0, four months after the first commit and two weeks after
-hadolint shipped 2.15.1. It isn't in 1.5.1, which is the version I tested with
-below. The opening back in April was hadolint sitting in everyone's pipeline and
-not shipping, and by the time `droast` went at that opening directly, hadolint
-had already closed it with four releases since September 2025.
+everywhere. But it landed on 15 August 2026, in 1.6.0, four months after the
+first commit and two weeks after hadolint shipped 2.15.1. It isn't in 1.5.1,
+which is what I tested with below. The opening back in April was hadolint
+sitting in everyone's pipeline and not shipping. By the time `droast` aimed at
+that opening, hadolint had closed it with four releases since September 2025.
 
 ## droast
 
@@ -86,8 +85,9 @@ code review from a senior dev who's stopped being polite:
 Under the joke it's a real linter. 85 rules with IDs like `DF001` for
 `FROM ...:latest`, `DF002` for running as root, `DF014` for secrets in
 `ARG`/`ENV`,
-grouped into security, performance, reproducibility, correctness and
-maintainability. A few are language-aware for Python and Node.
+grouped into correctness, reliability, maintainability, performance,
+reproducibility, security and supply-chain. A few are language-aware for Python
+and Node.
 
 ```bash
 droast Dockerfile
@@ -111,8 +111,8 @@ thing you can put in a pipeline. But it's a different risk profile from a
 ten-year-old tool, and "1k stars" on its own doesn't tell you that.
 
 The commit log tells you how it got here. The first 21 commits, covering a
-Dockerfile parser, five rule families, three output formatters, the linter core,
-a CLI, integration tests and a README, all landed between 22:04 and 22:15 on the
+Dockerfile parser, five rule families, four output formats, the linter core, a
+CLI, integration tests and a README, all landed between 22:04 and 22:15 on the
 opening night.
 
 Nothing in the repo declares it, but nobody types a Dockerfile parser in the
@@ -144,19 +144,41 @@ each time, and an explicit note that it measures speed and not detection
 quality. My problem is the unit... is anyone linting 321 Dockerfiles in one
 invocation?
 
-Anyway, I ran it over the 62 Dockerfiles on my laptop for shits and giggles:
+Anyway, I ran it over the 49 Dockerfiles on my laptop for shits and giggles.
+1,892 lines of the real thing, out of work repos, not a set assembled to be
+measured. Homebrew builds of `droast` 1.5.1 and hadolint 2.15.1 on an M-series
+Mac, three warm-up runs, median of eight, the two tools interleaved and the
+order reversed on the second pass. I checked afterwards that both had actually
+read all 49 files. Worth doing: my first attempt silently linted nothing, and
+the numbers it gave me looked perfectly reasonable.
 
 | Workload                     | droast 1.5.1 | hadolint 2.15.1 |
 | ---------------------------- | -----------: | --------------: |
-| All 62 files, one invocation |       215 ms |          346 ms |
-| One file, per invocation     |        55 ms |          181 ms |
+| Startup only (`--version`)   |        14 ms |          148 ms |
+| All 49 files, one invocation |     1,683 ms |          601 ms |
+| One file at a time, summed   |     2,882 ms |        8,393 ms |
 
-The second row is almost entirely startup cost. Take it off the first and what's
-left is the linting itself: 160 ms for `droast` and 165 ms for hadolint, spread
-across the other 61 files. That's 2.6 ms against 2.7 ms each. Identical. The
-whole difference between these two tools is startup: 52 ms for a 6.7 MB Rust
-binary against 178 ms for a 99 MB Haskell one, a gap of 126 ms. Those are the
-Homebrew macOS builds on my laptop, not the Linux ones in the table above.
+Those bottom two rows disagree with each other.
+
+Take startup off the middle row and what's left is the linting itself: 1,669 ms
+for `droast` against 454 ms for hadolint. That's 34 ms a file against 9 ms. In
+one invocation over the lot, the Rust tool is 2.8× slower than the Haskell one,
+which is not what I expected and the opposite of the README's headline. The 321
+files in that benchmark must be a different shape of input from whatever is in
+your repos. One 304-line `Dockerfile.in` of mine costs `droast` 379 ms by
+itself.
+
+The bottom row inverts it. Lint the files one invocation at a time and hadolint
+pays its 148 ms of startup 49 times over, which is seven seconds of process
+launch before any linting happens. `droast` pays 14 ms a go and gets away with
+under three seconds for the lot. That's a 2.9× win the other way, and it's
+entirely startup.
+
+So "which is faster" depends on how you call it. Batch the files into one
+process and hadolint wins comfortably. Invoke per file, which is what your
+editor does every time you stop typing, and `droast` wins by about the same
+margin. The 134 ms startup gap is the only number here that transfers between
+the two.
 
 That gap disappears into a pre-commit hook, where `git commit` burns 445 ms
 before either linter even starts. You'd only notice it on lint-on-save, which
@@ -165,36 +187,54 @@ squiggles to catch up.
 
 ## What each one catches
 
-Speed was never going to decide this. Findings are what matter. Same 62 files:
+Speed was never going to decide this. Findings are what matter. Same 49 files:
 
 |                      | droast | hadolint |
 | -------------------- | -----: | -------: |
-| Total findings       |    537 |      313 |
-| Files flagged        |  62/62 |    54/62 |
-| Distinct rules fired |     38 |       32 |
+| Total findings       |    403 |      229 |
+| Files flagged        |  49/49 |    41/49 |
+| Distinct rules fired |     37 |       30 |
 | error                |      6 |       20 |
-| warning              |    113 |      202 |
-| info                 |    418 |       91 |
+| warning              |     76 |      150 |
+| info                 |    321 |       59 |
 
-`droast` reports 71% more findings, and 78% of them are INFO. hadolint's
+`droast` reports 76% more findings, and 80% of them are INFO. hadolint's
 distribution is inverted, with two thirds landing as warnings. On the eight
-files hadolint called clean, `droast` produced 37 findings, 35 of them INFO.
+files hadolint called clean, `droast` produced 36 findings, 34 of them INFO.
 
 Whether that's thoroughness or noise depends on the rule. Here's a real
 Dockerfile from one of my own repos, a two-stage Go build that produces a CLI
 image:
 
 ```dockerfile
+# Stage 1: Build the Go binary
 FROM golang:1.21-alpine AS build
+
+# Install Git. Required for fetching the dependencies.
 RUN apk add --no-cache git
+
+ENV GOOS=linux
+ENV GO111MODULE=on
+
+# Set the Current Working Directory inside the container
 WORKDIR /primitive
+
+# Copy everything from the current directory to the Working Directory inside the container
 COPY . .
+
+# Install the primitive package
 RUN go install github.com/bclews/primitive@latest
 
+# Stage 2: Create a lightweight image with the Go binary
 FROM alpine:3.18
+
+# Copy the Go binary from the builder stage
 COPY --from=build /go/bin/primitive /usr/bin/primitive
+
 VOLUME /primitive
 WORKDIR /primitive
+
+# Set the entrypoint to the Go binary
 ENTRYPOINT [ "primitive" ]
 CMD [ "--help" ]
 ```
@@ -221,8 +261,8 @@ Both correct. `droast` finds those same two, then adds five more:
 `DF012` and `DF022` are simply wrong here. This image is a command-line tool
 that renders images. It has no ports to expose and nothing to health-check.
 `droast` assumes everything it looks at is a long-running service, and across my
-corpus that assumption fired 37 times for EXPOSE and 27 for HEALTHCHECK, plenty
-of them on batch jobs and CLIs.
+49 files that assumption fired 24 times for EXPOSE and 27 for HEALTHCHECK,
+plenty of them on batch jobs and CLIs.
 
 A rule that fires on nearly everything stops being a finding and becomes noise
 you eventually skip past, and skipping past findings is a habit you don't want
@@ -237,22 +277,25 @@ each `RUN` instruction and hands it to ShellCheck.
 
 You get two rule namespaces in one report. `DL####` from hadolint proper (pin
 your base image, don't `apt-get upgrade`, use `WORKDIR` instead of `cd`), and
-`SC####` inherited from ShellCheck. In my files, 34 of hadolint's 313 findings
-were ShellCheck rules: `SC2086` for unquoted variables, `SC2164` for `cd`
-without `|| exit`, `SC2046` for word splitting on command substitution.
+`SC####` inherited from ShellCheck. In my files, 23 of hadolint's 229 findings
+were ShellCheck rules, and 18 of those were a single rule: `SC3046`, for using
+`source` where POSIX `sh` wants `.`. The other five were `SC2164` for `cd`
+without `|| exit`, `SC2086` for unquoted variables, and `SC2102` for a character
+range that matches less than it looks like it does.
 
 `droast` does this too, through a ShellCheck bridge added in July. It's off by
 default, which is easy to miss: none of the finding counts above include it.
-Turn it on with `--shellcheck auto` and the same 62 files give you:
+Turn it on with `--shellcheck auto` and the same 49 files give you:
 
 | ShellCheck findings        | count |
 | -------------------------- | ----: |
 | `droast` (default)         |     0 |
-| `droast --shellcheck auto` |    77 |
-| hadolint                   |    34 |
+| `droast --shellcheck auto` |    66 |
+| hadolint                   |    23 |
 
-More than hadolint, covering every `SC` rule hadolint fired plus `SC1091`,
-`SC1101` and `SC2155`.
+Nearly three times hadolint, covering every `SC` rule hadolint fired plus
+`SC1091`, `SC1101`, `SC2046` and `SC2155`. The bulk of the extra is `SC2086` on
+unquoted variables, which hadolint flagged once and `droast` flagged 29 times.
 
 The difference is packaging. hadolint embeds ShellCheck as a Haskell library, so
 it's always there and there's nothing to install. `droast` shells out to a
@@ -269,7 +312,7 @@ technical merits get a look in.
 
 ## docker build --check
 
-This is the my preferred option, and the one I suspect is most underused
+This is my preferred option, and the one I suspect is most underused
 relative to how little it costs.
 
 BuildKit has had built-in checks since Dockerfile syntax 1.8. Zero install, on
@@ -332,18 +375,18 @@ costs nothing, it's already installed, and it catches a class of error the
 static linters can't see. There is no argument against this one.
 
 hadolint in CI, for the deep ruleset, the better out-of-the-box signal-to-noise,
-and shell analysis with nothing else to install. It's back in active development
-too, which it wasn't a year ago.
+and shell analysis with nothing else to install. It's quickest at exactly that
+job too, one process over every Dockerfile in the repo. It's back in active
+development, which it wasn't a year ago.
 
 Dockle or Trivy against the built image, because source-level linting doesn't
 know what ended up in your layers.
 
 And `droast`? In your editor, via the VS Code extension or the Neovim plugin.
-That's the one place its startup advantage is something you actually perceive.
-Configure `droast.toml` first, turning off the EXPOSE and HEALTHCHECK rules
-unless you're only ever building services, or the noise will teach your team to
-ignore it inside a week. Then let hadolint be the gate in CI, where 130 ms is
-rounding error against a Docker build.
+One file, one invocation, over and over, which is the only workload where its
+14 ms startup is something you actually perceive. Configure `droast.toml` first,
+turning off the EXPOSE and HEALTHCHECK rules unless you're only ever building
+services, or the noise will teach your team to ignore it inside a week.
 
 I went in expecting to pick a winner and came out wanting both, in different
 places.
