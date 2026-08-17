@@ -5,6 +5,7 @@ draft = false
 description = "Docker's SSH integration and context management let you build containers on a remote host from your local code, without SCPing patches around."
 categories = ['Tutorials', 'DevOps']
 tags = ['devops', 'tutorial', 'productivity']
+aliases = ['/posts/simplifying-remote-docker-builds-with-ssh-and-contexts/']
 +++
 
 Recently, I’ve been making a conscious effort to eliminate lazy practices from

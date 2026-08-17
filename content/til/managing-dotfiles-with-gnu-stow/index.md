@@ -5,6 +5,7 @@ draft = false
 description = "I swapped the bare-Git-repo approach to dotfiles for GNU Stow, which keeps everything in one versioned directory and symlinks it into place. No custom aliases to remember."
 categories = ['Tutorials']
 tags = ['tools', 'tutorial', 'productivity']
+aliases = ['/posts/managing-dotfiles-with-gnu-stow/']
 +++
 
 Dotfiles can be a pain to manage when they’re scattered across your home

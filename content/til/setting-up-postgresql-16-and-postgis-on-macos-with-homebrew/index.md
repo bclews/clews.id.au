@@ -5,6 +5,7 @@ draft = false
 description = "Homebrew's postgis formula is pinned to PostgreSQL 14, so getting PostGIS onto PostgreSQL 16 means compiling from source. Notes from doing it on an M1 Mac."
 categories = ['Tutorials']
 tags = ['databases', 'tutorial', 'tools']
+aliases = ['/posts/setting-up-postgresql-16-and-postgis-on-macos-with-homebrew/']
 +++
 
 Recently, I needed to install PostgreSQL 16 with PostGIS on my MacBook M1 Pro
